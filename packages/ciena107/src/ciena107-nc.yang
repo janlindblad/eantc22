@@ -1,0 +1,18 @@
+module ciena107-nc {
+  yang-version 1.1;
+  namespace "http://tail-f.com/ns/ned-id/ciena107-nc";
+  prefix ciena107-nc;
+
+  import tailf-common {
+    prefix tailf;
+  }
+
+  import tailf-ncs-ned {
+    prefix ned;
+  }
+
+  identity ciena107-nc {
+    tailf:abstract;
+    base ned:netconf-ned-id;
+  }
+}

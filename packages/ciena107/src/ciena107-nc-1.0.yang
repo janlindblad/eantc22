@@ -1,0 +1,13 @@
+module ciena107-nc-1.0 {
+  yang-version 1.1;
+  namespace "http://tail-f.com/ns/ned-id/ciena107-nc-1.0";
+  prefix ciena107-nc-1.0;
+
+  import ciena107-nc {
+    prefix family;
+  }
+
+  identity ciena107-nc-1.0 {
+    base family:ciena107-nc;
+  }
+}
