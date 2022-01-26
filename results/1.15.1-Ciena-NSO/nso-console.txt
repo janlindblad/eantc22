@@ -1,0 +1,94 @@
+1.15.1 Precision Time Protocol Configuration with Ciena and NSO, 2022 Jan 25
+
+# Step 1
+
+01:41:37 admin@ncs(config)# devices device ciena46 sync-from 
+result true
+01:41:46 admin@ncs(config)# devices device ciena47 sync-from
+result true
+01:41:51 admin@ncs(config)# load merge ciena46-1.15
+Possible completions:
+  <filename/terminal>  ciena46-1.15-down.xml  ciena46-1.15-up.xml  ciena46-1.15.down.xml  ciena46-1.15.up.xml
+01:41:51 admin@ncs(config)# load merge ciena46-1.15-up.xml 
+Loading.
+Error: on line 6: object is not writable: /ncs:devices/ncs:device[ncs:name='ciena46']/ncs:config/yanglib:yang-library
+01:42:03 admin@ncs(config)# load merge ciena46-1.15       
+Possible completions:
+  <filename/terminal>  ciena46-1.15-down.xml  ciena46-1.15-up.xml  ciena46-1.15.down.xml  ciena46-1.15.up.xml
+01:42:03 admin@ncs(config)# load merge ciena46-1.15.
+Possible completions:
+  <filename/terminal>  ciena46-1.15.down.xml  ciena46-1.15.up.xml
+01:42:03 admin@ncs(config)# load merge ciena46-1.15.
+Possible completions:
+  <filename/terminal>  ciena46-1.15.down.xml  ciena46-1.15.up.xml
+01:42:03 admin@ncs(config)# load merge ciena46-1.15.up.xml 
+Loading.
+420.22 KiB parsed in 0.63 sec (665.99 KiB/sec)
+01:42:36 admin@ncs(config)# load merge ciena47-1.15.up.xml
+Loading.
+420.89 KiB parsed in 0.68 sec (610.03 KiB/sec)
+01:42:42 admin@ncs(config)# show c
+devices device ciena46
+ config
+  sync global network-option option-1
+  sync global reversion-mode revertive
+  sync output-references ptp-output-reference p_out8112-47_39
+   interface         39
+   multicast-address forwardable
+  !
+  sync output-references ptp-output-reference p_out8112-47_40
+   interface         40
+   multicast-address forwardable
+  !
+  sync output-references synce-output-reference f_out8112-47_39
+   interface 39
+  !
+  sync output-references synce-output-reference f_out8112-47_40
+   interface 40
+  !
+  sync ptp-global profile g.8275.1
+  sync ptp-global timestamp-mode one-step
+ !
+!
+devices device ciena47
+ config
+  sync global network-option option-1
+  sync global reversion-mode revertive
+  sync input-references ptp-input-reference p_in8112-46_39
+   interface         39
+   priority          50
+   multicast-address forwardable
+  !
+  sync input-references ptp-input-reference p_in8112-46_40
+   interface         40
+   priority          40
+   multicast-address forwardable
+  !
+  sync input-references synce-input-reference f_in8112-46_39
+   interface 39
+   priority  20
+  !
+  sync input-references synce-input-reference f_in8112-46_40
+   interface 40
+   priority  10
+  !
+  sync protection-groups frequency-protection-group Frequency
+   synce-input-reference   [ f_in8112-46_39 f_in8112-46_40 ]
+   threshold-quality-level sec
+  !
+  sync protection-groups phase-protection-group Phase
+   ptp-input-reference [ p_in8112-46_39 p_in8112-46_40 ]
+  !
+  sync ptp-global profile g.8275.1
+  sync ptp-global timestamp-mode one-step
+  vrf enatc22
+   description "L3VPN [22 & 24] - eBGP Sprient +Connected"
+   sr-policy fallback enable
+  !
+ !
+!
+01:42:58 admin@ncs(config)# commit
+Commit complete.
+01:43:02 admin@ncs(config)# devices device ciena47 compare-config 
+01:43:16 admin@ncs(config)# devices device ciena46 compare-config
+01:43:20 admin@ncs(config)# 

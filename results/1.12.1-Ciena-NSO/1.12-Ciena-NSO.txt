@@ -1,0 +1,24 @@
+04:19:27 admin@ncs(exec)# devices device ciena46 sync-from
+result true
+04:19:35 admin@ncs(exec)# devices device ciena47 sync-from
+result true
+04:19:43 admin@ncs(exec)# l3vpn-svc sites site pet re-deploy
+04:19:56 admin@ncs(exec)#
+System message at 2022-01-25 16:19:56...
+Commit performed by admin via ssh using cli.
+04:19:56 admin@ncs(exec)# l3vpn-svc sites site sfo re-deploy
+04:20:03 admin@ncs(exec)#
+System message at 2022-01-25 16:20:03...
+Commit performed by admin via ssh using cli.
+04:20:03 admin@ncs(exec)# devices device ciena46 compare-config
+04:20:32 admin@ncs(exec)# devices device ciena47 compare-config
+04:20:39 admin@ncs(exec)#
+04:24:20 admin@ncs(exec)#
+04:24:20 admin@ncs(exec)#
+04:24:20 admin@ncs(exec)# l3vpn-svc sites site pet un-deploy
+04:24:30 admin@ncs(exec)# l3vpn-svc sites site sfo un-deploy
+04:24:37 admin@ncs(exec)#
+04:24:43 admin@ncs(exec)#
+04:24:43 admin@ncs(exec)# devices device ciena46 compare-config
+04:24:47 admin@ncs(exec)# devices device ciena47 compare-config
+04:24:52 admin@ncs(exec)#

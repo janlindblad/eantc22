@@ -1,0 +1,1 @@
+~/nso/5.7/bin/netconf-console --edit-config xml-set-mtu-100000.xml --host 127.0.0.1 --port 8830 --user cisco --pass ciena123 -s raw

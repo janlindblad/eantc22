@@ -1,0 +1,373 @@
+1.1.1 Management of IP Implementations with Ciena and NSO, 2022 Jan 24
+
+10:31:39 admin@ncs(config)# top rollback configuration 
+10:31:59 admin@ncs(config)# commit dry-run outformat native 
+native {
+    device {
+        name ciena46
+        data <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                  message-id="1">
+               <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+                 <target>
+                   <running/>
+                 </target>
+                 <error-option>rollback-on-error</error-option>
+                 <config>
+                   <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+                     <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>p39untagged</name>
+                     </fp>
+                   </fps>
+                   <logical-ports xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-logical-port">
+                     <logical-port>
+                       <name>39</name>
+                       <mtu>1526</mtu>
+                     </logical-port>
+                   </logical-ports>
+                   <interfaces xmlns="http://openconfig.net/yang/interfaces">
+                     <interface>
+                       <name>39</name>
+                       <config>
+                         <agg-port-config xmlns="urn:ietf:params:xml:ns:yang:ciena-ext-lag">
+                           <agg-admin-mode>agg-mode-lacp</agg-admin-mode>
+                         </agg-port-config>
+                       </config>
+                     </interface>
+                     <interface xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                                nc:operation="delete">
+                       <name>to8112-47</name>
+                     </interface>
+                   </interfaces>
+                   <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+                     <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>21.46.47.0/24</name>
+                     </fd>
+                   </fds>
+                 </config>
+               </edit-config>
+             </rpc>
+    }
+    device {
+        name ciena47
+        data <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                  message-id="1">
+               <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+                 <target>
+                   <running/>
+                 </target>
+                 <error-option>rollback-on-error</error-option>
+                 <config>
+                   <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+                     <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>p39untagged</name>
+                     </fp>
+                   </fps>
+                   <logical-ports xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-logical-port">
+                     <logical-port>
+                       <name>39</name>
+                       <mtu>1526</mtu>
+                     </logical-port>
+                   </logical-ports>
+                   <interfaces xmlns="http://openconfig.net/yang/interfaces">
+                     <interface>
+                       <name>39</name>
+                       <config>
+                         <agg-port-config xmlns="urn:ietf:params:xml:ns:yang:ciena-ext-lag">
+                           <agg-admin-mode>agg-mode-lacp</agg-admin-mode>
+                         </agg-port-config>
+                       </config>
+                     </interface>
+                     <interface xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                                nc:operation="delete">
+                       <name>to8112-46</name>
+                     </interface>
+                   </interfaces>
+                   <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+                     <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>21.46.47.0/24</name>
+                     </fd>
+                   </fds>
+                 </config>
+               </edit-config>
+             </rpc>
+    }
+}
+10:32:01 admin@ncs(config)# com
+Possible completions:
+  compliance   Compliance reporting
+  ---          
+  commit       Commit current set of changes
+  compare      Compare configuration
+10:32:01 admin@ncs(config)# commit 
+Commit complete.
+10:32:15 admin@ncs(config)# top rollback configuration
+10:32:25 admin@ncs(config)# commit         
+Commit complete.
+10:32:27 admin@ncs(config)# top devices device ciena46 compare-config
+10:46:55 admin@ncs(config)# commit dry-run outformat native 
+native {
+    device {
+        name ciena46
+        data <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                  message-id="1">
+               <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+                 <target>
+                   <running/>
+                 </target>
+                 <error-option>rollback-on-error</error-option>
+                 <config>
+                   <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+                     <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>p39untagged</name>
+                     </fp>
+                   </fps>
+                   <interfaces xmlns="http://openconfig.net/yang/interfaces">
+
+...
+10:52:58 admin@ncs(config)# top devices device ciena47 compare-config
+10:53:04 admin@ncs(config)# top devices device ciena46 compare-config
+10:53:14 admin@ncs(config)# top rollback configuration 
+10:53:28 admin@ncs(config)# commit dry-run outformat native 
+native {
+    device {
+        name ciena46
+        data <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                  message-id="2">
+               <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+                 <target>
+                   <running/>
+                 </target>
+                 <error-option>rollback-on-error</error-option>
+                 <config>
+                   <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+                     <fp>
+                       <name>p39untagged</name>
+                       <frame-to-cos-map>default-f2c</frame-to-cos-map>
+                       <logical-port>39</logical-port>
+                       <mtu-size>2000</mtu-size>
+                       <stats-collection>on</stats-collection>
+                       <classifier-list>untagged</classifier-list>
+                       <fd-name>21.46.47.0/24</fd-name>
+                       <cos-to-frame-map>default-c2f</cos-to-frame-map>
+                     </fp>
+                   </fps>
+                   <interfaces xmlns="http://openconfig.net/yang/interfaces">
+                     <interface>
+                       <name>to8112-47</name>
+                       <config>
+                         <mtu>1500</mtu>
+                         <name>to8112-47</name>
+                         <underlay-binding xmlns="http://ciena.com/ns/yang/ciena-underlay-binding">
+                           <config>
+                             <fd>21.46.47.0/24</fd>
+                           </config>
+                         </underlay-binding>
+                         <frame-to-cos-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-f2c</frame-to-cos-map>
+                         <role xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">data</role>
+                         <stats-collection xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">on</stats-collection>
+                         <type xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">ip</type>
+                         <vrfName xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default</vrfName>
+                         <admin-status xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">true</admin-status>
+                         <cos-to-frame-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-c2f</cos-to-frame-map>
+                       </config>
+                       <ipv4 xmlns="http://ciena.com/ns/yang/ciena-openconfig-if-ip">
+                         <addresses>
+                           <address>
+                             <ip>21.46.47.1</ip>
+                             <config>
+                               <prefix-length>30</prefix-length>
+                               <ip>21.46.47.1</ip>
+                             </config>
+                           </address>
+                         </addresses>
+                       </ipv4>
+                     </interface>
+                   </interfaces>
+                   <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+                     <fd>
+                       <name>21.46.47.0/24</name>
+                       <mode>vpls</mode>
+                     </fd>
+                   </fds>
+                 </config>
+               </edit-config>
+             </rpc>
+    }
+    device {
+        name ciena47
+        data <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                  message-id="2">
+               <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+                 <target>
+                   <running/>
+                 </target>
+                 <error-option>rollback-on-error</error-option>
+                 <config>
+                   <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+                     <fp>
+                       <name>p39untagged</name>
+                       <frame-to-cos-map>default-f2c</frame-to-cos-map>
+                       <logical-port>39</logical-port>
+                       <mtu-size>2000</mtu-size>
+                       <stats-collection>on</stats-collection>
+                       <classifier-list>untagged</classifier-list>
+                       <fd-name>21.46.47.0/24</fd-name>
+                       <cos-to-frame-map>default-c2f</cos-to-frame-map>
+                     </fp>
+                   </fps>
+                   <interfaces xmlns="http://openconfig.net/yang/interfaces">
+                     <interface>
+                       <name>to8112-46</name>
+                       <config>
+                         <mtu>1500</mtu>
+                         <name>to8112-46</name>
+                         <underlay-binding xmlns="http://ciena.com/ns/yang/ciena-underlay-binding">
+                           <config>
+                             <fd>21.46.47.0/24</fd>
+                           </config>
+                         </underlay-binding>
+                         <frame-to-cos-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-f2c</frame-to-cos-map>
+                         <role xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">data</role>
+                         <stats-collection xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">on</stats-collection>
+                         <type xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">ip</type>
+                         <vrfName xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default</vrfName>
+                         <admin-status xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">true</admin-status>
+                         <cos-to-frame-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-c2f</cos-to-frame-map>
+                       </config>
+                       <ipv4 xmlns="http://ciena.com/ns/yang/ciena-openconfig-if-ip">
+                         <addresses>
+                           <address>
+                             <ip>21.46.47.2</ip>
+                             <config>
+                               <prefix-length>30</prefix-length>
+                               <ip>21.46.47.2</ip>
+                             </config>
+                           </address>
+                         </addresses>
+                       </ipv4>
+                     </interface>
+                   </interfaces>
+                   <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+                     <fd>
+                       <name>21.46.47.0/24</name>
+                       <mode>vpls</mode>
+                     </fd>
+                   </fds>
+                 </config>
+               </edit-config>
+             </rpc>
+    }
+}
+10:53:30 admin@ncs(config)# commit 
+Commit complete.
+10:53:53 admin@ncs(config)# top devices device ciena46 check-sync 
+result unsupported
+10:58:47 admin@ncs(config)# top devices device ciena46 compare-config 
+10:59:05 admin@ncs(config)# top devices device ciena47 compare-config
+
+10:59:46 admin@ncs(config)# show full-configuration devices device ciena47 config oc-if:interfaces interface to8112-46 
+devices device ciena47
+ config
+  oc-if:interfaces interface to8112-46
+   config name      to8112-46
+   config mtu       1500
+   config type      ip
+   config admin-status true
+   config role      data
+   config vrfName   default
+   config frame-to-cos-map default-f2c
+   config cos-to-frame-map default-c2f
+   config stats-collection on
+   config underlay-binding config fd 21.46.47.0/24
+   ipv4 addresses address 21.46.47.2
+    config ip     21.46.47.2
+    config prefix-length 30
+   !
+  !
+ !
+!
+10:59:55 admin@ncs(config)# top rollback configuration 
+11:00:44 admin@ncs(config)# commit dry-run outformat native 
+native {
+    device {
+        name ciena46
+        data <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                  message-id="1">
+               <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+                 <target>
+                   <running/>
+                 </target>
+                 <error-option>rollback-on-error</error-option>
+                 <config>
+                   <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+                     <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>p39untagged</name>
+                     </fp>
+                   </fps>
+                   <interfaces xmlns="http://openconfig.net/yang/interfaces">
+                     <interface xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                                nc:operation="delete">
+                       <name>to8112-47</name>
+                     </interface>
+                   </interfaces>
+                   <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+                     <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>21.46.47.0/24</name>
+                     </fd>
+                   </fds>
+                 </config>
+               </edit-config>
+             </rpc>
+    }
+    device {
+        name ciena47
+        data <rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                  message-id="1">
+               <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+                 <target>
+                   <running/>
+                 </target>
+                 <error-option>rollback-on-error</error-option>
+                 <config>
+                   <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+                     <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>p39untagged</name>
+                     </fp>
+                   </fps>
+                   <interfaces xmlns="http://openconfig.net/yang/interfaces">
+                     <interface xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                                nc:operation="delete">
+                       <name>to8112-46</name>
+                     </interface>
+                   </interfaces>
+                   <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+                     <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+                       <name>21.46.47.0/24</name>
+                     </fd>
+                   </fds>
+                 </config>
+               </edit-config>
+             </rpc>
+    }
+}
+11:00:48 admin@ncs(config)# comi
+                            ^
+% Invalid input detected at '^' marker.
+11:00:48 admin@ncs(config)# commit 
+Commit complete.
+11:01:01 admin@ncs(config)# show full-configuration devices device ciena47 config | display xml | save ciena47-final-1.1.xml
+11:01:23 admin@ncs(config)# show full-configuration devices device ciena46 config | display xml | save ciena46-final-1.1.xml
+11:01:34 admin@ncs(config)# 
+...
+cisco@cisco-nso:~/run/570$ diff configs/ciena46-down.xml ciena46-final-1.1.xml 
+cisco@cisco-nso:~/run/570$ diff configs/ciena46-down.xml ciena46-final-1.1.xml 
+cisco@cisco-nso:~/run/570$ 

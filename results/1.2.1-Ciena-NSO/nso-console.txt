@@ -1,0 +1,102 @@
+1.2.1 System Inventory with Ciena and NSO, 2022 Jan 24
+
+# Step 1 & 2
+
+Connection is automatic at sync-from. Not fetching the YANG models, instead fetching the current device configuration.
+
+05:26:32 admin@ncs(config-device-ciena46)# devices device ciena46 sync-f 
+result true
+05:26:39 admin@ncs(config-device-ciena46)# 
+05:26:40 admin@ncs(config-device-ciena46)# 
+05:26:40 admin@ncs(config-device-ciena46)# show full-configuration devices device ciena46 config system config
+devices device ciena46
+ config
+  system config hostname 8112-46
+  system config description 8112
+...
+
+# Step 3
+
+05:29:54 admin@ncs(config)# do show devices device ciena46 live-status   
+Possible completions: (first 100):
+  access-flows                               access-flows-state                         access-profiles                acl-actions                          
+  acl-custom-destinations                    agg-global                                 agg-global-state               alarms                               
+  any                                        bad-value                                  belongs-to                     bfd                                  
+  bgp                                        bgp-state                                  bgp-test                       binary                               
+  bw-calculation-mode                        case-name                                  cfm-configuration-error-list   cfm-global-config                    
+  cfm-global-frame-statistics                cfm-maintenance-domain-intermediate-point  cfm-profile-bins               chassis-macs                         
+  choice-name                                classifiers                                components                     config                               
+  contact                                    cos-to-frame-maps                          cos-to-queue-map-associations  default                              
+  default-md-levels                          dhcp-client                                dhcp-client-state              dhcpv6-client                        
+  dhcpv6-client-state                        egress-qos                                 egress-qos-state               empty                                
+  eoam-global-config-status                  error-number                               ethernet-segments              event-filters                        
+  evpn                                       evpn-ethernet-segment-state                evpn-state                     fdbs                                 
+  fdbs-state                                 fds                                        fib-state                      files                                
+  flexe-channels                             flexe-cross-connects                       flexe-groups                   flexe-operational-state              
+  flexe-ports                                flood-containment-profiles                 fps                            fps-operational-state                
+  fps-state                                  frame-to-cos-maps                          g8032-rings                    g8032-rings-state                    
+  hello-params                               if:interfaces                              interface-qos-binding          interface-telemetry-state            
+  interfaces-state                           ip-neighbor-state                          isis                           isis-state                           
+  l2cp-profiles                              l2vpn-services                             l3-relay-agent                 last-modified                        
+  ldp                                        ldp-state                                  leaflist                       license-management-config            
+  license-management-state                   lldp-global-config                         lldp-global-operational        lldp-global-stats                    
+  logical-port-oper-status                   logical-ports                              mac-access-controls            mac-access-controls-state            
+  mac-management                             maintenance-domain                         management-plane               mandatory                            
+  max-elements                               meter-profiles                             min-elements                   mirror-sessions                      
+  mpls                                       mpls-state                                 must                           nacm                                 
+05:32:32 admin@ncs(config)# do show devices device ciena46 live-status oc-platform:components component 
+Possible completions:
+  8112  cpu1-temperature  cpu2-temperature  fan-board  fan1  fan2  fan3  fan4  fan5  fan6  fan7  fan8  front-temperature  psa  psb  psu-board  switch-temperature  <cr>
+Possible match completions:
+  component-properties  config  properties  state  subcomponents  usb-properties
+05:33:48 admin@ncs(config)# do show devices device ciena46 live-status oc-platform:components component 8112 state 
+state name  8112
+state type  CHASSIS
+state id    INMFU00CRA
+state description "New, cool device"
+state mfg-name Ciena
+state version 0
+state serial-no M97D2764
+state part-no 170-8112-901
+state mfg-date 2021-09-30
+05:34:11 admin@ncs(config)# 
+05:34:46 admin@ncs(config)# 
+05:34:46 admin@ncs(config)# 
+05:34:57 admin@ncs(config)# 
+05:34:57 admin@ncs(config)# do show devices device ciena46 live-status oc-platform:components component 8112 state
+state name  8112
+state type  CHASSIS
+state id    INMFU00CRA
+state description "New, cool device"
+state mfg-name Ciena
+state version 0
+state serial-no M97D2764
+state part-no 170-8112-901
+state mfg-date 2021-09-30
+
+# Step 4
+
+05:35:08 admin@ncs(config)# devices device ciena46 compare-config                                                 
+diff 
+ devices {
+     device ciena46 {
+         config {
+             system {
+                 ntp {
+                     associations {
+                         remote-ntp-server {
+-                            server-entry 192.168.100.132 {
+-                                admin-state enabled;
+-                            }
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+05:39:37 admin@ncs(config)# devices device ciena46 sync-to       
+result true
+05:39:52 admin@ncs(config)# devices device ciena46 compare-config
+05:40:02 admin@ncs(config)# 

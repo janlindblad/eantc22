@@ -1,0 +1,325 @@
+1.11.1 Layer 2 EVPN Service Provisioning with Ciena and NSO, 2022 Jan 25
+
+# Step 1 & 2
+
+05:26:10 admin@ncs(exec)# devices device ciena47 sync-from
+result true
+05:26:37 admin@ncs(exec)# devices device ciena46 sync-from
+result true
+
+# Step 3
+
+05:26:43 admin@ncs(exec)# l2vpn-svc sites site neptune re-deploy dry-run
+cli {
+    local-node {
+        data  devices {
+                   device ciena47 {
+                       config {
+                           evpn {
+                               ethernet-segments {
+              +                    ethernet-segment es.1.3438 {
+              +                        logical-port 1;
+              +                        evlag false;
+              +                        ethernet-segment-identifier {
+              +                            mac-based {
+              +                                system-mac-address ac:dc:02:02:02:02;
+              +                            }
+              +                        }
+              +                        active-mode single-active-mode;
+              +                        df-election {
+              +                            df-election-method default;
+              +                            preference 32767;
+              +                            revertive true;
+              +                            election-wait-time 3;
+              +                            reversion-hold-time 3;
+              +                        }
+              +                    }
+                               }
+                               evpn-instances {
+              +                    evpn-instance 3438 {
+              +                        vpws-cross-connect-fd eVPWS.3438 {
+              +                            control-word true;
+              +                            l2mtu 1500;
+              +                            local-service-id 3438;
+              +                            remote-service-id 3438;
+              +                        }
+              +                        vpn-target 0:65098:3438 {
+              +                            route-target-type both;
+              +                        }
+              +                        sr-policy {
+              +                            fallback enable;
+              +                        }
+              +                    }
+                               }
+                           }
+                           classifiers {
+              +                # after classifier vlan1001
+              +                classifier v3438 {
+              +                    filter-entry vtag-stack {
+              +                        logical-not false;
+              +                        vtags 1 {
+              +                            vlan-id 3438;
+              +                        }
+              +                    }
+              +                }
+                           }
+                           fds {
+              +                fd eVPWS.3438 {
+              +                    mode evpn-vpws;
+              +                }
+                           }
+                           fps {
+              +                fp p1v3438 {
+              +                    fd-name eVPWS.3438;
+              +                    logical-port 1;
+              +                    mtu-size 2000;
+              +                    classifier-list [ v3438 ];
+              +                    stats-collection on;
+              +                }
+                           }
+                       }
+                   }
+               }
+
+    }
+}
+05:26:59 admin@ncs(exec)# l2vpn-svc sites site mars re-deploy dry-run
+cli {
+    local-node {
+        data  devices {
+                   device ciena46 {
+                       config {
+                           evpn {
+                               ethernet-segments {
+              +                    ethernet-segment es.1.3438 {
+              +                        logical-port 1;
+              +                        evlag false;
+              +                        ethernet-segment-identifier {
+              +                            mac-based {
+              +                                system-mac-address ac:dc:01:01:01:01;
+              +                            }
+              +                        }
+              +                        active-mode single-active-mode;
+              +                        df-election {
+              +                            df-election-method default;
+              +                            preference 32767;
+              +                            revertive true;
+              +                            election-wait-time 3;
+              +                            reversion-hold-time 3;
+              +                        }
+              +                    }
+                               }
+                               evpn-instances {
+              +                    evpn-instance 3438 {
+              +                        vpws-cross-connect-fd eVPWS.3438 {
+              +                            control-word true;
+              +                            l2mtu 1500;
+              +                            local-service-id 3438;
+              +                            remote-service-id 3438;
+              +                        }
+              +                        vpn-target 0:65098:3438 {
+              +                            route-target-type both;
+              +                        }
+              +                        sr-policy {
+              +                            fallback enable;
+              +                        }
+              +                    }
+                               }
+                           }
+                           classifiers {
+              +                # after classifier vlan1001
+              +                classifier v3438 {
+              +                    filter-entry vtag-stack {
+              +                        logical-not false;
+              +                        vtags 1 {
+              +                            vlan-id 3438;
+              +                        }
+              +                    }
+              +                }
+                           }
+                           fds {
+              +                fd eVPWS.3438 {
+              +                    mode evpn-vpws;
+              +                }
+                           }
+                           fps {
+              +                fp p1v3438 {
+              +                    fd-name eVPWS.3438;
+              +                    logical-port 1;
+              +                    mtu-size 2000;
+              +                    classifier-list [ v3438 ];
+              +                    stats-collection on;
+              +                }
+                           }
+                       }
+                   }
+               }
+
+    }
+}
+05:27:07 admin@ncs(exec)# l2vpn-svc sites site mars re-deploy
+05:27:22 admin@ncs(exec)#
+System message at 2022-01-25 17:27:22...
+Commit performed by admin via ssh using cli.
+05:27:22 admin@ncs(exec)# l2vpn-svc sites site neptune re-deploy
+05:27:32 admin@ncs(exec)#
+System message at 2022-01-25 17:27:32...
+Commit performed by admin via ssh using cli.
+05:27:32 admin@ncs(exec)#
+
+# Step 5
+
+
+05:27:39 admin@ncs(exec)# l2vpn-svc sites site mars un-deploy dry-run
+cli {
+    local-node {
+        data  devices {
+                   device ciena46 {
+                       config {
+                           evpn {
+                               ethernet-segments {
+              -                    ethernet-segment es.1.3438 {
+              -                        logical-port 1;
+              -                        evlag false;
+              -                        ethernet-segment-identifier {
+              -                            mac-based {
+              -                                system-mac-address ac:dc:01:01:01:01;
+              -                            }
+              -                        }
+              -                        active-mode single-active-mode;
+              -                        df-election {
+              -                            df-election-method default;
+              -                            preference 32767;
+              -                            revertive true;
+              -                            election-wait-time 3;
+              -                            reversion-hold-time 3;
+              -                        }
+              -                    }
+                               }
+                               evpn-instances {
+              -                    evpn-instance 3438 {
+              -                        vpws-cross-connect-fd eVPWS.3438 {
+              -                            control-word true;
+              -                            l2mtu 1500;
+              -                            local-service-id 3438;
+              -                            remote-service-id 3438;
+              -                        }
+              -                        vpn-target 0:65098:3438 {
+              -                            route-target-type both;
+              -                        }
+              -                        sr-policy {
+              -                            fallback enable;
+              -                        }
+              -                    }
+                               }
+                           }
+                           classifiers {
+              -                classifier v3438 {
+              -                    filter-entry vtag-stack {
+              -                        logical-not false;
+              -                        vtags 1 {
+              -                            vlan-id 3438;
+              -                        }
+              -                    }
+              -                }
+                           }
+                           fds {
+              -                fd eVPWS.3438 {
+              -                    mode evpn-vpws;
+              -                }
+                           }
+                           fps {
+              -                fp p1v3438 {
+              -                    fd-name eVPWS.3438;
+              -                    logical-port 1;
+              -                    mtu-size 2000;
+              -                    classifier-list [ v3438 ];
+              -                    stats-collection on;
+              -                }
+                           }
+                       }
+                   }
+               }
+
+    }
+}
+05:30:12 admin@ncs(exec)# l2vpn-svc sites site neptune  un-deploy dry-run
+cli {
+    local-node {
+        data  devices {
+                   device ciena47 {
+                       config {
+                           evpn {
+                               ethernet-segments {
+              -                    ethernet-segment es.1.3438 {
+              -                        logical-port 1;
+              -                        evlag false;
+              -                        ethernet-segment-identifier {
+              -                            mac-based {
+              -                                system-mac-address ac:dc:02:02:02:02;
+              -                            }
+              -                        }
+              -                        active-mode single-active-mode;
+              -                        df-election {
+              -                            df-election-method default;
+              -                            preference 32767;
+              -                            revertive true;
+              -                            election-wait-time 3;
+              -                            reversion-hold-time 3;
+              -                        }
+              -                    }
+                               }
+                               evpn-instances {
+              -                    evpn-instance 3438 {
+              -                        vpws-cross-connect-fd eVPWS.3438 {
+              -                            control-word true;
+              -                            l2mtu 1500;
+              -                            local-service-id 3438;
+              -                            remote-service-id 3438;
+              -                        }
+              -                        vpn-target 0:65098:3438 {
+              -                            route-target-type both;
+              -                        }
+              -                        sr-policy {
+              -                            fallback enable;
+              -                        }
+              -                    }
+                               }
+                           }
+                           classifiers {
+              -                classifier v3438 {
+              -                    filter-entry vtag-stack {
+              -                        logical-not false;
+              -                        vtags 1 {
+              -                            vlan-id 3438;
+              -                        }
+              -                    }
+              -                }
+                           }
+                           fds {
+              -                fd eVPWS.3438 {
+              -                    mode evpn-vpws;
+              -                }
+                           }
+                           fps {
+              -                fp p1v3438 {
+              -                    fd-name eVPWS.3438;
+              -                    logical-port 1;
+              -                    mtu-size 2000;
+              -                    classifier-list [ v3438 ];
+              -                    stats-collection on;
+              -                }
+                           }
+                       }
+                   }
+               }
+
+    }
+}
+05:30:23 admin@ncs(exec)# l2vpn-svc sites site mars un-deploy
+05:30:31 admin@ncs(exec)# l2vpn-svc sites site neptune  un-deploy
+
+# Step 6
+
+05:30:41 admin@ncs(exec)# devices device ciena46 compare-config
+05:30:57 admin@ncs(exec)# devices device ciena47 compare-config

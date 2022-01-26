@@ -1,0 +1,5 @@
+1.2.1 System Inventory with Ciena and NSO, 2022 Jan 24
+
+# Step 1
+
+

@@ -1,0 +1,14 @@
+$ ./cmd-set-mtu-100000 
+<?xml version="1.0" encoding="UTF-8"?><hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"><capabilities><capability>urn:ietf:params:netconf:base:1.0</capability><capability>urn:ietf:params:netconf:base:1.1</capability><capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability><capability>urn:ietf:params:netconf:capab
+...
+</capabilities><session-id>137</session-id></hello>]]>]]>
+#736
+<?xml version="1.0" encoding="UTF-8"?><rpc-reply message-id="1" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:oc-if="http://openconfig.net/yang/interfaces" xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"><rpc-error><error-type>protocol</error-type><error-tag>invalid-value</error-tag><error-severity>error</error-severity><error-app-tag>not-in-range</error-app-tag><error-path>/nc:rpc/nc:edit-config/nc:config/oc-if:interfaces/oc-if:interface[oc-if:name='to8112-47']/oc-if:config/oc-if:mtu</error-path><error-message xml:lang="en">value not in range</error-message><error-info><bad-value>100000</bad-value><error-number>288</error-number></error-info></rpc-error></rpc-reply>
+##
+
+#129
+<?xml version="1.0" encoding="UTF-8"?><rpc-reply message-id="0" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"><ok/></rpc-reply>
+##
+
+
+The device rejects the illegal MTU value.

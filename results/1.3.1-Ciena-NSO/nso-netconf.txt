@@ -1,0 +1,443 @@
+1.3.1 MPLS Using OpenConfig with Ciena and NSO, 2022 Jan 25
+
+# Step 1
+
+>>>>out 25-Jan-2022::09:22:41.571 user: admin/583 thandle 7980 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 25-Jan-2022::09:22:41.624 user: admin/583 thandle 7980 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+
+...
+
+# Step 2
+
+>>>>out 25-Jan-2022::09:22:41.814 user: admin/583 thandle 7980 hostname cisco-nso device ciena46 session-id=26
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+      <snmp xmlns="urn:ietf:params:xml:ns:yang:ietf-snmp"/>
+      <pseudowires xmlns="urn:ietf:params:xml:ns:yang:ietf-pseudowires"/>
+      <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm"/>
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"/>
+      <ethernet-segments xmlns="urn:ietf:params:xml:ns:yang:ietf-ethernet-segment"/>
+      <alarms xmlns="urn:ietf:params:xml:ns:yang:ietf-alarms"/>
+      <agg-global xmlns="urn:ietf:params:xml:ns:yang:ciena-ieee-lag"/>
+      <vrf xmlns="urn:ciena:params:xml:ns:yang:ciena:ciena-vrf"/>
+      <license-management-config xmlns="urn:ciena:params:xml:ns:yang:ciena:ciena-licensing"/>
+      <mac-access-controls-state xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-mac-management"/>
+      <virtual-macs xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-mac-management"/>
+      <mac-access-controls xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-mac-management"/>
+      <static-macs xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-mac-management"/>
+      <fdbs xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-mac-management"/>
+      <mac-management xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-mac-management"/>
+      <frame-to-cos-maps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-frame-to-cos-map"/>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp"/>
+      <flood-containment-profiles xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-flood-containment-profile"/>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd"/>
+      <cos-to-frame-maps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-cos-to-frame-map"/>
+      <rstp xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-ieee-rstp"/>
+      <eoam-global-config-status xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-eoam"/>
+      <cfm-global-config xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-cfm"/>
+      <qos-flows xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-qos-flow"/>
+      <pfg-profiles xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-pfg-profile"/>
+      <mirror-sessions xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-mirror-session"/>
+      <meter-profiles xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-meter-profile"/>
+      <logical-ports xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-logical-port"/>
+      <l2cp-profiles xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-l2cp-profile"/>
+      <interface-qos-binding xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-egress-qos-binding"/>
+      <cos-to-queue-map-associations xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-egress-qos"/>
+      <egress-qos xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-egress-qos"/>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier"/>
+      <access-profiles xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-access-flow"/>
+      <access-flows xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-access-flow"/>
+      <acl-actions xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-access-flow"/>
+      <acl-custom-destinations xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-access-flow"/>
+      <lldp-global-config xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-ieee-lldp"/>
+      <files xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-file-mgmt"/>
+      <event-filters xmlns="http://yumaworks.com/ns/yumaworks-event-filter"/>
+      <tls-service-profiles xmlns="http://www.ciena.com/tls/yang/ciena-tls-service-profile"/>
+      <hello-params xmlns="http://www.ciena.com/tls/yang/ciena-tls"/>
+      <ppm xmlns="http://www.ciena.com/ns/yang/ppm"/>
+      <ztp xmlns="http://www.ciena.com/ns/yang/ciena-ztp"/>
+      <web-gui xmlns="http://www.ciena.com/ns/yang/ciena-web-gui"/>
+      <tdm-pseudowires xmlns="http://www.ciena.com/ns/yang/ciena-tdm-pseudowire"/>
+      <tdm-global xmlns="http://www.ciena.com/ns/yang/ciena-tdm-global"/>
+      <sync xmlns="http://www.ciena.com/ns/yang/ciena-sync"/>
+      <subsystems xmlns="http://www.ciena.com/ns/yang/ciena-subsystem-resource"/>
+      <software xmlns="http://www.ciena.com/ns/yang/ciena-software-mgmt"/>
+      <cfm-profile-bins xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+      <sat xmlns="http://www.ciena.com/ns/yang/ciena-sat"/>
+      <pon-ctrl xmlns="http://www.ciena.com/ns/yang/ciena-pon-ctrl"/>
+      <of-vfsis xmlns="http://www.ciena.com/ns/yang/ciena-pn/ciena-of-vfsi"/>
+      <of-group-tables xmlns="http://www.ciena.com/ns/yang/ciena-pn/ciena-of-group-tables"/>
+      <of-flow-tables xmlns="http://www.ciena.com/ns/yang/ciena-pn/ciena-of-flows-tables"/>
+      <pkix xmlns="http://www.ciena.com/ns/yang/ciena-pkix"/>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr"/>
+      <tdm-ports xmlns="http://www.ciena.com/ns/yang/ciena-packet-tdm-port"/>
+      <ptps xmlns="http://www.ciena.com/ns/yang/ciena-packet-ptp"/>
+      <otn-ports xmlns="http://www.ciena.com/ns/yang/ciena-packet-otn-port"/>
+      <pm-data-binning xmlns="http://www.ciena.com/ns/yang/ciena-ndpm-data-binning"/>
+      <management-plane xmlns="http://www.ciena.com/ns/yang/ciena-management-plane"/>
+      <g8032-rings xmlns="http://www.ciena.com/ns/yang/ciena-itut-g8032-draft"/>
+      <flexe-cross-connects xmlns="http://www.ciena.com/ns/yang/ciena-flexe"/>
+      <flexe-channels xmlns="http://www.ciena.com/ns/yang/ciena-flexe"/>
+      <flexe-groups xmlns="http://www.ciena.com/ns/yang/ciena-flexe"/>
+      <flexe-ports xmlns="http://www.ciena.com/ns/yang/ciena-flexe"/>
+      <dhcpv6-client xmlns="http://www.ciena.com/ns/yang/ciena-dhcpv6-client"/>
+      <dhcp-client xmlns="http://www.ciena.com/ns/yang/ciena-dhcp"/>
+      <bw-calculation-mode xmlns="http://www.ciena.com/ns/yang/ciena-bw-calculation-mode"/>
+      <telemetry-system xmlns="http://openconfig.net/yang/telemetry"/>
+      <system xmlns="http://openconfig.net/yang/system"/>
+      <components xmlns="http://openconfig.net/yang/platform"/>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces"/>
+      <error-number xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <bad-value xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <leaflist xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <binary xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <root xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <empty xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <string xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <struct xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <any xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <value xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <units xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <source xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <rpc-output xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <revision xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <reference xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <position xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <path xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <organization xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <ordered-by xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <last-modified xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <must xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <max-elements xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <min-elements xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <mandatory xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <default xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <contact xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <config xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <choice-name xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <case-name xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <belongs-to xmlns="http://netconfcentral.org/ns/yuma-ncx"/>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm"/>
+      <default-md-levels xmlns="http://metroethernetforum.org/ns/yang/mef-cfm"/>
+      <routing-policy xmlns="http://ciena.com/ns/yang/ciena/ciena-routing-policy"/>
+      <rib xmlns="http://ciena.com/ns/yang/ciena/ciena-rib"/>
+      <ldp xmlns="http://ciena.com/ns/yang/ciena/ciena-ldp"/>
+      <segment-routing-traffic-engineering xmlns="http://ciena.com/ns/yang/ciena-sr-policy"/>
+      <segment-routing xmlns="http://ciena.com/ns/yang/ciena-sr"/>
+      <ospf xmlns="http://ciena.com/ns/yang/ciena-ospf"/>
+      <tp-corouted-tunnels xmlns="http://ciena.com/ns/yang/ciena-mpls-tp-corouted"/>
+      <mpls xmlns="http://ciena.com/ns/yang/ciena-mpls"/>
+      <l2vpn-services xmlns="http://ciena.com/ns/yang/ciena-l2vpn"/>
+      <isis xmlns="http://ciena.com/ns/yang/ciena-isis"/>
+      <te xmlns="http://ciena.com/ns/yang/ciena-ietf-te"/>
+      <evpn xmlns="http://ciena.com/ns/yang/ciena-evpn"/>
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp"/>
+      <bfd xmlns="http://ciena.com/ns/yang/ciena-bfd"/>
+      <l3-relay-agent xmlns="http://ciena.com/dhcpl3relay/yang/ciena-dhcp-l3-relay"/>
+    </filter>
+  </get-config>
+</rpc>
+
+<<<<in 25-Jan-2022::09:22:43.070 user: admin/583 thandle 7980 hostname cisco-nso device ciena46 session-id=26
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T09:16:54Z"
+           ncx:etag="389"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+        <servwait>90</servwait>
+        <control-packet-dscp>0</control-packet-dscp>
+        <modes>unauthenticated</modes>
+        <connectivity-mode xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-twamp-saos">standard</connectivity-mode>
+      </server>
+      <session-reflector>
+        <admin-state>false</admin-state>
+        <refwait>90</refwait>
+      </session-reflector>
+    </twamp>
+    <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog">
+      <log-actions>
+        <remote>
+          <admin-state xmlns="http://www.ciena.com/ns/yang/ciena-syslog">enabled</admin-state>
+          <dest xmlns="http://www.ciena.com/ns/yang/ciena-syslog">
+            <address>192.168.20.49</address>
+            <admin-state>enabled</admin-state>
+            <port>514</port>
+            <facility xmlns:syslogtypes="urn:ietf:params:xml:ns:yang:ietf-syslog-types">syslogtypes:local0</facility>
+            <severity>alert</severity>
+            <severity>critical</severity>
+            <severity>debug</severity>
+            <severity>emergency</severity>
+            <severity>error</severity>
+
+...
+
+# Step 3
+
+>>>>out 25-Jan-2022::09:23:27.330 user: admin/583 thandle 7970 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <isis xmlns="http://ciena.com/ns/yang/ciena-isis">
+        <instance>
+          <tag>master</tag>
+          <level-1>
+            <lsp-mtu>1492</lsp-mtu>
+            <spf-min-delay>500</spf-min-delay>
+            <spf-max-delay>50000</spf-max-delay>
+            <lsp-gen-interval>30</lsp-gen-interval>
+          </level-1>
+          <interfaces>
+            <interface>
+              <name>lb0</name>
+              <bfd-ipv6>
+                <enable-ipv6>false</enable-ipv6>
+              </bfd-ipv6>
+              <level-1>
+                <hello-interval>10</hello-interval>
+                <metric>10</metric>
+                <hello-multiplier>3</hello-multiplier>
+                <lfa-candidate-enable>true</lfa-candidate-enable>
+                <priority>64</priority>
+                <csnp-interval>10</csnp-interval>
+                <wide-metric>10</wide-metric>
+              </level-1>
+              <level-2>
+                <hello-interval>10</hello-interval>
+                <metric>10</metric>
+                <hello-multiplier>3</hello-multiplier>
+                <lfa-candidate-enable>true</lfa-candidate-enable>
+                <priority>64</priority>
+                <csnp-interval>10</csnp-interval>
+                <wide-metric>10</wide-metric>
+              </level-2>
+              <lsp-interval>33</lsp-interval>
+              <ipv4-unicast-default-disable>false</ipv4-unicast-default-disable>
+              <bfd>
+                <enable>false</enable>
+              </bfd>
+              <lsp-retransmit-interval>5</lsp-retransmit-interval>
+              <level-type>level-2</level-type>
+              <interface-type>broadcast</interface-type>
+              <hello-padding>true</hello-padding>
+            </interface>
+            <interface>
+              <name>to16047</name>
+              <bfd-ipv6>
+                <enable-ipv6>false</enable-ipv6>
+              </bfd-ipv6>
+              <level-1>
+                <hello-interval>10</hello-interval>
+                <metric>10</metric>
+                <hello-multiplier>3</hello-multiplier>
+                <lfa-candidate-enable>true</lfa-candidate-enable>
+                <priority>64</priority>
+                <csnp-interval>10</csnp-interval>
+                <wide-metric>10</wide-metric>
+              </level-1>
+              <level-2>
+                <hello-interval>10</hello-interval>
+                <metric>10</metric>
+                <hello-multiplier>3</hello-multiplier>
+                <lfa-candidate-enable>true</lfa-candidate-enable>
+                <priority>64</priority>
+                <csnp-interval>10</csnp-interval>
+                <wide-metric>10</wide-metric>
+              </level-2>
+              <lsp-interval>33</lsp-interval>
+              <ipv4-unicast-default-disable>false</ipv4-unicast-default-disable>
+              <bfd>
+                <enable>true</enable>
+              </bfd>
+              <lsp-retransmit-interval>5</lsp-retransmit-interval>
+              <level-type>level-2</level-type>
+              <interface-type>point-to-point</interface-type>
+              <hello-padding>true</hello-padding>
+            </interface>
+          </interfaces>
+          <passive>
+            <passive-if-name>lb0</passive-if-name>
+          </passive>
+          <distance>115</distance>
+          <level-2>
+            <lsp-mtu>1492</lsp-mtu>
+            <spf-min-delay>500</spf-min-delay>
+            <spf-max-delay>50000</spf-max-delay>
+            <lsp-gen-interval>30</lsp-gen-interval>
+          </level-2>
+          <dynamic-hostname>true</dynamic-hostname>
+          <microloop-avoidance>
+            <enable>false</enable>
+            <rib-update-delay>5000</rib-update-delay>
+          </microloop-avoidance>
+          <cspf-flag>false</cspf-flag>
+          <net>49.0001.1000.0000.0046.00</net>
+          <segment-routing>
+            <enabled>false</enabled>
+            <force-php>
+              <enable>false</enable>
+            </force-php>
+            <bindings>
+              <receive>true</receive>
+              <advertise>false</advertise>
+            </bindings>
+          </segment-routing>
+          <lsp-lifetime>1200</lsp-lifetime>
+          <metric-style>wide</metric-style>
+          <lsp-refresh>900</lsp-refresh>
+          <proto-ipv6>
+            <redistribute>
+              <distance>115</distance>
+            </redistribute>
+          </proto-ipv6>
+          <mpls-te>
+            <router-id>100.0.0.46</router-id>
+            <level-type>level-2</level-type>
+          </mpls-te>
+          <level-type>level-2</level-type>
+          <fast-reroute>
+            <hold-timer>1000</hold-timer>
+          </fast-reroute>
+        </instance>
+      </isis>
+      <ldp xmlns="http://ciena.com/ns/yang/ciena/ciena-ldp">
+        <instance>
+          <tag>default</tag>
+          <keepalive-timeout>30</keepalive-timeout>
+          <hello-interval>5</hello-interval>
+          <keepalive-interval>10</keepalive-interval>
+          <interfaces>
+            <interface>
+              <name>lb0</name>
+              <enable-ipv4>true</enable-ipv4>
+            </interface>
+            <interface>
+              <name>to16047</name>
+              <enable-ipv4>true</enable-ipv4>
+            </interface>
+          </interfaces>
+          <control-mode>ordered</control-mode>
+          <hello-holdtime>15</hello-holdtime>
+          <pw-status-tlv>false</pw-status-tlv>
+          <lsr-id>100.0.0.46</lsr-id>
+          <inter-area-lsp>false</inter-area-lsp>
+        </instance>
+      </ldp>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::09:23:27.334 user: admin/583 thandle 7970 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::09:23:27.674 user: admin/583 thandle 7970 hostname cisco-nso device ciena46 session-id=27
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::09:23:27.688 user: admin/583 thandle 7970 hostname cisco-nso device ciena46 session-id=27
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+# Step 6
+
+>>>>out 25-Jan-2022::09:27:37.866 user: admin/583 thandle 7066 hostname cisco-nso device ciena47 session-id=26
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 25-Jan-2022::09:27:37.876 user: admin/583 thandle 7066 hostname cisco-nso device ciena47 session-id=26
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::09:27:37.877 user: admin/583 thandle 7066 hostname cisco-nso device ciena47 session-id=26
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <ldp xmlns="http://ciena.com/ns/yang/ciena/ciena-ldp">
+        <instance>
+          <tag>default</tag>
+          <interfaces>
+            <interface>
+              <name>to16046</name>
+              <enable-ipv4>true</enable-ipv4>
+            </interface>
+          </interfaces>
+        </instance>
+      </ldp>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::09:27:37.878 user: admin/583 thandle 7066 hostname cisco-nso device ciena47 session-id=26
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="5">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::09:27:37.905 user: admin/583 thandle 7066 hostname cisco-nso device ciena47 session-id=26
+<rpc-reply message-id="4"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::09:27:37.915 user: admin/583 thandle 7066 hostname cisco-nso device ciena47 session-id=26
+<rpc-reply message-id="5"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>

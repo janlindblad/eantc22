@@ -1,0 +1,580 @@
+
+1.12.1 L3VPN Service Provisioning with Ciena and NSO, 2022 Jan 25
+
+# Step 1 & 2
+
+>>>>out 25-Jan-2022::16:19:34.095 user: admin/974 thandle 10786 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 25-Jan-2022::16:19:34.148 user: admin/974 thandle 10786 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+...
+    <capability>http://ciena.com/ns/yang/ciena-openconfig-telemetry-deviation?module=ciena-openconfig-telemetry-deviation&amp;revision=2020-03-13</capability>
+    <capability>urn:ietf:params:netconf:capability:yang-library:1.0?revision=2016-06-21&amp;module-set-id=25064</capability>
+  </capabilities>
+  <session-id>20</session-id>
+</hello>
+
+>>>>out 25-Jan-2022::16:19:34.424 user: admin/974 thandle 10786 hostname cisco-nso device ciena46 session-id=20
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+      <snmp xmlns="urn:ietf:params:xml:ns:yang:ietf-snmp"/>
+      <pseudowires xmlns="urn:ietf:params:xml:ns:yang:ietf-pseudowires"/>
+      <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm"/>
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"/>
+...
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp"/>
+      <bfd xmlns="http://ciena.com/ns/yang/ciena-bfd"/>
+      <l3-relay-agent xmlns="http://ciena.com/dhcpl3relay/yang/ciena-dhcp-l3-relay"/>
+    </filter>
+  </get-config>
+</rpc>
+
+<<<<in 25-Jan-2022::16:19:35.703 user: admin/974 thandle 10786 hostname cisco-nso device ciena46 session-id=20
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T16:17:03Z"
+           ncx:etag="33"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+        <servwait>90</servwait>
+        <control-packet-dscp>0</control-packet-dscp>
+        <modes>unauthenticated</modes>
+        <connectivity-mode xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-twamp-saos">standard</connectivity-mode>
+      </server>
+      <session-reflector>
+        <admin-state>false</admin-state>
+        <refwait>90</refwait>
+      </session-reflector>
+    </twamp>
+    <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog">
+      <log-actions>
+        <remote>
+...
+
+And similarly for ciena47.
+
+# Step 3
+
+>>>>out 25-Jan-2022::16:20:02.947 user: admin/1007 thandle 10838 hostname cisco-nso device ciena46 session-id=20
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp">
+        <instance>
+          <as>65149</as>
+          <vrf>
+            <name>eantc22</name>
+            <route-target>
+              <id>0:65149:2743</id>
+              <direction>both</direction>
+            </route-target>
+            <route-distinguisher>0:65149:2743</route-distinguisher>
+            <vrf-address-family>
+              <afi>ipv4</afi>
+              <safi>unicast</safi>
+              <redistribute>
+                <protocol>connected</protocol>
+              </redistribute>
+              <peer>
+                <address>172.16.4.1</address>
+                <remote-as>65104</remote-as>
+                <description>CE1 BGP 65104</description>
+                <hold-time>90</hold-time>
+                <keepalive-interval>30</keepalive-interval>
+                <passive>false</passive>
+                <ebgp-multihop>
+                  <enabled>false</enabled>
+                  <multihop-ttl>255</multihop-ttl>
+                </ebgp-multihop>
+                <prefix-limit>
+                  <warning-only>false</warning-only>
+                </prefix-limit>
+                <bfd>
+                  <enable>false</enable>
+                </bfd>
+                <as-override>false</as-override>
+                <remove-private-as>false</remove-private-as>
+                <route-reflector-client>false</route-reflector-client>
+                <soft-reconfiguration-inbound>false</soft-reconfiguration-inbound>
+                <minimum-advertisement-interval>0</minimum-advertisement-interval>
+                <allow-ebgp-vpn>false</allow-ebgp-vpn>
+                <connect-retry-interval>120</connect-retry-interval>
+                <activate>true</activate>
+              </peer>
+              <synchronization>false</synchronization>
+              <auto-summary>false</auto-summary>
+              <network-synchronization>false</network-synchronization>
+            </vrf-address-family>
+          </vrf>
+        </instance>
+      </bgp>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp>
+          <name>p1v2743</name>
+          <egress-l2-transform>
+            <egress-name>push-0x8100.2743</egress-name>
+            <vlan-stack>
+              <tag>1</tag>
+              <push-tpid>tpid-8100</push-tpid>
+              <push-vid>2743</push-vid>
+            </vlan-stack>
+          </egress-l2-transform>
+          <logical-port>1</logical-port>
+          <mtu-size>2000</mtu-size>
+          <stats-collection>on</stats-collection>
+          <classifier-list>vlan2743</classifier-list>
+          <fd-name>eantc22.1.2743</fd-name>
+        </fp>
+      </fps>
+      <logical-ports xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-logical-port">
+        <logical-port>
+          <name>1</name>
+          <mtu>9216</mtu>
+        </logical-port>
+      </logical-ports>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface>
+          <name>stc_1_1_2743</name>
+          <config>
+            <mtu>9136</mtu>
+            <name>stc_1_1_2743</name>
+            <underlay-binding xmlns="http://ciena.com/ns/yang/ciena-underlay-binding">
+              <config>
+                <fd>eantc22.1.2743</fd>
+              </config>
+            </underlay-binding>
+            <frame-to-cos-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-f2c</frame-to-cos-map>
+            <role xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">data</role>
+            <stats-collection xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">on</stats-collection>
+            <type xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">ip</type>
+            <vrfName xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">eantc22</vrfName>
+            <admin-status xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">true</admin-status>
+            <cos-to-frame-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-c2f</cos-to-frame-map>
+          </config>
+          <ipv4 xmlns="http://ciena.com/ns/yang/ciena-openconfig-if-ip">
+            <addresses>
+              <address>
+                <ip>172.16.4.254</ip>
+                <config>
+                  <prefix-length>24</prefix-length>
+                  <ip>172.16.4.254</ip>
+                </config>
+              </address>
+            </addresses>
+          </ipv4>
+        </interface>
+      </interfaces>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">
+        <classifier>
+          <name>vlan2743</name>
+          <filter-entry>
+            <filter-parameter>vtag-stack</filter-parameter>
+            <vtags>
+              <tag>1</tag>
+              <vlan-id>2743</vlan-id>
+            </vtags>
+            <logical-not>false</logical-not>
+          </filter-entry>
+        </classifier>
+      </classifiers>
+      <vrf xmlns="urn:ciena:params:xml:ns:yang:ciena:ciena-vrf">
+        <vrfName>eantc22</vrfName>
+        <description>L3VPN - eBGP CE1</description>
+        <sr-policy>
+          <fallback>enable</fallback>
+        </sr-policy>
+      </vrf>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd>
+          <name>eantc22.1.2743</name>
+          <mode>vpls</mode>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::16:20:02.950 user: admin/1007 thandle 10838 hostname cisco-nso device ciena46 session-id=20
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::16:20:03.268 user: admin/1007 thandle 10838 hostname cisco-nso device ciena46 session-id=20
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::16:20:03.279 user: admin/1007 thandle 10838 hostname cisco-nso device ciena46 session-id=20
+<rpc-reply message-id="4"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::16:19:56.417 user: admin/1005 thandle 10817 hostname cisco-nso device ciena47 session-id=21
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp">
+        <instance>
+          <as>65149</as>
+          <vrf>
+            <name>eantc22</name>
+            <route-target>
+              <id>0:65149:2743</id>
+              <direction>both</direction>
+            </route-target>
+            <route-distinguisher>0:65149:2743</route-distinguisher>
+            <vrf-address-family>
+              <afi>ipv4</afi>
+              <safi>unicast</safi>
+              <redistribute>
+                <protocol>connected</protocol>
+              </redistribute>
+              <peer>
+                <address>172.16.1.1</address>
+                <remote-as>65104</remote-as>
+                <description>CE2 BGP 65104</description>
+                <hold-time>90</hold-time>
+                <keepalive-interval>30</keepalive-interval>
+                <passive>false</passive>
+                <ebgp-multihop>
+                  <enabled>false</enabled>
+                  <multihop-ttl>255</multihop-ttl>
+                </ebgp-multihop>
+                <prefix-limit>
+                  <warning-only>false</warning-only>
+                </prefix-limit>
+                <bfd>
+                  <enable>false</enable>
+                </bfd>
+                <as-override>false</as-override>
+                <remove-private-as>false</remove-private-as>
+                <route-reflector-client>false</route-reflector-client>
+                <soft-reconfiguration-inbound>false</soft-reconfiguration-inbound>
+                <minimum-advertisement-interval>0</minimum-advertisement-interval>
+                <allow-ebgp-vpn>false</allow-ebgp-vpn>
+                <connect-retry-interval>120</connect-retry-interval>
+                <activate>true</activate>
+              </peer>
+              <synchronization>false</synchronization>
+              <auto-summary>false</auto-summary>
+              <network-synchronization>false</network-synchronization>
+            </vrf-address-family>
+          </vrf>
+        </instance>
+      </bgp>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp>
+          <name>p1v2743</name>
+          <egress-l2-transform>
+            <egress-name>push-0x8100.2743</egress-name>
+            <vlan-stack>
+              <tag>1</tag>
+              <push-tpid>tpid-8100</push-tpid>
+              <push-vid>2743</push-vid>
+            </vlan-stack>
+          </egress-l2-transform>
+          <logical-port>1</logical-port>
+          <mtu-size>2000</mtu-size>
+          <stats-collection>on</stats-collection>
+          <classifier-list>vlan2743</classifier-list>
+          <fd-name>eantc22.1.2743</fd-name>
+        </fp>
+      </fps>
+      <logical-ports xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-logical-port">
+        <logical-port>
+          <name>1</name>
+          <mtu>9216</mtu>
+        </logical-port>
+      </logical-ports>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface>
+          <name>stc_1_1_2743</name>
+          <config>
+            <mtu>9136</mtu>
+            <name>stc_1_1_2743</name>
+            <underlay-binding xmlns="http://ciena.com/ns/yang/ciena-underlay-binding">
+              <config>
+                <fd>eantc22.1.2743</fd>
+              </config>
+            </underlay-binding>
+            <frame-to-cos-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-f2c</frame-to-cos-map>
+            <role xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">data</role>
+            <stats-collection xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">on</stats-collection>
+            <type xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">ip</type>
+            <vrfName xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">eantc22</vrfName>
+            <admin-status xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">true</admin-status>
+            <cos-to-frame-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-c2f</cos-to-frame-map>
+          </config>
+          <ipv4 xmlns="http://ciena.com/ns/yang/ciena-openconfig-if-ip">
+            <addresses>
+              <address>
+                <ip>172.16.1.254</ip>
+                <config>
+                  <prefix-length>24</prefix-length>
+                  <ip>172.16.1.254</ip>
+                </config>
+              </address>
+            </addresses>
+          </ipv4>
+        </interface>
+      </interfaces>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">
+        <classifier>
+          <name>vlan2743</name>
+          <filter-entry>
+            <filter-parameter>vtag-stack</filter-parameter>
+            <vtags>
+              <tag>1</tag>
+              <vlan-id>2743</vlan-id>
+            </vtags>
+            <logical-not>false</logical-not>
+          </filter-entry>
+        </classifier>
+      </classifiers>
+      <vrf xmlns="urn:ciena:params:xml:ns:yang:ciena:ciena-vrf">
+        <vrfName>eantc22</vrfName>
+        <description>L3VPN - eBGP CE2</description>
+        <sr-policy>
+          <fallback>enable</fallback>
+        </sr-policy>
+      </vrf>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd>
+          <name>eantc22.1.2743</name>
+          <mode>vpls</mode>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::16:19:56.418 user: admin/1005 thandle 10817 hostname cisco-nso device ciena47 session-id=21
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::16:19:56.696 user: admin/1005 thandle 10817 hostname cisco-nso device ciena47 session-id=21
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::16:19:56.707 user: admin/1005 thandle 10817 hostname cisco-nso device ciena47 session-id=21
+<rpc-reply message-id="4"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::16:20:27.263 user: admin/1005 thandle 10817 hostname cisco-nso device ciena47 session-id=21
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="5">
+  <close-session/>
+</rpc>
+
+>>>>out 25-Jan-2022::16:20:27.264 user: admin/1005 thandle 10817 hostname cisco-nso device ciena47 session-id=21 NCS close
+
+# Step 5
+
+>>>>out 25-Jan-2022::16:24:37.033 user: admin/974 thandle 10891 hostname cisco-nso device ciena46 session-id=21
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp">
+        <instance>
+          <as>65149</as>
+          <vrf xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+               nc:operation="delete">
+            <name>eantc22</name>
+          </vrf>
+        </instance>
+      </bgp>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>p1v2743</name>
+        </fp>
+      </fps>
+      <logical-ports xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-logical-port">
+        <logical-port>
+          <name>1</name>
+          <mtu>1526</mtu>
+        </logical-port>
+      </logical-ports>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                   nc:operation="delete">
+          <name>stc_1_1_2743</name>
+        </interface>
+      </interfaces>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">
+        <classifier xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                    nc:operation="delete">
+          <name>vlan2743</name>
+        </classifier>
+      </classifiers>
+      <vrf xmlns="urn:ciena:params:xml:ns:yang:ciena:ciena-vrf"
+           xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+           nc:operation="delete">
+        <vrfName>eantc22</vrfName>
+      </vrf>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>eantc22.1.2743</name>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::16:24:37.034 user: admin/974 thandle 10891 hostname cisco-nso device ciena46 session-id=21
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::16:24:37.274 user: admin/974 thandle 10891 hostname cisco-nso device ciena46 session-id=21
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::16:24:37.287 user: admin/974 thandle 10891 hostname cisco-nso device ciena46 session-id=21
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+
+>>>>out 25-Jan-2022::16:24:30.434 user: admin/974 thandle 10877 hostname cisco-nso device ciena47 session-id=24
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp">
+        <instance>
+          <as>65149</as>
+          <vrf xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+               nc:operation="delete">
+            <name>eantc22</name>
+          </vrf>
+        </instance>
+      </bgp>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>p1v2743</name>
+        </fp>
+      </fps>
+      <logical-ports xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-logical-port">
+        <logical-port>
+          <name>1</name>
+          <mtu>1526</mtu>
+        </logical-port>
+      </logical-ports>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                   nc:operation="delete">
+          <name>stc_1_1_2743</name>
+        </interface>
+      </interfaces>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">
+        <classifier xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                    nc:operation="delete">
+          <name>vlan2743</name>
+        </classifier>
+      </classifiers>
+      <vrf xmlns="urn:ciena:params:xml:ns:yang:ciena:ciena-vrf"
+           xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+           nc:operation="delete">
+        <vrfName>eantc22</vrfName>
+      </vrf>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>eantc22.1.2743</name>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::16:24:30.435 user: admin/974 thandle 10877 hostname cisco-nso device ciena47 session-id=24
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::16:24:30.667 user: admin/974 thandle 10877 hostname cisco-nso device ciena47 session-id=24
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::16:24:30.678 user: admin/974 thandle 10877 hostname cisco-nso device ciena47 session-id=24
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+

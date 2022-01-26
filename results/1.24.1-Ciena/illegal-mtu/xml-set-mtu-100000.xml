@@ -1,0 +1,8 @@
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface>
+          <name>to8112-47</name>
+          <config>
+            <mtu>100000</mtu>
+          </config>
+        </interface>
+      </interfaces>

@@ -1,0 +1,268 @@
+1.23.1 Hardware Management with Ciena and NSO, 2022 Jan 25
+
+# Step 1
+
+02:08:19 admin@ncs(config)# 
+02:08:20 admin@ncs(config)# 
+02:08:20 admin@ncs(config)# do show devices device ciena46 live-status xcvrs xcvr 1 properties vendor-data                                                    
+properties vendor-data id vendor-id name CIENA-LGP
+properties vendor-data id vendor-id part-number XCVR-S00Z85
+properties vendor-data id vendor-id revision 001
+properties vendor-data id vendor-id serial-number Q3162000196
+properties vendor-data id vendor-id manufactured-date 03/07/16
+properties vendor-data id vendor-id vendor-oui [ 0 ]
+properties vendor-data properties device-id connector-type "LC - Lucent Connector"
+properties vendor-data properties device-id identifier SFP/SFP+/SFP28
+properties vendor-data properties device-id identifier-raw "SFP transceiver"
+properties vendor-data properties device-id extended-identifier-raw SFP/GBIC
+properties vendor-data properties device-id clei COUIA7JPAA
+properties vendor-data properties device-id connector-type-raw LC
+properties vendor-data properties transmitter nominal-bit-rate "10.3 Gbps"
+properties vendor-data properties transmitter wavelength 850.0
+properties vendor-data properties transmitter wavelength-raw "850.000000 nm"
+properties vendor-data properties transmitter encoding-description Manchester
+properties vendor-data properties transmitter encoding-raw 0x06
+properties vendor-data properties diagnostic-monitoring rx-power-measurement average-power
+properties vendor-data properties diagnostic-monitoring diagnostic-support yes
+properties vendor-data properties diagnostic-monitoring diagnostic-monitoring-implemented true
+properties vendor-data properties transmitter-technology tunable no
+properties vendor-data properties transceiver-code specification-compliance Spec-Compliance-10GBASE-SR
+properties vendor-data properties transceiver-code transceiver-code-raw 0x800c402000000010
+02:08:33 admin@ncs(config)# 
+02:08:55 admin@ncs(config)# 
+02:08:55 admin@ncs(config)# 
+02:08:55 admin@ncs(config)# do show devices device ciena46 live-status xcvrs xcvr 1 properties diagnostics                                                    
+properties diagnostics device temperature actual 26
+properties diagnostics device temperature status high-alarm-status false
+properties diagnostics device temperature status low-alarm-status false
+properties diagnostics device temperature status high-warning-status false
+properties diagnostics device temperature status low-warning-status false
+properties diagnostics device temperature threshold high-alarm-threshold 95
+properties diagnostics device temperature threshold low-alarm-threshold -50
+properties diagnostics device temperature threshold high-warning-threshold 90
+properties diagnostics device temperature threshold low-warning-threshold -45
+properties diagnostics device equipment-status transmitter-state disabled
+properties diagnostics device equipment-status loss-of-synchronization-tick no
+properties diagnostics device supply-voltage actual 3.32
+properties diagnostics device supply-voltage status high-alarm-status false
+properties diagnostics device supply-voltage status low-alarm-status false
+properties diagnostics device supply-voltage status high-warning-status false
+properties diagnostics device supply-voltage status low-warning-status false
+properties diagnostics device supply-voltage threshold high-alarm-threshold 3.6
+properties diagnostics device supply-voltage threshold low-alarm-threshold 3.0
+properties diagnostics device supply-voltage threshold high-warning-threshold 3.5
+properties diagnostics device supply-voltage threshold low-warning-threshold 3.1
+properties diagnostics lane 1
+ rx-power actual -2.5
+ rx-power status high-alarm-status false
+ rx-power status low-alarm-status false
+ rx-power status high-warning-status false
+ rx-power status low-warning-status false
+ rx-power threshold high-alarm-threshold 0.5
+ rx-power threshold low-alarm-threshold -11.4
+ rx-power threshold high-warning-threshold -1.0
+ rx-power threshold low-warning-threshold -9.9
+ tx-power actual -3.0
+ tx-power status high-alarm-status false
+ tx-power status low-alarm-status false
+ tx-power status high-warning-status false
+ tx-power status low-warning-status false
+ tx-power threshold high-alarm-threshold 0.5
+ tx-power threshold low-alarm-threshold -8.8
+ tx-power threshold high-warning-threshold -1.0
+ tx-power threshold low-warning-threshold -7.3
+ transmitter-fault false
+02:09:01 admin@ncs(config)# 
+02:09:09 admin@ncs(config)# 
+02:09:09 admin@ncs(config)# 
+02:09:10 admin@ncs(config)# do show devices device ciena46 live-status telemetry-registered-sensors stream-sensors telemetry-sensor-paths                     
+Possible completions: (first 100):
+  /agg:lacpAggStateEvent                                                                                                                                                             
+  /bgp-peer-events/vrf/peer                                                                                                                                                          
+  /bgp-state/instance/peer/address-family                                                                                                                                            
+  /bgp-state/instance/vrf/vrf-address-family/peer                                                                                                                                    
+  /ciena-cfm:cfm-event/maintenance-domain/maintenance-association/maintenance-association-end-point/event-list                                                                       
+  /ciena-dhcp-l3-relay:l3-relay-agent/ciena-dhcp-l3-relay:instance/ciena-dhcp-l3-relay:dhcp-server-addresses/ciena-dhcp-l3-relay:state                                               
+  /ciena-dhcp-l3-relay:l3-relay-agent/ciena-dhcp-l3-relay:instance/ciena-dhcp-l3-relay:ip-interfaces/ciena-dhcp-l3-relay:state                                                       
+  /ciena-dhcp-l3-relay:l3-relay-agent/ciena-dhcp-l3-relay:instance/ciena-dhcp-l3-relay:state                                                                                         
+  /ciena-ntp:ntp-state                                                                                                                                                               
+  /ciena-ntp:sync-status-change-notification                                                                                                                                         
+  /ciena-ocp:components/component                                                                                                                                                    
+  /ciena-pm-data-binning:pm-data-binning/instances-data/instance                                                                                                                     
+  /ciena-sat:test-completed                                                                                                                                                          
+  /ciena-sat:test-outage-single-outage-kpi-failure                                                                                                                                   
+  /ciena-sys-tmet:system-state/cpu-percent                                                                                                                                           
+  /ciena-sys-tmet:system-state/cpu-time                                                                                                                                              
+  /ciena-sys-tmet:system-state/disk                                                                                                                                                  
+  /ciena-sys-tmet:system-state/logical-core-percent                                                                                                                                  
+  /ciena-sys-tmet:system-state/logical-core-times                                                                                                                                    
+  /ciena-sys-tmet:system-state/memory                                                                                                                                                
+  /ciena-sys:hostname-change                                                                                                                                                         
+  /ciena-sys:rtuc-event                                                                                                                                                              
+  /cn-dot1x:dot1x-authentication-status                                                                                                                                              
+  /cn-if:interface-events/interface-event/name-list/event-list                                                                                                                       
+  /cn-if:interface-events/interface-event[interface-type=ettp]/name-list[name=*]/event-list[event-type=any]                                                                          
+  /cn-if:interface-events/interface-event[interface-type=ip]/name-list[name=*]/event-list[event-type=any]                                                                            
+  /cn-if:interface-telemetry-state/interface-counters/interfaces/counters                                                                                                            
+  /cn-macsec:macsec/state/connection-association/mka-statistics                                                                                                                      
+  /cnevpn:ethernet-segment-fault-status/ethernet-segment                                                                                                                             
+  /cnevpn:evpn-evlag-protection-status/ethernet-segment                                                                                                                              
+  /dhcp:dhcp-client-state/dhcp-multi:client                                                                                                                                          
+  /dhcp:dhcp-client-state/dhcp-multi:client/dhcp-multi:option-value                                                                                                                  
+  /dhcpv6-client:dhcpv6-client-state/dhcpv6-client:client                                                                                                                            
+  /eoam:eoam-link-event                                                                                                                                                              
+  /fps-state/fp                                                                                                                                                                      
+  /g8032:fop-event                                                                                                                                                                   
+  /g8032:fop-events/fop-event/erp-instance-list/events-list                                                                                                                          
+  /g8032:fop-events/fop-event[ring-name=*]/erp-instance-list[instance-name=*]/events-list[event-type=any]                                                                            
+  /g8032:ring-state-change-event                                                                                                                                                     
+  /g8032:ring-state-change-events/ring-state-change-event/erp-instance-list                                                                                                          
+  /ietf-twamp:twamp/ietf-twamp:server/ietf-twamp:ctrl-connection                                                                                                                     
+  /ietf-twamp:twamp/ietf-twamp:session-reflector/ietf-twamp:test-session                                                                                                             
+  /isis-neighbor-events/neighbor                                                                                                                                                     
+  /isis-state/instance/interfaces-state/interface-state/level/event-counters                                                                                                         
+  /lldp:remote-entry-change-details/alarm                                                                                                                                            
+  /macsec/state/connection-association/data-statistics                                                                                                                               
+  /macsec/state/interface/if-statistics                                                                                                                                              
+  /mef-cfm:fault-alarm/alarm                                                                                                                                                         
+  /mef-egress-qos:egress-qos-state/queue-group/queue                                                                                                                                 
+  /mef-logical-port:logical-port-events/logical-port-event/event-list                                                                                                                
+  /mef-soam-pm:threshold-crossing-alarm                                                                                                                                              
+  /mpls-state/tunnel-statistics                                                                                                                                                      
+  /oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters                                                                                                                       
+  /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state                                                                    
+  /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:errored-seconds                                        
+  /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:fec-uncorrectable-words                                
+  /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:severely-errored-seconds                               
+  /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:unavailable-seconds                                    
+  /oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:state                                                                                    
+  /oc-platform:components                                                                                                                                                            
+  /oc-platform:components/component                                                                                                                                                  
+  /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:input-power                                                                
+  /oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:output-power                                                               
+  /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:input-power   
+  /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:output-power  
+  /oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state                                                                                      
+  /oc-sys:system/aaa/authentication/state/ciena-oc-aaa:authentication-provider                                                                                                       
+  /oc-sys:system/aaa/authentication/users/user/state                                                                                                                                 
+  /oc-sys:system/aaa/server-groups/server-group/servers/server/radius/state/counters                                                                                                 
+  /oc-sys:system/aaa/server-groups/server-group/servers/server/state                                                                                                                 
+  /of-flow-tables-state/of-flow-table-entry/statistics                                                                                                                               
+  /of-group-tables-state/of-group-table-entry/statistics                                                                                                                             
+  /ospf-neighbor-events/neighbor                                                                                                                                                     
+  /ospf-state/instance/interfaces-state/interface-state                                                                                                                              
+  /pkix:ca-certificate-change                                                                                                                                                        
+  /pm:pm/modem-performance-instances                                                                                                                                                 
+  /pm:pm/odu-performance-instances                                                                                                                                                   
+  /pm:pm/optical-power-instances                                                                                                                                                     
+  /pm:pm/otu-performance-instances                                                                                                                                                   
+  /pon-ctrl:dhcp-relay-oper-state-change                                                                                                                                             
+  /pon-ctrl:olt-discovered                                                                                                                                                           
+  /pon-ctrl:pon-ctrl-state/pon-ctrl:olts/pon-ctrl:olt/pon-ctrl:nni-networks/pon-ctrl:nni-network/pon-ctrl:flooding-statistics                                                        
+  /pon-ctrl:pon-ctrl-state/pon-ctrl:olts/pon-ctrl:olt/pon-ctrl:statistics/pon-ctrl:nni                                                                                               
+  /pon-ctrl:pon-ctrl-state/pon-ctrl:olts/pon-ctrl:olt/pon-ctrl:statistics/pon-ctrl:pon                                                                                               
+  /pon-ctrl:pon-ctrl-state/pon-ctrl:onus/pon-ctrl:onu/pon-ctrl:datalinks/pon-ctrl:datalink-authentication/pon-ctrl:statistics                                                        
+  /pon-ctrl:pon-ctrl-state/pon-ctrl:onus/pon-ctrl:onu/pon-ctrl:datalinks/pon-ctrl:datalink-relay/pon-ctrl:statistics                                                                 
+  /pon-ctrl:pon-ctrl-state/pon-ctrl:onus/pon-ctrl:onu/pon-ctrl:datalinks/pon-ctrl:datalink/pon-ctrl:statistics                                                                       
+  /pon-ctrl:pon-ctrl-state/pon-ctrl:onus/pon-ctrl:onu/pon-ctrl:uni-ports/pon-ctrl:uni-port/pon-ctrl:statistics                                                                       
+  /pon-ctrl:pon-ctrl-state/pon-ctrl:radius-servers/pon-ctrl:radius-server/pon-ctrl:radius-server-address/pon-ctrl:statistics                                                         
+  /port:otn-port-events/otn-port-event/event-list                                                                                                                                    
+  /ppm:ppm-event/event                                                                                                                                                               
+  /pseudowires-state/pseudowire/statistics                                                                                                                                           
+  /qos-flow-state/qos-flow                                                                                                                                                           
+  /sync:sync-state/sync:input-references/ptp:ptp-input-reference/ptp:statistics                                                                                                      
+  /sync:sync-state/sync:input-references/synce:synce-input-reference/synce:statistics                                                                                                
+  /sync:sync-state/sync:output-references/ptp:ptp-output-reference/ptp:statistics                                                                                                    
+  /sync:sync-state/sync:output-references/synce:synce-output-reference/synce:statistics                                                                                              
+  /synce:synce-input-reference-oper-state-change                                                                                                                                     
+  /xcvr:xcvr-events/xcvr-event/event-list                                                                                                                                            
+  ...                                                                                                                                                                                
+Possible match completions:
+  sensor-id  sensor-supported-stream-submode
+02:09:10 admin@ncs(config)# do show devices device ciena46 live-status telemetry-registered-sensors stream-sensors telemetry-sensor-paths /bgp-
+Possible completions:
+  bgp-peer-events/vrf/peer  bgp-peer-events/vrf[name=*]/peer[address=*]  bgp-state/instance/peer/address-family  bgp-state/instance/vrf/vrf-address-family/peer
+02:09:10 admin@ncs(config)# do show devices device ciena46 live-status telemetry-registered-sensors stream-sensors telemetry-sensor-paths /bgp-state/instance/ 
+Possible completions:
+  peer/address-family  vrf/vrf-address-family/peer
+02:09:10 admin@ncs(config)# do show devices device ciena46 live-status telemetry-registered-sensors stream-sensors telemetry-sensor-paths /bgp-state/instance/peer/address-family 
+                                                              SENSOR     
+                                                              SUPPORTED  
+                                                              STREAM     
+TELEMETRY SENSOR PATH                    SENSOR ID            SUBMODE    
+-------------------------------------------------------------------------
+/bgp-state/instance/peer/address-family  7879848110845210471  sample     
+
+02:10:28 admin@ncs(config)# do show devices device ciena46 live-status xcvrs xcvr 1 properties vendor-data                                                                       
+properties vendor-data id vendor-id name CIENA-LGP
+properties vendor-data id vendor-id part-number XCVR-S00Z85
+properties vendor-data id vendor-id revision 001
+properties vendor-data id vendor-id serial-number Q3162000196
+properties vendor-data id vendor-id manufactured-date 03/07/16
+properties vendor-data id vendor-id vendor-oui [ 0 ]
+properties vendor-data properties device-id connector-type "LC - Lucent Connector"
+properties vendor-data properties device-id identifier SFP/SFP+/SFP28
+properties vendor-data properties device-id identifier-raw "SFP transceiver"
+properties vendor-data properties device-id extended-identifier-raw SFP/GBIC
+properties vendor-data properties device-id clei COUIA7JPAA
+properties vendor-data properties device-id connector-type-raw LC
+properties vendor-data properties transmitter nominal-bit-rate "10.3 Gbps"
+properties vendor-data properties transmitter wavelength 850.0
+properties vendor-data properties transmitter wavelength-raw "850.000000 nm"
+properties vendor-data properties transmitter encoding-description Manchester
+properties vendor-data properties transmitter encoding-raw 0x06
+properties vendor-data properties diagnostic-monitoring rx-power-measurement average-power
+properties vendor-data properties diagnostic-monitoring diagnostic-support yes
+properties vendor-data properties diagnostic-monitoring diagnostic-monitoring-implemented true
+properties vendor-data properties transmitter-technology tunable no
+properties vendor-data properties transceiver-code specification-compliance Spec-Compliance-10GBASE-SR
+properties vendor-data properties transceiver-code transceiver-code-raw 0x800c402000000010
+02:11:39 admin@ncs(config)# do show devices device ciena46 live-status xcvrs xcvr 1 properties diagnostics                                                                       
+properties diagnostics device temperature actual 26
+properties diagnostics device temperature status high-alarm-status false
+properties diagnostics device temperature status low-alarm-status false
+properties diagnostics device temperature status high-warning-status false
+properties diagnostics device temperature status low-warning-status false
+properties diagnostics device temperature threshold high-alarm-threshold 95
+properties diagnostics device temperature threshold low-alarm-threshold -50
+properties diagnostics device temperature threshold high-warning-threshold 90
+properties diagnostics device temperature threshold low-warning-threshold -45
+properties diagnostics device equipment-status transmitter-state disabled
+properties diagnostics device equipment-status loss-of-synchronization-tick no
+properties diagnostics device supply-voltage actual 3.32
+properties diagnostics device supply-voltage status high-alarm-status false
+properties diagnostics device supply-voltage status low-alarm-status false
+properties diagnostics device supply-voltage status high-warning-status false
+properties diagnostics device supply-voltage status low-warning-status false
+properties diagnostics device supply-voltage threshold high-alarm-threshold 3.6
+properties diagnostics device supply-voltage threshold low-alarm-threshold 3.0
+properties diagnostics device supply-voltage threshold high-warning-threshold 3.5
+properties diagnostics device supply-voltage threshold low-warning-threshold 3.1
+properties diagnostics lane 1
+ rx-power actual -2.5
+ rx-power status high-alarm-status false
+ rx-power status low-alarm-status false
+ rx-power status high-warning-status false
+ rx-power status low-warning-status false
+ rx-power threshold high-alarm-threshold 0.5
+ rx-power threshold low-alarm-threshold -11.4
+ rx-power threshold high-warning-threshold -1.0
+ rx-power threshold low-warning-threshold -9.9
+ tx-power actual -3.0
+ tx-power status high-alarm-status false
+ tx-power status low-alarm-status false
+ tx-power status high-warning-status false
+ tx-power status low-warning-status false
+ tx-power threshold high-alarm-threshold 0.5
+ tx-power threshold low-alarm-threshold -8.8
+ tx-power threshold high-warning-threshold -1.0
+ tx-power threshold low-warning-threshold -7.3
+ transmitter-fault false
+02:11:43 admin@ncs(config)# 
+02:13:57 admin@ncs(config)# 
+02:13:57 admin@ncs(config)# 
+02:13:57 admin@ncs(config)# do show devices device ciena46 live-status xcvrs xcvr 1 properties vendor-data
+% No entries found.
+02:14:01 admin@ncs(config)# do show devices device ciena46 live-status xcvrs xcvr 1 properties diagnostics
+% No entries found.
+02:14:03 admin@ncs(config)# 

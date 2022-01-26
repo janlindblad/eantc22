@@ -1,0 +1,248 @@
+1.3.1 MPLS Using OpenConfig with Ciena and NSO, 2022 Jan 25
+
+# Step 1 & 2
+
+09:22:24 admin@ncs(config)# devices device ciena46 sync-from
+result true
+09:22:43 admin@ncs(config)# devices device ciena47 sync-from
+result true
+
+# Step 3
+
+09:22:48 admin@ncs(config)# load merge ciena46-1.3-up.xml 
+Loading.
+416.07 KiB parsed in 0.62 sec (664.65 KiB/sec)
+09:22:58 admin@ncs(config)# load merge ciena47-1.3-up.xml
+Loading.
+415.37 KiB parsed in 0.65 sec (635.38 KiB/sec)
+09:23:02 admin@ncs(config)# show c
+devices device ciena46
+ config
+  isis instance master
+   distance         115
+   dynamic-hostname true
+   net              [ 49.0001.1000.0000.0046.00 ]
+   level-type       level-2
+   lsp-refresh      900
+   lsp-lifetime     1200
+   metric-style     wide
+   microloop-avoidance enable false
+   microloop-avoidance rib-update-delay 5000
+   passive lb0
+   !
+   level-1 lsp-gen-interval 30
+   level-1 spf-min-delay 500
+   level-1 spf-max-delay 50000
+   level-1 lsp-mtu  1492
+   level-2 lsp-gen-interval 30
+   level-2 spf-min-delay 500
+   level-2 spf-max-delay 50000
+   level-2 lsp-mtu  1492
+   proto-ipv6 redistribute distance 115
+   fast-reroute hold-timer 1000
+   interfaces interface lb0
+    interface-type               broadcast
+    level-type                   level-2
+    lsp-interval                 33
+    lsp-retransmit-interval      5
+    hello-padding                true
+    ipv4-unicast-default-disable false
+    level-1 hello-interval 10
+    level-1 hello-multiplier 3
+    level-1 csnp-interval 10
+    level-1 priority     64
+    level-1 metric       10
+    level-1 wide-metric  10
+    level-1 lfa-candidate-enable true
+    level-2 hello-interval 10
+    level-2 hello-multiplier 3
+    level-2 csnp-interval 10
+    level-2 priority     64
+    level-2 metric       10
+    level-2 wide-metric  10
+    level-2 lfa-candidate-enable true
+    bfd enable false
+    bfd-ipv6 enable-ipv6 false
+   !
+   interfaces interface to16047
+    interface-type               point-to-point
+    level-type                   level-2
+    lsp-interval                 33
+    lsp-retransmit-interval      5
+    hello-padding                true
+    ipv4-unicast-default-disable false
+    level-1 hello-interval 10
+    level-1 hello-multiplier 3
+    level-1 csnp-interval 10
+    level-1 priority     64
+    level-1 metric       10
+    level-1 wide-metric  10
+    level-1 lfa-candidate-enable true
+    level-2 hello-interval 10
+    level-2 hello-multiplier 3
+    level-2 csnp-interval 10
+    level-2 priority     64
+    level-2 metric       10
+    level-2 wide-metric  10
+    level-2 lfa-candidate-enable true
+    bfd enable true
+    bfd-ipv6 enable-ipv6 false
+   !
+   mpls-te router-id 100.0.0.46
+   mpls-te level-type level-2
+   cspf-flag        false
+   segment-routing disabled
+   segment-routing bindings advertise false
+   segment-routing bindings receive true
+   segment-routing force-php enable false
+  !
+  ldp instance default
+   lsr-id             100.0.0.46
+   hello-interval     5
+   hello-holdtime     15
+   keepalive-timeout  30
+   keepalive-interval 10
+   control-mode       ordered
+   pw-status-tlv      false
+   inter-area-lsp     false
+   interfaces interface lb0
+    enable-ipv4 true
+   !
+   interfaces interface to16047
+    enable-ipv4 true
+   !
+  !
+ !
+!
+devices device ciena47
+ config
+  isis instance master
+   distance         115
+   dynamic-hostname true
+   net              [ 49.0001.1000.0000.0047.00 ]
+   level-type       level-2
+   lsp-refresh      900
+   lsp-lifetime     1200
+   metric-style     wide
+   microloop-avoidance enable false
+   microloop-avoidance rib-update-delay 5000
+   passive lb0
+   !
+   level-1 lsp-gen-interval 30
+   level-1 spf-min-delay 500
+   level-1 spf-max-delay 50000
+   level-1 lsp-mtu  1492
+   level-2 lsp-gen-interval 30
+   level-2 spf-min-delay 500
+   level-2 spf-max-delay 50000
+   level-2 lsp-mtu  1492
+   proto-ipv6 redistribute distance 115
+   fast-reroute hold-timer 1000
+   interfaces interface lb0
+    interface-type               broadcast
+    level-type                   level-2
+    lsp-interval                 33
+    lsp-retransmit-interval      5
+    hello-padding                true
+    ipv4-unicast-default-disable false
+    level-1 hello-interval 10
+    level-1 hello-multiplier 3
+    level-1 csnp-interval 10
+    level-1 priority     64
+    level-1 metric       10
+    level-1 wide-metric  10
+    level-1 lfa-candidate-enable true
+    level-2 hello-interval 10
+    level-2 hello-multiplier 3
+    level-2 csnp-interval 10
+    level-2 priority     64
+    level-2 metric       10
+    level-2 wide-metric  10
+    level-2 lfa-candidate-enable true
+    bfd enable false
+    bfd-ipv6 enable-ipv6 false
+   !
+   interfaces interface to16046
+    interface-type               point-to-point
+    level-type                   level-2
+    lsp-interval                 33
+    lsp-retransmit-interval      5
+    hello-padding                true
+    ipv4-unicast-default-disable false
+    level-1 hello-interval 10
+    level-1 hello-multiplier 3
+    level-1 csnp-interval 10
+    level-1 priority     64
+    level-1 metric       10
+    level-1 wide-metric  10
+    level-1 lfa-candidate-enable true
+    level-2 hello-interval 10
+    level-2 hello-multiplier 3
+    level-2 csnp-interval 10
+    level-2 priority     64
+    level-2 metric       10
+    level-2 wide-metric  10
+    level-2 lfa-candidate-enable true
+    bfd enable false
+    bfd-ipv6 enable-ipv6 false
+   !
+   mpls-te router-id 100.0.0.47
+   mpls-te level-type level-2
+   cspf-flag        false
+   segment-routing disabled
+   segment-routing bindings advertise false
+   segment-routing bindings receive true
+   segment-routing force-php enable false
+  !
+  ldp instance default
+   lsr-id             100.0.0.47
+   hello-interval     5
+   hello-holdtime     15
+   keepalive-timeout  30
+   keepalive-interval 10
+   control-mode       ordered
+   pw-status-tlv      false
+   inter-area-lsp     false
+   interfaces interface lb0
+    enable-ipv4 true
+   !
+   interfaces interface to16046
+    enable-ipv4 true
+   !
+  !
+ !
+!
+09:23:23 admin@ncs(config)# commit
+Commit complete.
+09:23:27 admin@ncs(config)# devices device ciena47 com      
+Possible completions:
+  commit-queue     Control settings for the commit queue
+  compare-config   Compare the actual device config with the NCS copy
+09:23:27 admin@ncs(config)# devices device ciena47 compare-config 
+09:23:43 admin@ncs(config)# devices device ciena46 compare-config
+
+# Step 6
+
+09:23:48 admin@ncs(config)# devices device ciena46 compare-config
+09:27:22 admin@ncs(config)# devices device ciena47 compare-config
+diff 
+ devices {
+     device ciena47 {
+         config {
+             ldp {
+                 instance default {
+                     interfaces {
+-                        interface to16046 {
+-                            enable-ipv4 true;
+-                        }
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+09:27:26 admin@ncs(config)# devices device ciena47 sync-to       
+result true
+09:27:37 admin@ncs(config)# devices device ciena47 compare-config
+09:27:41 admin@ncs(config)# 
