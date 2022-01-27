@@ -237,6 +237,9 @@ devices device ciena47
 Commit complete.
 10:37:43 admin@ncs(config)# devices device ciena46 compare-config 
 10:37:58 admin@ncs(config)# devices device ciena47 compare-config
+
+# Additional step to detect out-of-band change
+
 10:38:03 admin@ncs(config)# devices device ciena46 compare-config
 10:41:56 admin@ncs(config)# devices device ciena47 compare-config
 diff 
@@ -253,8 +256,13 @@ diff
      }
  }
 
+# Additional step to revert out-of-band change
+
 10:42:00 admin@ncs(config)# devices device ciena47 sync-to       
 result true
+
+# Additional step to verify no out-of-band change
+
 10:42:12 admin@ncs(config)# devices device ciena47 compare-config
 10:42:17 admin@ncs(config)# 
 10:44:11 admin@ncs(config)# 

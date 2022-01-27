@@ -15,7 +15,7 @@ devices device ciena46
   system config description 8112
 ...
 
-# Step 3
+# Step 4
 
 05:29:54 admin@ncs(config)# do show devices device ciena46 live-status   
 Possible completions: (first 100):
@@ -74,7 +74,7 @@ state serial-no M97D2764
 state part-no 170-8112-901
 state mfg-date 2021-09-30
 
-# Step 4
+# Step 8
 
 05:35:08 admin@ncs(config)# devices device ciena46 compare-config                                                 
 diff 

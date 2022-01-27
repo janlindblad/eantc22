@@ -1,0 +1,3192 @@
+1.22.1 Proactive OAM with Ciena and NSO, 2022 Jan 26
+
+# Step 1 & 2
+
+>>>>out 26-Jan-2022::16:30:59.807 user: admin/1169 thandle 12672 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 26-Jan-2022::16:30:59.819 user: admin/1169 thandle 12672 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:30:59.823 user: admin/1169 thandle 12672 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <cfm-global-config xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-cfm">
+        <admin-state>enable</admin-state>
+      </cfm-global-config>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <mhf-creation>none</mhf-creation>
+        <id-permission>chassis</id-permission>
+        <md-level>3</md-level>
+        <name-type>character-string</name-type>
+        <maintenance-association>
+          <id>100Ge</id>
+          <component-list>
+            <component-id>1</component-id>
+            <mhf-creation>none</mhf-creation>
+            <id-permission>chassis</id-permission>
+            <fd-name xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-cfm">21.46.47.0/24</fd-name>
+          </component-list>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <interface>p39v1001</interface>
+            <ccm-ltm-priority>5</ccm-ltm-priority>
+            <administrative-state>true</administrative-state>
+            <direction>down</direction>
+            <continuity-check>
+              <fng-reset-time>1000</fng-reset-time>
+              <cci-enabled>true</cci-enabled>
+              <lowest-fault-priority-defect>remote-mac-error</lowest-fault-priority-defect>
+              <fng-alarm-time>250</fng-alarm-time>
+            </continuity-check>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement-config xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm">
+                <session-id>1</session-id>
+                <stop-time-type>none</stop-time-type>
+                <session-type>proactive</session-type>
+                <bins-per-fd-interval>3</bins-per-fd-interval>
+                <message-period>100</message-period>
+                <frame-size>64</frame-size>
+                <bins-per-fdr-interval>2</bins-per-fdr-interval>
+                <align-measurement-offset>0</align-measurement-offset>
+                <bins-per-ifdv-interval>2</bins-per-ifdv-interval>
+                <repetition-period>0</repetition-period>
+                <start-time-type>immediate</start-time-type>
+                <operation-type>create</operation-type>
+                <measurement-interval>15</measurement-interval>
+                <priority>5</priority>
+                <align-measurement-intervals>false</align-measurement-intervals>
+                <version>Y.1731-2008</version>
+                <number-intervals-stored>32</number-intervals-stored>
+                <remote-mep-id>47</remote-mep-id>
+              </delay-measurement-config>
+            </delay-measurements>
+          </maintenance-association-end-point>
+          <ccm-interval>10s</ccm-interval>
+          <name-type>character-string</name-type>
+          <name>100Ge</name>
+          <ccm-loss-num xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-cfm">3</ccm-loss-num>
+        </maintenance-association>
+        <name>md3</name>
+      </maintenance-domain>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 26-Jan-2022::16:30:59.825 user: admin/1169 thandle 12672 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 26-Jan-2022::16:30:59.906 user: admin/1169 thandle 12672 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 26-Jan-2022::16:30:59.916 user: admin/1169 thandle 12672 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+
+# Step 3
+
+>>>>out 26-Jan-2022::16:31:08.379 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <id/>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.389 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="4"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.395 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="5">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <id/>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.402 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="5"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.411 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="6">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <mep-identifier/>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.418 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="6"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.429 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="7">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>current-stats</id>
+                <id/>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.441 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="7"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm"/>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.465 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="8">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id/>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.487 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="8"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.489 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="9">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <start-time/>
+                  <elapsed-time/>
+                  <suspect-status/>
+                  <frame-delay-two-way-min/>
+                  <frame-delay-two-way-max/>
+                  <frame-delay-two-way-average/>
+                  <inter-frame-delay-variation-forward-min/>
+                  <inter-frame-delay-variation-forward-max/>
+                  <inter-frame-delay-variation-forward-average/>
+                  <inter-frame-delay-variation-backward-min/>
+                  <inter-frame-delay-variation-backward-max/>
+                  <inter-frame-delay-variation-backward-average/>
+                  <inter-frame-delay-variation-two-way-min/>
+                  <inter-frame-delay-variation-two-way-max/>
+                  <inter-frame-delay-variation-two-way-average/>
+                  <frame-delay-range-two-way-max/>
+                  <frame-delay-range-two-way-average/>
+                  <soam-pdus-sent/>
+                  <soam-pdus-received/>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.511 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="9"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.520 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="10">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type/>
+                      <number/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.541 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="10"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins/>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.542 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="11">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type/>
+                      <number/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.562 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="11"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins/>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.563 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="12">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay-range>
+                      <type/>
+                      <number/>
+                    </frame-delay-range>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.584 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="12"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins/>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.587 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="13">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id/>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.608 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="13"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.611 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="14">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <mac-address/>
+                <session-status/>
+                <version/>
+                <measurement-enable/>
+                <message-period/>
+                <priority/>
+                <frame-size/>
+                <measurement-interval/>
+                <number-intervals-stored/>
+                <align-measurement-intervals/>
+                <align-measurement-offset/>
+                <bins-per-fd-interval/>
+                <bins-per-ifdv-interval/>
+                <bins-per-fdr-interval/>
+                <session-type/>
+                <mep-id/>
+                <repetition-period/>
+                <source-mac-address/>
+                <frame-delay-two-way/>
+                <inter-frame-delay-variation-two-way/>
+                <inter-frame-delay-variation-forward/>
+                <inter-frame-delay-variation-backward/>
+                <max-frame-delay-two-way-threshold xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+                <average-frame-delay-two-way-threshold xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+                <max-inter-frame-delay-variation-two-way-threshold xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+                <average-inter-frame-delay-variation-two-way-threshold xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+                <test-id xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.673 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="14"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <session-status>active</session-status>
+              <version>Y.1731-2008</version>
+              <message-period>100</message-period>
+              <priority>5</priority>
+              <frame-size>64</frame-size>
+              <measurement-interval>15</measurement-interval>
+              <number-intervals-stored>32</number-intervals-stored>
+              <align-measurement-intervals>false</align-measurement-intervals>
+              <align-measurement-offset>0</align-measurement-offset>
+              <bins-per-fd-interval>3</bins-per-fd-interval>
+              <bins-per-ifdv-interval>2</bins-per-ifdv-interval>
+              <bins-per-fdr-interval>2</bins-per-fdr-interval>
+              <session-type>proactive</session-type>
+              <mep-id>47</mep-id>
+              <repetition-period>90000</repetition-period>
+              <test-id xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm">1</test-id>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.698 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="15">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type/>
+                      <number/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.718 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="15"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins/>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.724 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="16">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type/>
+                      <number/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.745 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="16"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins/>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:08.749 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="17">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay-range>
+                      <type/>
+                      <number/>
+                    </frame-delay-range>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:08.770 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="17"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins/>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.015 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="18">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <id/>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.024 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="18"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.027 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="19">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <id/>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.033 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="19"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.040 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="20">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <mep-identifier/>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.046 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="20"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.057 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="21">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>current-stats</id>
+                <id/>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.069 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="21"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm"/>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.092 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="22">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id/>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.111 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="22"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.112 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="23">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <start-time/>
+                  <elapsed-time/>
+                  <suspect-status/>
+                  <frame-delay-two-way-min/>
+                  <frame-delay-two-way-max/>
+                  <frame-delay-two-way-average/>
+                  <inter-frame-delay-variation-forward-min/>
+                  <inter-frame-delay-variation-forward-max/>
+                  <inter-frame-delay-variation-forward-average/>
+                  <inter-frame-delay-variation-backward-min/>
+                  <inter-frame-delay-variation-backward-max/>
+                  <inter-frame-delay-variation-backward-average/>
+                  <inter-frame-delay-variation-two-way-min/>
+                  <inter-frame-delay-variation-two-way-max/>
+                  <inter-frame-delay-variation-two-way-average/>
+                  <frame-delay-range-two-way-max/>
+                  <frame-delay-range-two-way-average/>
+                  <soam-pdus-sent/>
+                  <soam-pdus-received/>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.173 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="23"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <start-time>2022-01-26T16:31:09.00Z</start-time>
+                <elapsed-time>1225</elapsed-time>
+                <suspect-status>false</suspect-status>
+                <frame-delay-two-way-min>3</frame-delay-two-way-min>
+                <frame-delay-two-way-max>3</frame-delay-two-way-max>
+                <frame-delay-two-way-average>3</frame-delay-two-way-average>
+                <inter-frame-delay-variation-forward-min>0</inter-frame-delay-variation-forward-min>
+                <inter-frame-delay-variation-forward-max>1</inter-frame-delay-variation-forward-max>
+                <inter-frame-delay-variation-forward-average>0</inter-frame-delay-variation-forward-average>
+                <inter-frame-delay-variation-backward-min>0</inter-frame-delay-variation-backward-min>
+                <inter-frame-delay-variation-backward-max>1</inter-frame-delay-variation-backward-max>
+                <inter-frame-delay-variation-backward-average>0</inter-frame-delay-variation-backward-average>
+                <inter-frame-delay-variation-two-way-min>0</inter-frame-delay-variation-two-way-min>
+                <inter-frame-delay-variation-two-way-max>0</inter-frame-delay-variation-two-way-max>
+                <inter-frame-delay-variation-two-way-average>0</inter-frame-delay-variation-two-way-average>
+                <frame-delay-range-two-way-max>0</frame-delay-range-two-way-max>
+                <frame-delay-range-two-way-average>0</frame-delay-range-two-way-average>
+                <soam-pdus-sent>123</soam-pdus-sent>
+                <soam-pdus-received>123</soam-pdus-received>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.181 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="24">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type/>
+                      <number/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.216 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="24"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>1</number>
+                  </frame-delay>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>2</number>
+                  </frame-delay>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>3</number>
+                  </frame-delay>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.218 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="25">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type>two-way-frame-delay</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.239 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="25"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>124</counter>
+                  </frame-delay>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.241 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="26">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type>two-way-frame-delay</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.261 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="26"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </frame-delay>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.264 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="27">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type>two-way-frame-delay</type>
+                      <number>3</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.285 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="27"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>3</number>
+                    <lower-bound>10000</lower-bound>
+                    <counter>0</counter>
+                  </frame-delay>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.287 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="28">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type/>
+                      <number/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.359 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="28"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>two-way-inter-frame-delay-variation</type>
+                    <number>1</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>two-way-inter-frame-delay-variation</type>
+                    <number>2</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>forward-inter-frame-delay-variation</type>
+                    <number>1</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>forward-inter-frame-delay-variation</type>
+                    <number>2</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>backward-inter-frame-delay-variation</type>
+                    <number>1</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>backward-inter-frame-delay-variation</type>
+                    <number>2</number>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.361 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="29">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>two-way-inter-frame-delay-variation</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.384 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="29"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>two-way-inter-frame-delay-variation</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>125</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.386 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="30">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>two-way-inter-frame-delay-variation</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.406 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="30"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>two-way-inter-frame-delay-variation</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.409 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="31">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>forward-inter-frame-delay-variation</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.428 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="31"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>forward-inter-frame-delay-variation</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>125</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.430 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="32">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>forward-inter-frame-delay-variation</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.449 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="32"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>forward-inter-frame-delay-variation</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.451 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="33">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>backward-inter-frame-delay-variation</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.472 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="33"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>backward-inter-frame-delay-variation</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>125</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.475 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="34">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>backward-inter-frame-delay-variation</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.495 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="34"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>backward-inter-frame-delay-variation</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.497 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="35">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay-range>
+                      <type/>
+                      <number/>
+                    </frame-delay-range>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.527 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="35"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay-range>
+                    <type>two-way-frame-delay-range</type>
+                    <number>1</number>
+                  </frame-delay-range>
+                  <frame-delay-range>
+                    <type>two-way-frame-delay-range</type>
+                    <number>2</number>
+                  </frame-delay-range>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.529 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="36">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay-range>
+                      <type>two-way-frame-delay-range</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay-range>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.550 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="36"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay-range>
+                    <type>two-way-frame-delay-range</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>127</counter>
+                  </frame-delay-range>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.554 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="37">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay-range>
+                      <type>two-way-frame-delay-range</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay-range>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.575 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="37"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay-range>
+                    <type>two-way-frame-delay-range</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </frame-delay-range>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.579 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="38">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id/>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.602 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="38"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.604 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="39">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <mac-address/>
+                <session-status/>
+                <version/>
+                <measurement-enable/>
+                <message-period/>
+                <priority/>
+                <frame-size/>
+                <measurement-interval/>
+                <number-intervals-stored/>
+                <align-measurement-intervals/>
+                <align-measurement-offset/>
+                <bins-per-fd-interval/>
+                <bins-per-ifdv-interval/>
+                <bins-per-fdr-interval/>
+                <session-type/>
+                <mep-id/>
+                <repetition-period/>
+                <source-mac-address/>
+                <frame-delay-two-way/>
+                <inter-frame-delay-variation-two-way/>
+                <inter-frame-delay-variation-forward/>
+                <inter-frame-delay-variation-backward/>
+                <max-frame-delay-two-way-threshold xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+                <average-frame-delay-two-way-threshold xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+                <max-inter-frame-delay-variation-two-way-threshold xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+                <average-inter-frame-delay-variation-two-way-threshold xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+                <test-id xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm"/>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.668 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="39"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <session-status>active</session-status>
+              <version>Y.1731-2008</version>
+              <message-period>100</message-period>
+              <priority>5</priority>
+              <frame-size>64</frame-size>
+              <measurement-interval>15</measurement-interval>
+              <number-intervals-stored>32</number-intervals-stored>
+              <align-measurement-intervals>false</align-measurement-intervals>
+              <align-measurement-offset>0</align-measurement-offset>
+              <bins-per-fd-interval>3</bins-per-fd-interval>
+              <bins-per-ifdv-interval>2</bins-per-ifdv-interval>
+              <bins-per-fdr-interval>2</bins-per-fdr-interval>
+              <session-type>proactive</session-type>
+              <mep-id>47</mep-id>
+              <repetition-period>90000</repetition-period>
+              <frame-delay-two-way>3</frame-delay-two-way>
+              <inter-frame-delay-variation-two-way>0</inter-frame-delay-variation-two-way>
+              <inter-frame-delay-variation-forward>0</inter-frame-delay-variation-forward>
+              <inter-frame-delay-variation-backward>0</inter-frame-delay-variation-backward>
+              <test-id xmlns="http://www.ciena.com/ns/yang/ciena-soam-pm">1</test-id>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.698 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="40">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type/>
+                      <number/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.732 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="40"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>1</number>
+                  </frame-delay>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>2</number>
+                  </frame-delay>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>3</number>
+                  </frame-delay>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.733 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="41">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type>two-way-frame-delay</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.754 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="41"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>129</counter>
+                  </frame-delay>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.756 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="42">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type>two-way-frame-delay</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.777 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="42"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </frame-delay>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.780 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="43">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay>
+                      <type>two-way-frame-delay</type>
+                      <number>3</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.801 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="43"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay>
+                    <type>two-way-frame-delay</type>
+                    <number>3</number>
+                    <lower-bound>10000</lower-bound>
+                    <counter>0</counter>
+                  </frame-delay>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.805 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="44">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type/>
+                      <number/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.878 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="44"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>two-way-inter-frame-delay-variation</type>
+                    <number>1</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>two-way-inter-frame-delay-variation</type>
+                    <number>2</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>forward-inter-frame-delay-variation</type>
+                    <number>1</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>forward-inter-frame-delay-variation</type>
+                    <number>2</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>backward-inter-frame-delay-variation</type>
+                    <number>1</number>
+                  </inter-frame-delay-variation>
+                  <inter-frame-delay-variation>
+                    <type>backward-inter-frame-delay-variation</type>
+                    <number>2</number>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.880 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="45">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>two-way-inter-frame-delay-variation</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.900 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="45"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>two-way-inter-frame-delay-variation</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>130</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.901 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="46">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>two-way-inter-frame-delay-variation</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.923 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="46"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>two-way-inter-frame-delay-variation</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.926 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="47">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>forward-inter-frame-delay-variation</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:22.946 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="47"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>forward-inter-frame-delay-variation</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>130</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:22.949 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="48">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>forward-inter-frame-delay-variation</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:23.018 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="48"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>forward-inter-frame-delay-variation</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:23.022 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="49">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>backward-inter-frame-delay-variation</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:23.041 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="49"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>backward-inter-frame-delay-variation</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>131</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:23.042 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="50">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <inter-frame-delay-variation>
+                      <type>backward-inter-frame-delay-variation</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </inter-frame-delay-variation>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:23.060 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="50"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <inter-frame-delay-variation>
+                    <type>backward-inter-frame-delay-variation</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </inter-frame-delay-variation>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:23.068 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="51">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay-range>
+                      <type/>
+                      <number/>
+                    </frame-delay-range>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:23.094 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="51"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay-range>
+                    <type>two-way-frame-delay-range</type>
+                    <number>1</number>
+                  </frame-delay-range>
+                  <frame-delay-range>
+                    <type>two-way-frame-delay-range</type>
+                    <number>2</number>
+                  </frame-delay-range>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:23.096 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="52">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay-range>
+                      <type>two-way-frame-delay-range</type>
+                      <number>1</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay-range>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:23.114 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="52"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay-range>
+                    <type>two-way-frame-delay-range</type>
+                    <number>1</number>
+                    <lower-bound>0</lower-bound>
+                    <counter>133</counter>
+                  </frame-delay-range>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:23.117 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="53">
+  <get>
+    <filter>
+      <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+        <id>linkMon</id>
+        <maintenance-association>
+          <id>100Ge</id>
+          <maintenance-association-end-point>
+            <mep-identifier>46</mep-identifier>
+            <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+              <delay-measurement>
+                <id>1</id>
+                <current-stats>
+                  <bins>
+                    <frame-delay-range>
+                      <type>two-way-frame-delay-range</type>
+                      <number>2</number>
+                      <lower-bound/>
+                      <counter/>
+                    </frame-delay-range>
+                  </bins>
+                </current-stats>
+              </delay-measurement>
+            </delay-measurements>
+          </maintenance-association-end-point>
+        </maintenance-association>
+      </maintenance-domain>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 26-Jan-2022::16:31:23.135 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45
+<rpc-reply message-id="53"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-26T16:30:59Z"
+           ncx:etag="222"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <maintenance-domain xmlns="http://metroethernetforum.org/ns/yang/mef-cfm">
+      <id>linkMon</id>
+      <maintenance-association>
+        <id>100Ge</id>
+        <maintenance-association-end-point>
+          <mep-identifier>46</mep-identifier>
+          <delay-measurements xmlns="http://metroethernetforum.org/ns/yang/mef-soam-pm">
+            <delay-measurement>
+              <id>1</id>
+              <current-stats>
+                <bins>
+                  <frame-delay-range>
+                    <type>two-way-frame-delay-range</type>
+                    <number>2</number>
+                    <lower-bound>5000</lower-bound>
+                    <counter>0</counter>
+                  </frame-delay-range>
+                </bins>
+              </current-stats>
+            </delay-measurement>
+          </delay-measurements>
+        </maintenance-association-end-point>
+      </maintenance-association>
+    </maintenance-domain>
+  </data>
+</rpc-reply>
+
+>>>>out 26-Jan-2022::16:31:53.138 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45 NCS close
+>>>>out 26-Jan-2022::16:31:53.139 user: admin/1169 thandle 12095 hostname cisco-nso device ciena46 session-id=45 NCS close

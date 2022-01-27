@@ -1,0 +1,210 @@
+admin@ncs(config)# do show devices device ciena46 live-status maintenance-domain linkMon maintenance-association 100Ge maintenance-association-end-point 46 delay-measurements delay-measurement current-stats 
+Possible completions:
+  bins                                      elapsed-time                                  frame-delay-range-two-way-average         
+  frame-delay-range-two-way-max             frame-delay-two-way-average                   frame-delay-two-way-max                   
+  frame-delay-two-way-min                   inter-frame-delay-variation-backward-average  inter-frame-delay-variation-backward-max  
+  inter-frame-delay-variation-backward-min  inter-frame-delay-variation-forward-average   inter-frame-delay-variation-forward-max   
+  inter-frame-delay-variation-forward-min   inter-frame-delay-variation-two-way-average   inter-frame-delay-variation-two-way-max   
+  inter-frame-delay-variation-two-way-min   soam-pdus-received                            soam-pdus-sent                            
+  start-time                                suspect-status                                <cr>                                      
+admin@ncs(config)# do show devices device ciena46 live-status maintenance-domain linkMon maintenance-association 100Ge maintenance-association-end-point 46 delay-measurements delay-measurement current-stats 
+delay-measurements delay-measurement 1
+ current-stats start-time                     2022-01-26T16:25:04+00:00
+ current-stats elapsed-time                   15666
+ current-stats suspect-status                 false
+ current-stats frame-delay-two-way-min        3
+ current-stats frame-delay-two-way-max        3
+ current-stats frame-delay-two-way-average    3
+ current-stats inter-frame-delay-variation-forward-min 0
+ current-stats inter-frame-delay-variation-forward-max 1
+ current-stats inter-frame-delay-variation-forward-average 0
+ current-stats inter-frame-delay-variation-backward-min 0
+ current-stats inter-frame-delay-variation-backward-max 1
+ current-stats inter-frame-delay-variation-backward-average 0
+ current-stats inter-frame-delay-variation-two-way-min 0
+ current-stats inter-frame-delay-variation-two-way-max 0
+ current-stats inter-frame-delay-variation-two-way-average 0
+ current-stats frame-delay-range-two-way-max  0
+ current-stats frame-delay-range-two-way-average 0
+ current-stats soam-pdus-sent                 1567
+ current-stats soam-pdus-received             1567
+                             LOWER           
+TYPE                 NUMBER  BOUND  COUNTER  
+---------------------------------------------
+two-way-frame-delay  1       0      1573     
+two-way-frame-delay  2       5000   0        
+two-way-frame-delay  3       10000  0        
+
+                                              LOWER           
+TYPE                                  NUMBER  BOUND  COUNTER  
+--------------------------------------------------------------
+two-way-inter-frame-delay-variation   1       0      1573     
+two-way-inter-frame-delay-variation   2       5000   0        
+forward-inter-frame-delay-variation   1       0      1574     
+forward-inter-frame-delay-variation   2       5000   0        
+backward-inter-frame-delay-variation  1       0      1574     
+backward-inter-frame-delay-variation  2       5000   0        
+
+                                   LOWER           
+TYPE                       NUMBER  BOUND  COUNTER  
+---------------------------------------------------
+two-way-frame-delay-range  1       0      1576     
+two-way-frame-delay-range  2       5000   0        
+
+admin@ncs(config)# rollback configuration 
+admin@ncs(config)# show c
+devices device ciena46
+ config
+  no maintenance-domain linkMon
+  cfm-global-config admin-state disable
+ !
+!
+devices device ciena47
+ config
+  no maintenance-domain linkMon
+  cfm-global-config admin-state disable
+ !
+!
+admin@ncs(config)# commit
+Commit complete.
+admin@ncs(config)# do show devices device ciena46 live-status maintenance-domain linkMon maintenance-association 100Ge maintenance-association-end-point 46 delay-measurements delay-measurement current-stats
+---------------------------------------------------------------------------------^
+syntax error: unknown argument
+admin@ncs(config)# 
+admin@ncs(config)# 
+admin@ncs(config)# rollback configuration 
+admin@ncs(config)# show c
+devices device ciena46
+ config
+  maintenance-domain linkMon
+   name-type     character-string
+   name          md3
+   md-level      3
+   mhf-creation  none
+   id-permission chassis
+   maintenance-association 100Ge
+    name-type    character-string
+    name         100Ge
+    component-list 1
+     mhf-creation  none
+     id-permission chassis
+     fd-name       21.46.47.0/24
+    !
+    ccm-interval 10s
+    maintenance-association-end-point 46
+     interface            p39v1001
+     direction            down
+     administrative-state true
+     ccm-ltm-priority     5
+     continuity-check cci-enabled true
+     continuity-check lowest-fault-priority-defect remote-mac-error
+     continuity-check fng-alarm-time 250
+     continuity-check fng-reset-time 1000
+     delay-measurements delay-measurement-config 1
+      operation-type              create
+      remote-mep-id               47
+      version                     Y.1731-2008
+      message-period              100
+      priority                    5
+      frame-size                  64
+      measurement-interval        15
+      number-intervals-stored     32
+      align-measurement-intervals false
+      align-measurement-offset    0
+      bins-per-fd-interval        3
+      bins-per-ifdv-interval      2
+      bins-per-fdr-interval       2
+      session-type                proactive
+      repetition-period           0
+      start-time-type             immediate
+      stop-time-type              none
+     !
+    !
+    ccm-loss-num 3
+   !
+  !
+  cfm-global-config admin-state enable
+ !
+!
+devices device ciena47
+ config
+  maintenance-domain linkMon
+   name-type     character-string
+   name          md3
+   md-level      3
+   mhf-creation  none
+   id-permission chassis
+   maintenance-association 100Ge
+    name-type    character-string
+    name         100Ge
+    component-list 1
+     mhf-creation  none
+     id-permission chassis
+     fd-name       21.46.47.0/24
+    !
+    ccm-interval 10s
+    maintenance-association-end-point 47
+     interface            p39v1001
+     direction            down
+     administrative-state true
+     ccm-ltm-priority     5
+     continuity-check cci-enabled true
+     continuity-check lowest-fault-priority-defect remote-mac-error
+     continuity-check fng-alarm-time 250
+     continuity-check fng-reset-time 1000
+    !
+    ccm-loss-num 3
+   !
+  !
+  cfm-global-config admin-state enable
+ !
+!
+admin@ncs(config)# commit
+Commit complete.
+admin@ncs(config)# do show devices device ciena46 live-status maintenance-domain linkMon maintenance-association 100Ge maintenance-association-end-point 46 delay-measurements delay-measurement current-stats
+% No entries found.
+admin@ncs(config)# do show devices device ciena46 live-status maintenance-domain linkMon maintenance-association 100Ge maintenance-association-end-point 46 delay-measurements delay-measurement current-stats
+delay-measurements delay-measurement 1
+ current-stats start-time                     2022-01-26T16:31:09+00:00
+ current-stats elapsed-time                   1225
+ current-stats suspect-status                 false
+ current-stats frame-delay-two-way-min        3
+ current-stats frame-delay-two-way-max        3
+ current-stats frame-delay-two-way-average    3
+ current-stats inter-frame-delay-variation-forward-min 0
+ current-stats inter-frame-delay-variation-forward-max 1
+ current-stats inter-frame-delay-variation-forward-average 0
+ current-stats inter-frame-delay-variation-backward-min 0
+ current-stats inter-frame-delay-variation-backward-max 1
+ current-stats inter-frame-delay-variation-backward-average 0
+ current-stats inter-frame-delay-variation-two-way-min 0
+ current-stats inter-frame-delay-variation-two-way-max 0
+ current-stats inter-frame-delay-variation-two-way-average 0
+ current-stats frame-delay-range-two-way-max  0
+ current-stats frame-delay-range-two-way-average 0
+ current-stats soam-pdus-sent                 123
+ current-stats soam-pdus-received             123
+                             LOWER           
+TYPE                 NUMBER  BOUND  COUNTER  
+---------------------------------------------
+two-way-frame-delay  1       0      129      
+two-way-frame-delay  2       5000   0        
+two-way-frame-delay  3       10000  0        
+
+                                              LOWER           
+TYPE                                  NUMBER  BOUND  COUNTER  
+--------------------------------------------------------------
+two-way-inter-frame-delay-variation   1       0      130      
+two-way-inter-frame-delay-variation   2       5000   0        
+forward-inter-frame-delay-variation   1       0      130      
+forward-inter-frame-delay-variation   2       5000   0        
+backward-inter-frame-delay-variation  1       0      131      
+backward-inter-frame-delay-variation  2       5000   0        
+
+                                   LOWER           
+TYPE                       NUMBER  BOUND  COUNTER  
+---------------------------------------------------
+two-way-frame-delay-range  1       0      133      
+two-way-frame-delay-range  2       5000   0        
+
+admin@ncs(config)#          

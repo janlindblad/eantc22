@@ -1,6 +1,6 @@
 1.23.1 Hardware Management with Ciena and NSO, 2022 Jan 25
 
-# Step 1
+# Step 1 & 2
 
 02:08:19 admin@ncs(config)# 
 02:08:20 admin@ncs(config)# 
@@ -75,6 +75,9 @@ properties diagnostics lane 1
 02:09:01 admin@ncs(config)# 
 02:09:09 admin@ncs(config)# 
 02:09:09 admin@ncs(config)# 
+
+# Step 3
+
 02:09:10 admin@ncs(config)# do show devices device ciena46 live-status telemetry-registered-sensors stream-sensors telemetry-sensor-paths                     
 Possible completions: (first 100):
   /agg:lacpAggStateEvent                                                                                                                                                             
@@ -192,6 +195,8 @@ Possible completions:
 TELEMETRY SENSOR PATH                    SENSOR ID            SUBMODE    
 -------------------------------------------------------------------------
 /bgp-state/instance/peer/address-family  7879848110845210471  sample     
+
+# Step 4
 
 02:10:28 admin@ncs(config)# do show devices device ciena46 live-status xcvrs xcvr 1 properties vendor-data                                                                       
 properties vendor-data id vendor-id name CIENA-LGP

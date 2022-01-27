@@ -1,5 +1,369 @@
 1.2.1 System Inventory with Ciena and NSO, 2022 Jan 24
 
-# Step 1
+# Step 1 & 2
+
+>>>>out 24-Jan-2022::17:26:37.306 user: admin/518 thandle 7666 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 24-Jan-2022::17:26:37.359 user: admin/518 thandle 7666 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+...
+
+  <capability>urn:ietf:params:netconf:capability:yang-library:1.0?revision=2016-06-21&amp;module-set-id=25064</capability>
+  </capabilities>
+  <session-id>34</session-id>
+</hello>
+
+>>>>out 24-Jan-2022::17:26:37.612 user: admin/518 thandle 7666 hostname cisco-nso device ciena46 session-id=34
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+      <snmp xmlns="urn:ietf:params:xml:ns:yang:ietf-snmp"/>
+      <pseudowires xmlns="urn:ietf:params:xml:ns:yang:ietf-pseudowires"/>
+      <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm"/>
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"/>
+...
+
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp"/>
+      <bfd xmlns="http://ciena.com/ns/yang/ciena-bfd"/>
+      <l3-relay-agent xmlns="http://ciena.com/dhcpl3relay/yang/ciena-dhcp-l3-relay"/>
+    </filter>
+  </get-config>
+</rpc>
+
+<<<<in 24-Jan-2022::17:26:38.983 user: admin/518 thandle 7666 hostname cisco-nso device ciena46 session-id=34
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-24T17:21:08Z"
+           ncx:etag="327"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+        <servwait>90</servwait>
+        <control-packet-dscp>0</control-packet-dscp>
+        <modes>unauthenticated</modes>
+        <connectivity-mode xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-twamp-saos">standard</connectivity-mode>
+      </server>
+      <session-reflector>
+        <admin-state>false</admin-state>
+        <refwait>90</refwait>
+      </session-reflector>
+    </twamp>
+    <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog">
+      <log-actions>
+        <remote>
+          <admin-state xmlns="http://www.ciena.com/ns/yang/ciena-syslog">enabled</admin-state>
+...
+
+# Step 3
+
+>>>>out 24-Jan-2022::17:28:04.317 user: admin/518 thandle 7655 hostname cisco-nso device ciena46 session-id=35
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 24-Jan-2022::17:28:04.328 user: admin/518 thandle 7655 hostname cisco-nso device ciena46 session-id=35
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::17:28:04.330 user: admin/518 thandle 7655 hostname cisco-nso device ciena46 session-id=35
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <system xmlns="http://openconfig.net/yang/system">
+        <config>
+          <description xmlns="http://www.ciena.com/ns/yang/ciena-system">New, cool device</description>
+          <location xmlns="http://www.ciena.com/ns/yang/ciena-system">EANTC lab</location>
+        </config>
+      </system>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 24-Jan-2022::17:28:04.330 user: admin/518 thandle 7655 hostname cisco-nso device ciena46 session-id=35
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 24-Jan-2022::17:28:04.410 user: admin/518 thandle 7655 hostname cisco-nso device ciena46 session-id=35
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 24-Jan-2022::17:28:04.422 user: admin/518 thandle 7655 hostname cisco-nso device ciena46 session-id=35
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+# Step 4
+
+>>>>out 24-Jan-2022::17:31:10.953 user: admin/518 thandle 7474 hostname cisco-nso device ciena46 session-id=37
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <get>
+    <filter>
+      <components xmlns="http://openconfig.net/yang/platform">
+        <component>
+          <name/>
+        </component>
+      </components>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 24-Jan-2022::17:31:10.964 user: admin/518 thandle 7474 hostname cisco-nso device ciena46 session-id=37
+<rpc-reply message-id="3"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-24T17:28:04Z"
+           ncx:etag="328"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <components xmlns="http://openconfig.net/yang/platform">
+      <component>
+        <name>8112</name>
+      </component>
+      <component>
+        <name>fan-board</name>
+      </component>
+      <component>
+        <name>fan1</name>
+      </component>
+      <component>
+        <name>fan2</name>
+      </component>
+      <component>
+        <name>fan3</name>
+      </component>
+      <component>
+        <name>fan4</name>
+      </component>
+      <component>
+        <name>fan5</name>
+      </component>
+      <component>
+        <name>fan6</name>
+      </component>
+      <component>
+        <name>fan7</name>
+      </component>
+      <component>
+        <name>fan8</name>
+      </component>
+      <component>
+        <name>psu-board</name>
+      </component>
+      <component>
+        <name>psa</name>
+      </component>
+      <component>
+        <name>psb</name>
+      </component>
+      <component>
+        <name>cpu1-temperature</name>
+      </component>
+      <component>
+        <name>cpu2-temperature</name>
+      </component>
+      <component>
+        <name>front-temperature</name>
+      </component>
+      <component>
+        <name>switch-temperature</name>
+      </component>
+    </components>
+  </data>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::17:31:13.426 user: admin/518 thandle 7474 hostname cisco-nso device ciena46 session-id=37
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <get>
+    <filter>
+      <components xmlns="http://openconfig.net/yang/platform">
+        <component>
+          <name>8112</name>
+          <state>
+            <name/>
+            <type/>
+            <id/>
+            <description/>
+            <mfg-name/>
+            <version/>
+            <serial-no/>
+            <part-no/>
+            <mfg-date xmlns="http://www.ciena.com/ns/yang/ciena-platform"/>
+          </state>
+        </component>
+      </components>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 24-Jan-2022::17:31:14.530 user: admin/518 thandle 7474 hostname cisco-nso device ciena46 session-id=37
+<rpc-reply message-id="4"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-24T17:28:04Z"
+           ncx:etag="328"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <components xmlns="http://openconfig.net/yang/platform">
+      <component>
+        <name>8112</name>
+        <state>
+          <name>8112</name>
+          <type xmlns:oc-platform-types="http://openconfig.net/yang/platform-types">oc-platform-types:CHASSIS</type>
+          <id>INMFU00CRA</id>
+          <description>New, cool device</description>
+          <mfg-name>Ciena</mfg-name>
+          <version>0</version>
+          <serial-no>M97D2764</serial-no>
+          <part-no>170-8112-901</part-no>
+          <mfg-date xmlns="http://www.ciena.com/ns/yang/ciena-platform">2021-09-30</mfg-date>
+        </state>
+      </component>
+    </components>
+  </data>
+</rpc-reply>
+
+# Step 8
+
+>>>>out 24-Jan-2022::17:39:34.559 user: admin/518 thandle 7708 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+...
+
+<<<<in 24-Jan-2022::17:39:37.477 user: admin/518 thandle 7708 hostname cisco-nso device ciena46 session-id=57
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-24T17:38:10Z"
+           ncx:etag="329"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+...
+
+>>>>out 24-Jan-2022::17:39:52.587 user: admin/518 thandle 7066 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 24-Jan-2022::17:39:52.703 user: admin/518 thandle 7066 hostname cisco-nso device ciena46 session-id=57
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::17:39:52.705 user: admin/518 thandle 7066 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <system xmlns="http://openconfig.net/yang/system">
+        <ntp xmlns="http://www.ciena.com/ns/yang/ciena-ntp">
+          <associations>
+            <remote-ntp-server>
+              <server-entry>
+                <address>192.168.100.132</address>
+                <admin-state>enabled</admin-state>
+              </server-entry>
+            </remote-ntp-server>
+          </associations>
+        </ntp>
+      </system>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 24-Jan-2022::17:39:52.705 user: admin/518 thandle 7066 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="5">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 24-Jan-2022::17:39:52.877 user: admin/518 thandle 7066 hostname cisco-nso device ciena46 session-id=57
+<rpc-reply message-id="4"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 24-Jan-2022::17:39:52.889 user: admin/518 thandle 7066 hostname cisco-nso device ciena46 session-id=57
+<rpc-reply message-id="5"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::17:39:59.317 user: admin/518 thandle 7708 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="6">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+      <snmp xmlns="urn:ietf:params:xml:ns:yang:ietf-snmp"/>
+...
 
 

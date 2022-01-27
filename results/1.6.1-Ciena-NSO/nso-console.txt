@@ -1,0 +1,107 @@
+1.6.1 Retrieve Interface Frame Sizes Distribution with Ciena and NSO, 2022 Jan 25
+
+# Step 5
+
+11:24:24 admin@ncs(config)# do show devices device ciena46 live-status oc-if:interfaces interface 1 state counters
+state counters in-octets    6267190200
+state counters in-unicast-pkts 6699003
+state counters in-broadcast-pkts 0
+state counters in-multicast-pkts 0
+state counters in-discards  484954
+state counters in-errors    0
+state counters out-octets   4800785046
+state counters out-unicast-pkts 4516848
+state counters out-broadcast-pkts 114
+state counters out-multicast-pkts 76
+state counters out-errors   0
+state counters in-discards-octets 731310632
+state counters link-flap-events 0
+state counters in-undersize-pkts 0
+state counters in-64-octet-pkts 2096115
+state counters in-65-to-127-octet-pkts 71412
+state counters in-128-to-255-octet-pkts 0
+state counters in-256-to-511-octet-pkts 0
+state counters in-512-to-1023-octet-pkts 845368
+state counters in-1024-to-1518-octet-pkts 0
+state counters in-1519-to-2047-octet-pkts 3686067
+state counters in-2048-to-4095-octet-pkts 0
+state counters in-4096-to-9216-octet-pkts 0
+state counters out-1519-to-2047-octet-pkts 2923384
+state counters out-2048-to-4095-octet-pkts 0
+state counters out-4096-to-9216-octet-pkts 0
+state counters in-oversize-pkts 0
+state counters in-jabber-pkts 0
+state counters in-crc-error-pkts 0
+state counters in-pkts      6699003
+state counters out-pkts     4517038
+Aborted: by user
+
+
+11:27:37 admin@ncs(config)# do show devices device ciena47 live-status oc-if:interfaces interface 1 state counters         
+state counters in-octets    7351948080
+state counters in-unicast-pkts 9285334
+state counters in-broadcast-pkts 0
+state counters in-multicast-pkts 0
+state counters in-discards  484970
+state counters in-errors    0
+state counters out-octets   6311259876
+state counters out-unicast-pkts 8126054
+state counters out-broadcast-pkts 132
+state counters out-multicast-pkts 88
+state counters out-errors   0
+state counters in-discards-octets 731334760
+state counters link-flap-events 0
+state counters in-undersize-pkts 0
+state counters in-64-octet-pkts 3612844
+state counters in-65-to-127-octet-pkts 123058
+state counters in-128-to-255-octet-pkts 0
+state counters in-256-to-511-octet-pkts 0
+state counters in-512-to-1023-octet-pkts 1456905
+state counters in-1024-to-1518-octet-pkts 0
+state counters in-1519-to-2047-octet-pkts 4092490
+state counters in-2048-to-4095-octet-pkts 0
+state counters in-4096-to-9216-octet-pkts 0
+state counters out-1519-to-2047-octet-pkts 3487982
+state counters out-2048-to-4095-octet-pkts 0
+state counters out-4096-to-9216-octet-pkts 0
+state counters in-oversize-pkts 0
+state counters in-jabber-pkts 0
+state counters in-crc-error-pkts 0
+state counters in-pkts      9285334
+state counters out-pkts     8126274
+11:27:49 admin@ncs(config)# 
+11:27:50 admin@ncs(config)# 
+11:27:50 admin@ncs(config)# do show devices device ciena47 live-status oc-if:interfaces interface 1 state counters
+state counters in-octets    7553654010
+state counters in-unicast-pkts 9766633
+state counters in-broadcast-pkts 0
+state counters in-multicast-pkts 0
+state counters in-discards  484970
+state counters in-errors    0
+state counters out-octets   6512937766
+state counters out-unicast-pkts 8607362
+state counters out-broadcast-pkts 132
+state counters out-multicast-pkts 88
+state counters out-errors   0
+state counters in-discards-octets 731334760
+state counters link-flap-events 0
+state counters in-undersize-pkts 0
+state counters in-64-octet-pkts 3895093
+state counters in-65-to-127-octet-pkts 132726
+state counters in-128-to-255-octet-pkts 0
+state counters in-256-to-511-octet-pkts 0
+state counters in-512-to-1023-octet-pkts 1570788
+state counters in-1024-to-1518-octet-pkts 0
+state counters in-1519-to-2047-octet-pkts 4167989
+state counters in-2048-to-4095-octet-pkts 0
+state counters in-4096-to-9216-octet-pkts 0
+state counters out-1519-to-2047-octet-pkts 3563484
+state counters out-2048-to-4095-octet-pkts 0
+state counters out-4096-to-9216-octet-pkts 0
+state counters in-oversize-pkts 0
+state counters in-jabber-pkts 0
+state counters in-crc-error-pkts 0
+state counters in-pkts      9766633
+state counters out-pkts     8607582
+11:27:53 admin@ncs(config)# 
+

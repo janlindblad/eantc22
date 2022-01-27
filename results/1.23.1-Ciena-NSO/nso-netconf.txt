@@ -1,0 +1,628 @@
+1.23.1 Hardware Management with Ciena and NSO, 2022 Jan 25
+
+# Step 1
+
+>>>>out 25-Jan-2022::14:08:33.467 user: admin/856 thandle 9086 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 25-Jan-2022::14:08:33.524 user: admin/856 thandle 9086 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:xpath:1.0</capability>
+...
+
+>>>>out 25-Jan-2022::14:08:33.570 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <xcvr-id/>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:08:33.583 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::14:08:33.599 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <properties>
+            <vendor-data>
+              <id>
+                <ciena-id>
+                  <ciena-item-number/>
+                  <revision/>
+                  <description/>
+                </ciena-id>
+              </id>
+            </vendor-data>
+          </properties>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:08:33.611 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc-reply message-id="2"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+        <properties>
+          <vendor-data>
+            <id/>
+          </vendor-data>
+        </properties>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::14:08:33.616 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <properties>
+            <vendor-data>
+              <id>
+                <vendor-id>
+                  <name/>
+                  <part-number/>
+                  <revision/>
+                  <serial-number/>
+                  <manufactured-date/>
+                  <revision-compliance xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <vendor-oui xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                </vendor-id>
+              </id>
+            </vendor-data>
+          </properties>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:08:33.628 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc-reply message-id="3"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+        <properties>
+          <vendor-data>
+            <id>
+              <vendor-id>
+                <name>CIENA-LGP</name>
+                <part-number>XCVR-S00Z85</part-number>
+                <revision>001</revision>
+                <serial-number>Q3162000196</serial-number>
+                <manufactured-date>03/07/16</manufactured-date>
+                <vendor-oui xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">0</vendor-oui>
+                <vendor-oui xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">0</vendor-oui>
+                <vendor-oui xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">0</vendor-oui>
+              </vendor-id>
+            </id>
+          </vendor-data>
+        </properties>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+...
+
+>>>>out 25-Jan-2022::14:08:33.733 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="8">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <properties>
+            <vendor-data>
+              <properties>
+                <device-id>
+                  <connector-type/>
+                  <identifier xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <identifier-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <extended-identifier-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <power-consumption xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <clei xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <connector-type-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <firmware-version xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                </device-id>
+              </properties>
+            </vendor-data>
+          </properties>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:08:33.785 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc-reply message-id="8"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+        <properties>
+          <vendor-data>
+            <properties>
+              <device-id>
+                <connector-type>LC - Lucent Connector</connector-type>
+                <identifier xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">SFP/SFP+/SFP28</identifier>
+                <identifier-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">SFP transceiver</identifier-raw>
+                <extended-identifier-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">SFP/GBIC</extended-identifier-raw>
+                <clei xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">COUIA7JPAA</clei>
+                <connector-type-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">LC</connector-type-raw>
+              </device-id>
+            </properties>
+          </vendor-data>
+        </properties>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::14:08:33.799 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="9">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <properties>
+            <vendor-data>
+              <properties>
+                <transmitter>
+                  <nominal-bit-rate/>
+                  <wavelength xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <wavelength-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <encoding-description xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <encoding-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                </transmitter>
+              </properties>
+            </vendor-data>
+          </properties>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:08:33.812 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc-reply message-id="9"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+        <properties>
+          <vendor-data>
+            <properties>
+              <transmitter>
+                <nominal-bit-rate>10.3 Gbps</nominal-bit-rate>
+                <wavelength xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">850.0</wavelength>
+                <wavelength-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">850.000000 nm</wavelength-raw>
+                <encoding-description xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">Manchester</encoding-description>
+                <encoding-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">0x06</encoding-raw>
+              </transmitter>
+            </properties>
+          </vendor-data>
+        </properties>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::14:08:33.825 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="10">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <properties>
+            <vendor-data>
+              <properties>
+                <diagnostic-monitoring>
+                  <rx-power-measurement/>
+                  <tx-power-measurement/>
+                  <diagnostic-support xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr-modem"/>
+                  <dispersion-measurement xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr-modem"/>
+                  <diagnostic-monitoring-type-raw xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <diagnostic-monitoring-implemented xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                </diagnostic-monitoring>
+              </properties>
+            </vendor-data>
+          </properties>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:08:33.837 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc-reply message-id="10"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+        <properties>
+          <vendor-data>
+            <properties>
+              <diagnostic-monitoring>
+                <rx-power-measurement>average-power</rx-power-measurement>
+                <diagnostic-support xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr-modem">yes</diagnostic-support>
+                <diagnostic-monitoring-implemented xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable">true</diagnostic-monitoring-implemented>
+              </diagnostic-monitoring>
+            </properties>
+          </vendor-data>
+        </properties>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+
+
+# Step 3
+
+>>>>out 25-Jan-2022::14:09:23.822 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="45">
+  <get>
+    <filter>
+      <telemetry-registered-sensors xmlns="http://www.ciena.com/ns/yang/ciena-openconfig-telemetry">
+        <stream-sensors>
+          <telemetry-sensor-paths>
+            <telemetry-sensor-path/>
+          </telemetry-sensor-paths>
+        </stream-sensors>
+      </telemetry-registered-sensors>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:09:23.885 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc-reply message-id="45"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <telemetry-registered-sensors xmlns="http://www.ciena.com/ns/yang/ciena-openconfig-telemetry">
+      <stream-sensors>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/pon-ctrl:pon-ctrl-state/pon-ctrl:onus/pon-ctrl:onu/pon-ctrl:datalinks/pon-ctrl:datalink-authentication/pon-ctrl:statistics</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/cn-if:interface-events/interface-event/name-list/event-list</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/ciena-sys-tmet:system-state/memory</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/g8032:fop-events/fop-event/erp-instance-list/events-list</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/pon-ctrl:pon-ctrl-state/pon-ctrl:olts/pon-ctrl:olt/pon-ctrl:statistics/pon-ctrl:pon</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/ietf-twamp:twamp/ietf-twamp:session-reflector/ietf-twamp:test-session</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:state</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:output-power</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/ciena-sys:hostname-change</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/macsec/state/interface/if-statistics</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/mef-logical-port:logical-port-events/logical-port-event/event-list</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/cn-macsec:macsec/state/connection-association/mka-statistics</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/mef-egress-qos:egress-qos-state/queue-group/queue</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/xcvr:xcvr-events/xcvr-event/event-list</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/ciena-sys-tmet:system-state/cpu-percent</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/g8032:ring-state-change-events/ring-state-change-event/erp-instance-list</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/ciena-sys-tmet:system-state/disk</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/oc-platform:components/component</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/port:otn-port-events/otn-port-event/event-list</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/pm:pm/optical-power-instances</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/pseudowires-state/pseudowire/statistics</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:fec-uncorrectable-words</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/g8032:ring-state-change-event</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/macsec/state/connection-association/data-statistics</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/bgp-state/instance/vrf/vrf-address-family/peer</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/oc-opt-term:terminal-device/oc-opt-term:logical-channels/oc-opt-term:channel/oc-opt-term:otn/oc-opt-term:state/oc-opt-term:unavailable-seconds</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/pm:pm/modem-performance-instances</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/g8032:fop-event</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/dhcpv6-client:dhcpv6-client-state/dhcpv6-client:client</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/of-group-tables-state/of-group-table-entry/statistics</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/cn-dot1x:dot1x-authentication-status</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/ciena-ocp:components/component</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/pon-ctrl:pon-ctrl-state/pon-ctrl:onus/pon-ctrl:onu/pon-ctrl:uni-ports/pon-ctrl:uni-port/pon-ctrl:statistics</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/isis-neighbor-events/neighbor</telemetry-sensor-path>
+        </telemetry-sensor-paths>
+...
+>>>>out 25-Jan-2022::14:10:28.734 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="55">
+  <get>
+    <filter>
+      <telemetry-registered-sensors xmlns="http://www.ciena.com/ns/yang/ciena-openconfig-telemetry">
+        <stream-sensors>
+          <telemetry-sensor-paths>
+            <telemetry-sensor-path>/bgp-state/instance/peer/address-family</telemetry-sensor-path>
+            <sensor-id/>
+            <sensor-supported-stream-submode/>
+          </telemetry-sensor-paths>
+        </stream-sensors>
+      </telemetry-registered-sensors>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:10:28.745 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25
+<rpc-reply message-id="55"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <telemetry-registered-sensors xmlns="http://www.ciena.com/ns/yang/ciena-openconfig-telemetry">
+      <stream-sensors>
+        <telemetry-sensor-paths>
+          <telemetry-sensor-path>/bgp-state/instance/peer/address-family</telemetry-sensor-path>
+          <sensor-id>7879848110845210471</sensor-id>
+          <sensor-supported-stream-submode>sample</sensor-supported-stream-submode>
+        </telemetry-sensor-paths>
+      </stream-sensors>
+    </telemetry-registered-sensors>
+  </data>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::14:10:58.748 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=25 NCS close
+
+# Step 4
+
+>>>>out 25-Jan-2022::14:14:00.776 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <xcvr-id/>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:14:00.789 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=27
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::14:14:00.806 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <properties>
+            <vendor-data>
+              <id>
+                <ciena-id>
+                  <ciena-item-number/>
+                  <revision/>
+                  <description/>
+                </ciena-id>
+              </id>
+            </vendor-data>
+          </properties>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:14:00.817 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=27
+<rpc-reply message-id="2"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+        <properties>
+          <vendor-data>
+            <id/>
+          </vendor-data>
+        </properties>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::14:14:00.825 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <get>
+    <filter>
+      <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+        <xcvr>
+          <xcvr-id>1</xcvr-id>
+          <properties>
+            <vendor-data>
+              <id>
+                <vendor-id>
+                  <name/>
+                  <part-number/>
+                  <revision/>
+                  <serial-number/>
+                  <manufactured-date/>
+                  <revision-compliance xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                  <vendor-oui xmlns="http://www.ciena.com/ns/yang/ciena-xcvr-pluggable"/>
+                </vendor-id>
+              </id>
+            </vendor-data>
+          </properties>
+        </xcvr>
+      </xcvrs>
+    </filter>
+  </get>
+</rpc>
+
+<<<<in 25-Jan-2022::14:14:00.836 user: admin/856 thandle 9086 hostname cisco-nso device ciena46 session-id=27
+<rpc-reply message-id="3"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T13:43:02Z"
+           ncx:etag="13"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <xcvrs xmlns="http://www.ciena.com/ns/yang/ciena-packet-xcvr">
+      <xcvr>
+        <xcvr-id>1</xcvr-id>
+        <properties>
+          <vendor-data>
+            <id/>
+          </vendor-data>
+        </properties>
+      </xcvr>
+    </xcvrs>
+  </data>
+</rpc-reply>
+...

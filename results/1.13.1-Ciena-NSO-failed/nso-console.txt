@@ -1,0 +1,548 @@
+1.13.1 Bidirectional Forwarding Detection (BFD) with Ciena and NSO, 2022 Jan 26
+This transcript documents three failures seen when attempting to execute the test case
++ NSO failed to load a previously saved config including BFD settings
++ Ciena 8112 device failed to accept deletion of BFD config: non-transactional behavior (BFD entry in use)
++ Ciena 8112 device failed to accept creation of BFD config: operational problem (Malloc failed)
+
+11:14:09 admin@ncs(config)# show full-configuration devices device ciena47 config | display xml | save ciena47-1.13-up.xml  
+11:14:18 admin@ncs(config)# show full-configuration devices device ciena46 config | display xml | save ciena46-1.13-up.xml
+11:14:28 admin@ncs(config)# devices device ciena46 compare-config                                                         
+11:19:49 admin@ncs(config)# devices device ciena47 compare-config
+11:19:54 admin@ncs(config)# 
+11:37:02 admin@ncs(config)# 
+11:37:02 admin@ncs(config)# 
+11:37:02 admin@ncs(config)# devices device ciena46 compare-config
+diff 
+ devices {
+     device ciena46 {
+         config {
+             bfd {
+                 profiles {
++                    ip-bfd-profile 10msHW {
++                        local-multiplier 3;
++                        desired-min-tx-interval 10000;
++                        required-min-rx-interval 10000;
++                        accelerate true;
++                    }
+                 }
+                 session-config-entry {
+                     ip {
+                         single-hop {
++                            ipv4 to8112-47 {
++                                profile 10msHW;
++                                admin-down false;
++                                statistics-collection on;
++                            }
+                         }
+                     }
+                 }
+             }
+             isis {
+                 instance master {
+                     interfaces {
+                         interface to8112-47 {
+                             bfd {
+-                                enable false;
++                                enable true;
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+11:37:06 admin@ncs(config)# devices device ciena47 compare-config
+diff 
+ devices {
+     device ciena47 {
+         config {
+             bfd {
+                 profiles {
++                    ip-bfd-profile 10msHW {
++                        local-multiplier 3;
++                        desired-min-tx-interval 10000;
++                        required-min-rx-interval 10000;
++                        accelerate true;
++                    }
+                 }
+                 session-config-entry {
+                     ip {
+                         single-hop {
++                            ipv4 to8112-46 {
++                                profile 10msHW;
++                                admin-down false;
++                                statistics-collection on;
++                            }
+                         }
+                     }
+                 }
+             }
+             isis {
+                 instance master {
+                     interfaces {
+                         interface to8112-46 {
+                             bfd {
+-                                enable false;
++                                enable true;
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+11:37:11 admin@ncs(config)# devices device ciena47 sync-from     
+result true
+11:37:18 admin@ncs(config)# devices device ciena46 sync-from
+result true
+11:37:21 admin@ncs(config)# show full-configuration devices device ciena46 config | display xml | save ciena46-1.13-up-bfd-enabled.xml
+11:37:44 admin@ncs(config)# show full-configuration devices device ciena47 config | display xml | save ciena47-1.13-up-bfd-enabled.xml
+11:37:53 admin@ncs(config)# no devices device ciena46 config 
+11:38:52 admin@ncs(config)# no devices device ciena47 config
+11:38:55 admin@ncs(config)# load merge ciena46-1.13-up.xml 
+Loading.
+423.49 KiB parsed in 1.25 sec (336.35 KiB/sec)
+11:39:07 admin@ncs(config)# load merge ciena47-1.13-up.xml
+Loading.
+422.78 KiB parsed in 1.10 sec (381.33 KiB/sec)
+11:39:12 admin@ncs(config)# show c
+devices device ciena46
+ config
+  no bfd session-config-entry ip single-hop ipv4 to8112-47
+  no bfd profiles ip-bfd-profile 10msHW
+  isis instance master
+   interfaces interface to8112-47
+    bfd enable false
+   !
+  !
+ !
+!
+devices device ciena47
+ config
+  no bfd profiles ip-bfd-profile 10msHW
+  no bfd session-config-entry ip single-hop ipv4 to8112-46
+  isis instance master
+   interfaces interface to8112-46
+    bfd enable false
+   !
+  !
+ !
+!
+11:39:13 admin@ncs(config)# commit
+Aborted: RPC error towards ciena46: operation_failed: for /bfd:bfd/bfd:session-config-entry/bfd:ip/bfd:single-hop/bfd:ipv4[bfd:interface='to8112-47']: BFD Session Config entry deletion not allowed as entry in use by bfd session.
+11:39:39 admin@ncs(config)# commit
+Aborted: RPC error towards ciena46: operation_failed: for /bfd:bfd/bfd:session-config-entry/bfd:ip/bfd:single-hop/bfd:ipv4[bfd:interface='to8112-47']: BFD Session Config entry deletion not allowed as entry in use by bfd session.
+11:40:13 admin@ncs(config)# devices device ciena46 sync+f
+                                                   ^
+% Invalid input detected at '^' marker.
+11:40:13 admin@ncs(config)# devices device ciena46 sync-from 
+result true
+11:44:42 admin@ncs(config)# devices device ciena47 sync-from
+result true
+11:44:47 admin@ncs(config)# load merge ciena46-1.13-
+Possible completions:
+  <filename/terminal>  ciena46-1.13-down.xml  ciena46-1.13-up-bfd-enabled.xml  ciena46-1.13-up.xml
+11:44:47 admin@ncs(config)# load merge ciena46-1.13-up
+Possible completions:
+  <filename/terminal>  ciena46-1.13-up-bfd-enabled.xml  ciena46-1.13-up.xml
+11:44:47 admin@ncs(config)# load merge ciena46-1.13-up-bfd-enabled.xml 
+Loading.
+Error: on line 13: missing element: local-multiplier in /ncs:devices/ncs:device[ncs:name='ciena46']/ncs:config/bfd:bfd/bfd:profiles/bfd:ip-bfd-profile[bfd:name='10msHW']/bfd:local-multiplier
+11:45:07 admin@ncs(config)# load merge ciena47-1.13-up-bfd-enabled.xml
+Loading.
+Error: on line 13: missing element: local-multiplier in /ncs:devices/ncs:device[ncs:name='ciena47']/ncs:config/bfd:bfd/bfd:profiles/bfd:ip-bfd-profile[bfd:name='10msHW']/bfd:local-multiplier
+11:45:15 admin@ncs(config)# no devices device ciena46 config 
+11:45:36 admin@ncs(config)# no devices device ciena47 config
+11:45:38 admin@ncs(config)# load merge ciena46-1.13-up-bfd-enabled.xml
+Loading.
+Error: on line 13: missing element: local-multiplier in /ncs:devices/ncs:device[ncs:name='ciena46']/ncs:config/bfd:bfd/bfd:profiles/bfd:ip-bfd-profile[bfd:name='10msHW']/bfd:local-multiplier
+11:45:41 admin@ncs(config)# load merge ciena47-1.13-up-bfd-enabled.xml
+Loading.
+Error: on line 13: missing element: local-multiplier in /ncs:devices/ncs:device[ncs:name='ciena47']/ncs:config/bfd:bfd/bfd:profiles/bfd:ip-bfd-profile[bfd:name='10msHW']/bfd:local-multiplier
+11:45:47 admin@ncs(config)# show c
+devices device ciena46
+ config
+  no bfd global admin-down false
+  bgp instance 65149
+   peer 100.0.0.47
+    no address-family l2vpn evpn
+    no address-family vpnv6 unicast
+    no address-family vpnv4 unicast
+   !
+  !
+  no bgp instance 65149
+  no te interfaces interface to16047
+  no isis instance master
+  no mpls interfaces interface lb0
+  no mpls interfaces interface to16047
+  no segment-routing connected-prefix-sid-map 100.0.0.46/32
+  no rib vrf default
+  no default-md-levels md-level 0
+  no default-md-levels mhf-creation none
+  no default-md-levels default-id-permission none
+  no fps fp p1v2743
+  no logical-ports logical-port 1
+  no oc-if:interfaces interface 1
+  no logical-ports logical-port 10
+  no oc-if:interfaces interface 10
+  no logical-ports logical-port 11
+  no oc-if:interfaces interface 11
+  no logical-ports logical-port 12
+  no oc-if:interfaces interface 12
+  no logical-ports logical-port 13
+  no oc-if:interfaces interface 13
+  no logical-ports logical-port 14
+  no oc-if:interfaces interface 14
+  no logical-ports logical-port 15
+  no oc-if:interfaces interface 15
+  no logical-ports logical-port 16
+  no oc-if:interfaces interface 16
+  no logical-ports logical-port 17
+  no oc-if:interfaces interface 17
+  no logical-ports logical-port 18
+  no oc-if:interfaces interface 18
+  no logical-ports logical-port 19
+  no oc-if:interfaces interface 19
+  no logical-ports logical-port 2
+  no oc-if:interfaces interface 2
+  no logical-ports logical-port 20
+  no oc-if:interfaces interface 20
+Aborted: by user
+11:46:33 admin@ncs(config)# 
+11:49:02 admin@ncs(config)# load merge ciena47-1.13-up-bfd-enabled.xml
+Loading.
+Error: on line 13: missing element: local-multiplier in /ncs:devices/ncs:device[ncs:name='ciena47']/ncs:config/bfd:bfd/bfd:profiles/bfd:ip-bfd-profile[bfd:name='10msHW']/bfd:local-multiplier
+11:49:09 admin@ncs(config)# load merge ciena46-1.13-up-bfd-enabled.xml
+Loading.
+Error: on line 13: missing element: local-multiplier in /ncs:devices/ncs:device[ncs:name='ciena46']/ncs:config/bfd:bfd/bfd:profiles/bfd:ip-bfd-profile[bfd:name='10msHW']/bfd:local-multiplier
+11:49:12 admin@ncs(config)# load merge ciena46-bfd.xml 
+Loading.
+Error: on line 14: missing element: desired-min-tx-interval in /ncs:devices/ncs:device[ncs:name='ciena46']/ncs:config/bfd:bfd/bfd:profiles/bfd:ip-bfd-profile[bfd:name='10msHW']/bfd:desired-min-tx-interval
+11:52:19 admin@ncs(config)# load merge ciena46-bfd.xml
+Loading.
+Error: on line 16: missing element: accelerate in /ncs:devices/ncs:device[ncs:name='ciena46']/ncs:config/bfd:bfd/bfd:profiles/bfd:ip-bfd-profile[bfd:name='10msHW']/bfd:accelerate
+11:53:15 admin@ncs(config)# load merge ciena46-bfd.xml
+Loading.
+Error: on line 25: missing element: admin-down in /ncs:devices/ncs:device[ncs:name='ciena46']/ncs:config/bfd:bfd/bfd:session-config-entry/bfd:ip/bfd:single-hop/bfd:ipv4[bfd:interface='to8112-47']/bfd:admin-down
+11:53:31 admin@ncs(config)# load merge ciena46-bfd.xml
+Loading.
+Error: on line 25: missing element: admin-down in /ncs:devices/ncs:device[ncs:name='ciena46']/ncs:config/bfd:bfd/bfd:session-config-entry/bfd:ip/bfd:single-hop/bfd:ipv4[bfd:interface='to8112-47']/bfd:admin-down
+11:54:47 admin@ncs(config)# load merge ciena46-bfd.xml
+Loading.
+424.27 KiB parsed in 1.03 sec (408.45 KiB/sec)
+11:55:37 admin@ncs(config)# devices device ciena46 config bfd 
+Possible completions:
+  global  ip-mh  ip-sh  profiles  session-config-entry
+11:55:37 admin@ncs(config)# devices device ciena46 config bfd global admin-down false 
+11:56:26 admin@ncs(config-config)# bfd profiles 
+Possible completions:
+  ip-bfd-profile  mpls-bfd-profile
+11:56:26 admin@ncs(config-config)# bfd profiles ip-bfd-profile na 
+Possible completions:
+  accelerate  desired-min-tx-interval  local-multiplier  required-min-rx-interval  <cr>
+11:56:26 admin@ncs(config-config)# bfd profiles ip-bfd-profile 10msHW 
+Possible completions:
+  accelerate  desired-min-tx-interval  local-multiplier  required-min-rx-interval  <cr>
+11:56:26 admin@ncs(config-config)# bfd profiles ip-bfd-profile 10msHW local-multiplier 3 
+Error: 'devices device ciena46 config bfd profiles ip-bfd-profile 10msHW local-multiplier' not found
+11:57:01 admin@ncs(config-config)# bfd profiles ip-bfd-profile 10msHW                   
+Possible completions:
+  accelerate  desired-min-tx-interval  local-multiplier  required-min-rx-interval  <cr>
+11:57:01 admin@ncs(config-config)# bfd profiles ip-bfd-profile 10msHW local-multiplier ?
+Possible completions:
+  <unsignedByte, 3 .. 50>[3]
+11:57:01 admin@ncs(config-config)# sh f bfd profiles ip-bfd-profile 10msHW local-multiplier 
+--------------------------------------------------------------------^
+syntax error: element does not exist
+11:57:29 admin@ncs(config-config)# sh f bfd profiles ip-bfd-profile 10msHW                 
+--------------------------------------------------------------------^
+syntax error: element does not exist
+11:57:32 admin@ncs(config-config)# sh f bfd profiles ip-bfd-profile       
+% No entries found.
+11:57:35 admin@ncs(config-config)# bfd profiles ip-bfd-profile 10msHW     
+11:57:40 admin@ncs(config-ip-bfd-profile-10msHW)# local-multiplier 3 
+11:57:45 admin@ncs(config-ip-bfd-profile-10msHW)# des
+Possible completions:
+  desired-min-tx-interval   
+  ---                       
+  describe                  Display transparent command information
+11:57:45 admin@ncs(config-ip-bfd-profile-10msHW)# des
+Possible completions:
+  desired-min-tx-interval   
+  ---                       
+  describe                  Display transparent command information
+11:57:45 admin@ncs(config-ip-bfd-profile-10msHW)# desired-min-tx-interval 10000
+11:57:55 admin@ncs(config-ip-bfd-profile-10msHW)# required-min-rx-interval 10000
+11:57:57 admin@ncs(config-ip-bfd-profile-10msHW)# accelerate true 
+11:58:09 admin@ncs(config-ip-bfd-profile-10msHW)# exit
+11:58:25 admin@ncs(config-config)# sess
+                                   ^
+% Invalid input detected at '^' marker.
+11:58:25 admin@ncs(config-config)# bd  
+                                   ^
+% Invalid input detected at '^' marker.
+11:58:25 admin@ncs(config-config)# bfd 
+Possible completions:
+  global  ip-mh  ip-sh  profiles  session-config-entry
+11:58:25 admin@ncs(config-config)# bfd ip-   
+Possible completions:
+  ip-mh  ip-sh
+11:58:25 admin@ncs(config-config)# bfd session-config-entry ip 
+Possible completions:
+  multi-hop  single-hop
+11:58:25 admin@ncs(config-config)# bfd session-config-entry ip single-hop ipv
+Possible completions:
+  ipv4  ipv6
+11:58:25 admin@ncs(config-config)# bfd session-config-entry ip single-hop ipv4 inter
+                                                                               ^
+% Invalid input detected at '^' marker.
+11:58:25 admin@ncs(config-config)# bfd session-config-entry ip single-hop ipv4 interf
+                                                                               ^
+% Invalid input detected at '^' marker.
+11:58:25 admin@ncs(config-config)# bfd session-config-entry ip single-hop ipv4       
+Possible completions:
+  1   2   3   4   5    6        7             8          9        10  11  12  
+  13  14  15  16  17   18       19            20         21       22  23  24  
+  25  26  27  28  29   30       31            32         33       34  35  36  
+  37  38  39  40  lb0  mgmtbr0  stc_1_1_2743  to8112-47  to16047  
+11:58:25 admin@ncs(config-config)# bfd session-config-entry ip single-hop ipv4 to
+Possible completions:
+  to8112-47  to16047
+11:58:25 admin@ncs(config-config)# bfd session-config-entry ip single-hop ipv4 to8112-47 profg
+                                                                                         ^
+% Invalid input detected at '^' marker.
+11:58:25 admin@ncs(config-config)# bfd session-config-entry ip single-hop ipv4 to8112-47 profile 10msHW admin-down false statistics-collection on 
+Error: 'devices device ciena46 config bfd session-config-entry ip single-hop ipv4 to8112-47 admin-down' not found
+Error: 'devices device ciena46 config bfd session-config-entry ip single-hop ipv4 to8112-47 statistics-collection' not found
+11:59:44 admin@ncs(config-config)# bfd session-config-entry ip single-hop ipv4 to8112-47 profile 10msHW                                          
+11:59:50 admin@ncs(config-ipv4-to8112-47)# admin-down false 
+11:59:54 admin@ncs(config-ipv4-to8112-47)# statistics-collection on 
+12:00:00 admin@ncs(config-ipv4-to8112-47)# sh c
+bfd session-config-entry ip single-hop ipv4 to8112-47
+!
+bfd profiles ip-bfd-profile 10msHW
+!
+bfd session-config-entry ip single-hop ipv4 to8112-47
+ profile               10msHW
+ admin-down            false
+ statistics-collection on
+!
+12:00:04 admin@ncs(config-ipv4-to8112-47)# top
+12:00:14 admin@ncs(config)# show c
+devices device ciena46
+ config
+  bfd profiles ip-bfd-profile 10msHW
+   local-multiplier         3
+   desired-min-tx-interval  10000
+   required-min-rx-interval 10000
+   accelerate               true
+  !
+  bfd session-config-entry ip single-hop ipv4 to8112-47
+   profile               10msHW
+   admin-down            false
+   statistics-collection on
+  !
+  isis instance master
+   interfaces interface to8112-47
+    bfd enable true
+   !
+  !
+ !
+!
+devices device ciena47
+ config
+  no bfd global admin-down false
+  bgp instance 65149
+   peer 100.0.0.46
+    no address-family l2vpn evpn
+    no address-family vpnv6 unicast
+    no address-family vpnv4 unicast
+   !
+  !
+  no bgp instance 65149
+  no te interfaces interface to16046
+  no isis instance master
+  no mpls interfaces interface lb0
+  no mpls interfaces interface to16046
+  no segment-routing connected-prefix-sid-map 100.0.0.47/32
+  no rib vrf default
+  no default-md-levels md-level 0
+  no default-md-levels mhf-creation none
+  no default-md-levels default-id-permission none
+  no fps fp p1v2743
+  no logical-ports logical-port 1
+  no oc-if:interfaces interface 1
+  no logical-ports logical-port 10
+  no oc-if:interfaces interface 10
+  no logical-ports logical-port 11
+  no oc-if:interfaces interface 11
+  no logical-ports logical-port 12
+  no oc-if:interfaces interface 12
+  no logical-ports logical-port 13
+  no oc-if:interfaces interface 13
+  no logical-ports logical-port 14
+Aborted: by user
+12:00:18 admin@ncs(config)# commit no-networking 
+Commit complete.
+12:00:53 admin@ncs(config)# load merge ciena47-1.13-
+Possible completions:
+  <filename/terminal>  ciena47-1.13-down.xml  ciena47-1.13-up-bfd-enabled.xml  ciena47-1.13-up.xml
+12:00:53 admin@ncs(config)# load merge ciena47-1.13-up
+Possible completions:
+  <filename/terminal>  ciena47-1.13-up-bfd-enabled.xml  ciena47-1.13-up.xml
+12:00:53 admin@ncs(config)# load merge ciena47-1.13-up.xml 
+Loading.
+422.78 KiB parsed in 0.93 sec (451.67 KiB/sec)
+12:01:12 admin@ncs(config)# load merge ciena47-1.13-up-bfd-enabled.xml 
+Loading.
+423.55 KiB parsed in 0.82 sec (516.21 KiB/sec)
+12:01:39 admin@ncs(config)# show c
+devices device ciena47
+ config
+  bfd global admin-down false
+  bfd profiles ip-bfd-profile 10msHW
+   local-multiplier         3
+   desired-min-tx-interval  10000
+   required-min-rx-interval 10000
+   accelerate               true
+  !
+  oc-if:interfaces interface to8112-46
+   config name to8112-46
+  !
+  oc-if:interfaces interface to8112-46
+   config mtu       1500
+   config type      ip
+   config admin-status true
+   config role      data
+  !
+  vrf default
+   sr-policy fallback enable
+  !
+  oc-if:interfaces interface to8112-46
+   config vrfName   default
+  !
+  frame-to-cos-maps frame-to-cos-map default-f2c
+   map-entry ip-dscp0-cos0-green
+    ip-dscp 0
+    cos     0
+    color   green
+   !
+   map-entry ip-dscp1-cos1-green
+    ip-dscp 1
+    cos     1
+    color   green
+   !
+   map-entry ip-dscp10-cos10-green
+    ip-dscp 10
+    cos     10
+    color   green
+   !
+   map-entry ip-dscp11-cos11-green
+    ip-dscp 11
+    cos     11
+    color   green
+   !
+   map-entry ip-dscp12-cos12-green
+    ip-dscp 12
+    cos     12
+    color   green
+   !
+   map-entry ip-dscp13-cos13-green
+    ip-dscp 13
+Aborted: by user
+12:01:46 admin@ncs(config)# commit no-networking 
+Commit complete.
+12:01:50 admin@ncs(config)# devices device ciena47 compare-config 
+diff 
+ devices {
+     device ciena47 {
+         config {
+             bfd {
+                 profiles {
+-                    ip-bfd-profile 10msHW {
+-                        local-multiplier 3;
+-                        desired-min-tx-interval 10000;
+-                        required-min-rx-interval 10000;
+-                        accelerate true;
+-                    }
+                 }
+                 session-config-entry {
+                     ip {
+                         single-hop {
+-                            ipv4 to8112-46 {
+-                                profile 10msHW;
+-                                admin-down false;
+-                                statistics-collection on;
+-                            }
+                         }
+                     }
+                 }
+             }
+             isis {
+                 instance master {
+                     interfaces {
+                         interface to8112-46 {
+                             bfd {
+-                                enable true;
++                                enable false;
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+12:02:02 admin@ncs(config)# devices device ciena46 compare-config
+diff 
+ devices {
+     device ciena46 {
+         config {
+             bfd {
+                 profiles {
+-                    ip-bfd-profile 10msHW {
+-                        local-multiplier 3;
+-                        desired-min-tx-interval 10000;
+-                        required-min-rx-interval 10000;
+-                        accelerate true;
+-                    }
+                 }
+                 session-config-entry {
+                     ip {
+                         single-hop {
+-                            ipv4 to8112-47 {
+-                                profile 10msHW;
+-                                admin-down false;
+-                                statistics-collection on;
+-                            }
+                         }
+                     }
+                 }
+             }
+             isis {
+                 instance master {
+                     interfaces {
+                         interface to8112-47 {
+                             bfd {
+-                                enable true;
++                                enable false;
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+12:02:12 admin@ncs(config)# devices device ciena46 sync-to       
+result false
+info RPC error towards ciena46: operation_failed: for /bfd:bfd/bfd:session-config-entry/bfd:ip/bfd:single-hop/bfd:ipv4[bfd:interface='to8112-47']: Malloc failed
+12:02:44 admin@ncs(config)# 
+*** IDLE TIMEOUT ***
+cisco@cisco-nso:~/run/570/results$ client_loop: send disconnect: Broken pipe
