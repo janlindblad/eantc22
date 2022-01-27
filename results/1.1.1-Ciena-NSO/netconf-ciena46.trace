@@ -1,0 +1,325 @@
+>>>>out 24-Jan-2022::10:53:12.739 user: admin/126 thandle 1497 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 24-Jan-2022::10:53:12.793 user: admin/126 thandle 1497 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+...
+</hello>
+
+>>>>out 24-Jan-2022::10:53:12.870 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+...
+ </filter>
+  </get-config>
+</rpc>
+
+<<<<in 24-Jan-2022::10:53:14.491 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-24T10:47:12Z"
+           ncx:etag="148"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+  ...
+  </data>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::10:53:53.591 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 24-Jan-2022::10:53:53.599 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::10:53:53.603 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp>
+          <name>p39untagged</name>
+          <frame-to-cos-map>default-f2c</frame-to-cos-map>
+          <logical-port>39</logical-port>
+          <mtu-size>2000</mtu-size>
+          <stats-collection>on</stats-collection>
+          <classifier-list>untagged</classifier-list>
+          <fd-name>21.46.47.0/24</fd-name>
+          <cos-to-frame-map>default-c2f</cos-to-frame-map>
+        </fp>
+      </fps>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface>
+          <name>to8112-47</name>
+          <config>
+            <mtu>1500</mtu>
+            <name>to8112-47</name>
+            <underlay-binding xmlns="http://ciena.com/ns/yang/ciena-underlay-binding">
+              <config>
+                <fd>21.46.47.0/24</fd>
+              </config>
+            </underlay-binding>
+            <frame-to-cos-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-f2c</frame-to-cos-map>
+            <role xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">data</role>
+            <stats-collection xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">on</stats-collection>
+            <type xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">ip</type>
+            <vrfName xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default</vrfName>
+            <admin-status xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">true</admin-status>
+            <cos-to-frame-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-c2f</cos-to-frame-map>
+          </config>
+          <ipv4 xmlns="http://ciena.com/ns/yang/ciena-openconfig-if-ip">
+            <addresses>
+              <address>
+                <ip>21.46.47.1</ip>
+                <config>
+                  <prefix-length>30</prefix-length>
+                  <ip>21.46.47.1</ip>
+                </config>
+              </address>
+            </addresses>
+          </ipv4>
+        </interface>
+      </interfaces>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd>
+          <name>21.46.47.0/24</name>
+          <mode>vpls</mode>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 24-Jan-2022::10:53:53.605 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 24-Jan-2022::10:53:53.772 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 24-Jan-2022::10:53:53.781 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc-reply message-id="4"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::10:54:24.263 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="5">
+  <close-session/>
+</rpc>
+
+>>>>out 24-Jan-2022::10:54:24.264 user: admin/126 thandle 1497 hostname cisco-nso device ciena46 session-id=55 NCS close
+>>>>out 24-Jan-2022::10:58:47.367 user: admin/126 thandle 1591 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 24-Jan-2022::10:58:47.422 user: admin/126 thandle 1591 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+  ...
+  </capabilities>
+  <session-id>56</session-id>
+</hello>
+
+>>>>out 24-Jan-2022::10:59:03.913 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=56
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+    ...
+    </filter>
+  </get-config>
+</rpc>
+
+<<<<in 24-Jan-2022::10:59:05.317 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=56
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-24T10:53:53Z"
+           ncx:etag="149"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+    ...
+      <fp>
+        <name>p39untagged</name>
+        <fd-name>21.46.47.0/24</fd-name>
+        <logical-port>39</logical-port>
+        <mtu-size>2000</mtu-size>
+        <frame-to-cos-map>default-f2c</frame-to-cos-map>
+        <cos-to-frame-map>default-c2f</cos-to-frame-map>
+        <classifier-list>untagged</classifier-list>
+        <stats-collection>on</stats-collection>
+      </fp>
+    </fps>
+    ...
+    <interfaces xmlns="http://openconfig.net/yang/interfaces">
+      <interface>
+        <name>to8112-47</name>
+        <config>
+          <name>to8112-47</name>
+          <mtu>1500</mtu>
+          <admin-status xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">true</admin-status>
+          <cos-to-frame-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-c2f</cos-to-frame-map>
+          <frame-to-cos-map xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default-f2c</frame-to-cos-map>
+          <role xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces"
+                xmlns:cn-if="http://ciena.com/ns/yang/ciena-openconfig-interfaces">cn-if:data</role>
+          <stats-collection xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">on</stats-collection>
+          <type xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">ip</type>
+          <underlay-binding xmlns="http://ciena.com/ns/yang/ciena-underlay-binding">
+            <config>
+              <fd>21.46.47.0/24</fd>
+            </config>
+          </underlay-binding>
+          <vrfName xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">default</vrfName>
+        </config>
+	...
+  </data>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::10:59:36.262 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=56
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <close-session/>
+</rpc>
+
+>>>>out 24-Jan-2022::10:59:36.263 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=56 NCS close
+>>>>out 24-Jan-2022::11:01:00.743 user: admin/126 thandle 1591 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 24-Jan-2022::11:01:00.795 user: admin/126 thandle 1591 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+  ...
+  </capabilities>
+  <session-id>57</session-id>
+</hello>
+
+>>>>out 24-Jan-2022::11:01:00.835 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 24-Jan-2022::11:01:00.845 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=57
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::11:01:00.850 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>p39untagged</name>
+        </fp>
+      </fps>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                   nc:operation="delete">
+          <name>to8112-47</name>
+        </interface>
+      </interfaces>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>21.46.47.0/24</name>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 24-Jan-2022::11:01:00.851 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 24-Jan-2022::11:01:00.996 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=57
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 24-Jan-2022::11:01:01.008 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=57
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 24-Jan-2022::11:01:31.263 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=57
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <close-session/>
+</rpc>
+
+>>>>out 24-Jan-2022::11:01:31.264 user: admin/126 thandle 1591 hostname cisco-nso device ciena46 session-id=57 NCS close
