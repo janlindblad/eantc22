@@ -1,0 +1,254 @@
+1.12.2
+
+03:20:07 admin@ncs(config)# 
+System message at 2022-01-27 15:20:34...
+Commit performed by cisco via ssh using netconf.
+03:20:07 admin@ncs(config)# show full-configuration l3vpn-svc 
+l3vpn-svc vpn-services vpn-service eantc22
+ customer-name EANTC
+!
+l3vpn-svc sites site pet
+ locations location lab
+ !
+ devices device ciena47
+  location lab
+ !
+ management type provider-managed
+ vpn-policies vpn-policy vpn1
+  entries 1
+   vpn eantc22
+    site-role any-to-any-role
+   !
+  !
+ !
+ site-network-accesses site-network-access 1
+  device-reference ciena47
+  ip-connection ipv4 address-allocation-type static-address
+  ip-connection ipv4 addresses provider-address 172.16.1.254
+  ip-connection ipv4 addresses customer-address 172.16.1.1
+  ip-connection ipv4 addresses prefix-length 24
+  service svc-input-bandwidth 1000
+  service svc-output-bandwidth 1000
+  service svc-mtu      2000
+  vpn-attachment vpn-id eantc22
+ !
+!
+l3vpn-svc sites site sfo
+ locations location lab
+ !
+ devices device ciena46
+  location lab
+ !
+ management type provider-managed
+ vpn-policies vpn-policy vpn1
+  entries 1
+   vpn eantc22
+    site-role any-to-any-role
+   !
+  !
+ !
+ site-network-accesses site-network-access 1
+  device-reference ciena46
+  ip-connection ipv4 address-allocation-type static-address
+  ip-connection ipv4 addresses provider-address 172.16.4.254
+  ip-connection ipv4 addresses customer-address 172.16.4.1
+  ip-connection ipv4 addresses prefix-length 24
+  service svc-input-bandwidth 1000
+  service svc-output-bandwidth 1000
+  service svc-mtu      2000
+  vpn-attachment vpn-id eantc22
+ !
+!
+03:20:58 admin@ncs(config)# 
+System message at 2022-01-27 15:25:34...
+Commit performed by cisco via ssh using netconf.
+03:20:58 admin@ncs(config)# 
+System message at 2022-01-27 15:26:42...
+Commit performed by cisco via ssh using netconf.
+03:20:58 admin@ncs(config)# 
+System message at 2022-01-27 15:33:04...
+Commit performed by cisco via ssh using netconf.
+03:20:58 admin@ncs(config)# 
+System message at 2022-01-27 15:33:22...
+Commit performed by cisco via ssh using netconf.
+03:20:58 admin@ncs(config)# 
+*** IDLE TIMEOUT ***
+
+
+<INFO> 27-Jan-2022::15:20:33.080 cisco-nso ncs[3757173]: audit user: [withheld]/0 local authentication failed via netconf from 192.168.24.30:43264 with s
+sh: no such local user
+<INFO> 27-Jan-2022::15:20:33.177 cisco-nso ncs[3757173]: audit user: cisco/0 pam authentication succeeded via netconf from 192.168.24.30:43264 with ssh
+<INFO> 27-Jan-2022::15:20:33.179 cisco-nso ncs[3757173]: audit user: cisco/0 logged in via netconf from 192.168.24.30:43264 with ssh using pam authentica
+tion
+<INFO> 27-Jan-2022::15:20:33.183 cisco-nso ncs[3757173]: audit user: cisco/53 assigned to groups: cisco,lxd,plugdev,dip,sudo,cdrom,adm
+<INFO> 27-Jan-2022::15:20:33.183 cisco-nso ncs[3757173]: audit user: cisco/53 created new session via netconf from 192.168.24.30:43264 with ssh
+<INFO> 27-Jan-2022::15:20:35.174 cisco-nso ncs[3757173]: audit user: cisco/53 terminated session (reason: normal)
+<INFO> 27-Jan-2022::15:20:35.182 cisco-nso ncs[3757173]: audit user: cisco/0 logged out <PAM> user
+<INFO> 27-Jan-2022::15:20:55.842 cisco-nso ncs[3757173]: audit user: admin/46 CLI 'show full-configuration l3vpn-svc'
+<INFO> 27-Jan-2022::15:20:58.725 cisco-nso ncs[3757173]: audit user: admin/46 CLI done
+<INFO> 27-Jan-2022::15:22:26.888 cisco-nso ncs[3757173]: audit user: [withheld]/0 local authentication failed via netconf from 192.168.24.31:60962 with s
+sh: no such local user
+<INFO> 27-Jan-2022::15:22:26.985 cisco-nso ncs[3757173]: audit user: cisco/0 pam authentication succeeded via netconf from 192.168.24.31:60962 with ssh
+<INFO> 27-Jan-2022::15:22:26.987 cisco-nso ncs[3757173]: audit user: cisco/0 logged in via netconf from 192.168.24.31:60962 with ssh using pam authentica
+tion
+<INFO> 27-Jan-2022::15:22:26.989 cisco-nso ncs[3757173]: audit user: cisco/61 assigned to groups: cisco,lxd,plugdev,dip,sudo,cdrom,adm
+<INFO> 27-Jan-2022::15:22:26.990 cisco-nso ncs[3757173]: audit user: cisco/61 created new session via netconf from 192.168.24.31:60962 with ssh
+<INFO> 27-Jan-2022::15:22:30.909 cisco-nso ncs[3757173]: audit user: cisco/61 terminated session (reason: normal)
+<INFO> 27-Jan-2022::15:22:30.913 cisco-nso ncs[3757173]: audit user: cisco/0 logged out <PAM> user
+<INFO> 27-Jan-2022::15:25:32.505 cisco-nso ncs[3757173]: audit user: [withheld]/0 local authentication failed via netconf from 192.168.24.30:52144 with ssh: no such local user
+<INFO> 27-Jan-2022::15:25:32.603 cisco-nso ncs[3757173]: audit user: cisco/0 pam authentication succeeded via netconf from 192.168.24.30:52144 with ssh
+<INFO> 27-Jan-2022::15:25:32.604 cisco-nso ncs[3757173]: audit user: cisco/0 logged in via netconf from 192.168.24.30:52144 with ssh using pam authentication
+<INFO> 27-Jan-2022::15:25:32.608 cisco-nso ncs[3757173]: audit user: cisco/63 assigned to groups: cisco,lxd,plugdev,dip,sudo,cdrom,adm
+<INFO> 27-Jan-2022::15:25:32.608 cisco-nso ncs[3757173]: audit user: cisco/63 created new session via netconf from 192.168.24.30:52144 with ssh
+<INFO> 27-Jan-2022::15:25:34.477 cisco-nso ncs[3757173]: audit user: cisco/63 terminated session (reason: normal)
+<INFO> 27-Jan-2022::15:25:34.481 cisco-nso ncs[3757173]: audit user: cisco/0 logged out <PAM> user
+<INFO> 27-Jan-2022::15:26:03.304 cisco-nso ncs[3757173]: audit user: [withheld]/0 local authentication failed via netconf from 192.168.24.31:34578 with ssh: no such local user
+<INFO> 27-Jan-2022::15:26:03.396 cisco-nso ncs[3757173]: audit user: cisco/0 pam authentication succeeded via netconf from 192.168.24.31:34578 with ssh
+<INFO> 27-Jan-2022::15:26:03.397 cisco-nso ncs[3757173]: audit user: cisco/0 logged in via netconf from 192.168.24.31:34578 with ssh using pam authentication
+<INFO> 27-Jan-2022::15:26:03.400 cisco-nso ncs[3757173]: audit user: cisco/71 assigned to groups: cisco,lxd,plugdev,dip,sudo,cdrom,adm
+<INFO> 27-Jan-2022::15:26:03.400 cisco-nso ncs[3757173]: audit user: cisco/71 created new session via netconf from 192.168.24.31:34578 with ssh
+<INFO> 27-Jan-2022::15:26:07.349 cisco-nso ncs[3757173]: audit user: cisco/71 terminated session (reason: normal)
+<INFO> 27-Jan-2022::15:26:07.353 cisco-nso ncs[3757173]: audit user: cisco/0 logged out <PAM> user
+<INFO> 27-Jan-2022::15:26:40.628 cisco-nso ncs[3757173]: audit user: [withheld]/0 local authentication failed via netconf from 192.168.24.30:54180 with ssh: no such local user
+<INFO> 27-Jan-2022::15:26:40.715 cisco-nso ncs[3757173]: audit user: cisco/0 pam authentication succeeded via netconf from 192.168.24.30:54180 with ssh
+<INFO> 27-Jan-2022::15:26:40.716 cisco-nso ncs[3757173]: audit user: cisco/0 logged in via netconf from 192.168.24.30:54180 with ssh using pam authentication
+<INFO> 27-Jan-2022::15:26:40.720 cisco-nso ncs[3757173]: audit user: cisco/73 assigned to groups: cisco,lxd,plugdev,dip,sudo,cdrom,adm
+<INFO> 27-Jan-2022::15:26:40.721 cisco-nso ncs[3757173]: audit user: cisco/73 created new session via netconf from 192.168.24.30:54180 with ssh
+<INFO> 27-Jan-2022::15:26:42.452 cisco-nso ncs[3757173]: audit user: cisco/73 terminated session (reason: normal)
+<INFO> 27-Jan-2022::15:26:42.458 cisco-nso ncs[3757173]: audit user: cisco/0 logged out <PAM> user
+<INFO> 27-Jan-2022::15:33:03.125 cisco-nso ncs[3757173]: audit user: [withheld]/0 local authentication failed via netconf from 192.168.24.30:37124 with ssh: no such local user
+<INFO> 27-Jan-2022::15:33:03.225 cisco-nso ncs[3757173]: audit user: cisco/0 pam authentication succeeded via netconf from 192.168.24.30:37124 with ssh
+<INFO> 27-Jan-2022::15:33:05.081 cisco-nso ncs[3757173]: audit user: cisco/81 terminated session (reason: normal)
+<INFO> 27-Jan-2022::15:33:05.086 cisco-nso ncs[3757173]: audit user: cisco/0 logged out <PAM> user
+<INFO> 27-Jan-2022::15:33:21.065 cisco-nso ncs[3757173]: audit user: [withheld]/0 local authentication failed via netconf from 192.168.24.30:37678 with ssh: no such local user
+<INFO> 27-Jan-2022::15:33:21.155 cisco-nso ncs[3757173]: audit user: cisco/0 pam authentication succeeded via netconf from 192.168.24.30:37678 with ssh
+<INFO> 27-Jan-2022::15:33:21.156 cisco-nso ncs[3757173]: audit user: cisco/0 logged in via netconf from 192.168.24.30:37678 with ssh using pam authentication
+<INFO> 27-Jan-2022::15:33:21.160 cisco-nso ncs[3757173]: audit user: cisco/89 assigned to groups: cisco,lxd,plugdev,dip,sudo,cdrom,adm
+<INFO> 27-Jan-2022::15:33:21.161 cisco-nso ncs[3757173]: audit user: cisco/89 created new session via netconf from 192.168.24.30:37678 with ssh
+<INFO> 27-Jan-2022::15:33:22.301 cisco-nso ncs[3757173]: audit user: cisco/89 terminated session (reason: normal)
+<INFO> 27-Jan-2022::15:33:22.306 cisco-nso ncs[3757173]: audit user: cisco/0 logged out <PAM> user
+<INFO> 27-Jan-2022::15:50:59.739 cisco-nso ncs[3757173]: audit user: admin/46 terminated session (reason: timeout)
+<INFO> 27-Jan-2022::15:57:07.980 cisco-nso ncs[3757173]: audit user: cisco/44 terminated session (reason: normal)
+<INFO> 27-Jan-2022::15:57:07.985 cisco-nso ncs[3757173]: audit user: cisco/0 logged out <PAM> user
+
+
+<INFO> 27-Jan-2022::15:20:33.452 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Service create(service=/l3vpn-svc:l3vpn-svc/sites/site{pet})
+<INFO> 27-Jan-2022::15:20:33.454 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Processing site_network_access 1
+<INFO> 27-Jan-2022::15:20:33.458 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Configuring pe device ciena47
+<INFO> 27-Jan-2022::15:20:33.458 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Conf2 None
+<INFO> 27-Jan-2022::15:20:33.467 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: ciena47.
+<INFO> 27-Jan-2022::15:20:33.468 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: eantc22.
+<INFO> 27-Jan-2022::15:20:33.468 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 2743.
+<INFO> 27-Jan-2022::15:20:33.468 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 1.
+<INFO> 27-Jan-2022::15:20:33.469 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: None.
+<INFO> 27-Jan-2022::15:20:33.470 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 24.
+<INFO> 27-Jan-2022::15:20:33.471 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 1_1.
+<INFO> 27-Jan-2022::15:20:33.471 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 172.16.1.254.
+<INFO> 27-Jan-2022::15:20:33.472 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 65149.
+<INFO> 27-Jan-2022::15:20:33.472 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 172.16.1.1.
+<INFO> 27-Jan-2022::15:20:33.473 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 65104.
+<INFO> 27-Jan-2022::15:20:33.473 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: CE2.
+<INFO> 27-Jan-2022::15:20:33.473 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 879.
+<INFO> 27-Jan-2022::15:20:33.473 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 2743.
+<INFO> 27-Jan-2022::15:20:33.473 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Applying template 'l3vpn-template' with bindings [('DEVICE', "'ciena47'"), ('VRF_NAME', "'eantc22'"), ('VLAN_ID', "'2743'"), ('LOGICAL_PORT', "'1'"), ('ROUTER_ID', "'None'"), ('IF_IP_PREFIXLEN', "'24'"), ('SHELF_SLOT', "'1_1'"), ('IF_IP', "'172.16.1.254'"), ('AS_NUM', "'65149'"), ('PEER_IP', "'172.16.1.1'"), ('PEER_AS_NUM', "'65104'"), ('PEER_DEVICE_NAME', "'CE2'"), ('NODE_ID', "'879'"), ('SERVICE_ID', "'2743'")]
+<INFO> 27-Jan-2022::15:20:33.547 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Service create done
+<INFO> 27-Jan-2022::15:20:33.602 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Service create(service=/l3vpn-svc:l3vpn-svc/sites/site{sfo})
+<INFO> 27-Jan-2022::15:20:33.604 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Processing site_network_access 1
+<INFO> 27-Jan-2022::15:20:33.608 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Configuring pe device ciena46
+<INFO> 27-Jan-2022::15:20:33.608 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Conf2 None
+<INFO> 27-Jan-2022::15:20:33.608 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: ciena46.
+<INFO> 27-Jan-2022::15:20:33.608 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: eantc22.
+<INFO> 27-Jan-2022::15:20:33.609 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 2743.
+<INFO> 27-Jan-2022::15:20:33.609 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 1.
+<INFO> 27-Jan-2022::15:20:33.610 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: None.
+<INFO> 27-Jan-2022::15:20:33.611 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 24.
+<INFO> 27-Jan-2022::15:20:33.611 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 1_1.
+<INFO> 27-Jan-2022::15:20:33.612 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 172.16.4.254.
+<INFO> 27-Jan-2022::15:20:33.612 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 65149.
+<INFO> 27-Jan-2022::15:20:33.613 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 172.16.4.1.
+<INFO> 27-Jan-2022::15:20:33.613 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 65104.
+<INFO> 27-Jan-2022::15:20:33.614 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: CE1.
+<INFO> 27-Jan-2022::15:20:33.614 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 751.
+<INFO> 27-Jan-2022::15:20:33.614 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - T#17: 2743.
+<INFO> 27-Jan-2022::15:20:33.614 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Applying template 'l3vpn-template' with bindings [('DEVICE', "'ciena46'"), ('VRF_NAME', "'eantc22'"), ('VLAN_ID', "'2743'"), ('LOGICAL_PORT', "'1'"), ('ROUTER_ID', "'None'"), ('IF_IP_PREFIXLEN', "'24'"), ('SHELF_SLOT', "'1_1'"), ('IF_IP', "'172.16.4.254'"), ('AS_NUM', "'65149'"), ('PEER_IP', "'172.16.4.1'"), ('PEER_AS_NUM', "'65104'"), ('PEER_DEVICE_NAME', "'CE1'"), ('NODE_ID', "'751'"), ('SERVICE_ID', "'2743'")]
+<INFO> 27-Jan-2022::15:20:33.730 l3vpn ncs-dp-3757223-l3vpn:main:0-1-th-13620: - Service create done
+<INFO> 27-Jan-2022::15:26:40.980 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Service create(service=/l3vpn-svc:l3vpn-svc/sites/site{pet})
+<INFO> 27-Jan-2022::15:26:40.982 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Processing site_network_access 1
+<INFO> 27-Jan-2022::15:26:40.984 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Configuring pe device ciena47
+<INFO> 27-Jan-2022::15:26:40.985 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Conf2 None
+<INFO> 27-Jan-2022::15:26:40.985 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: ciena47.
+<INFO> 27-Jan-2022::15:26:40.985 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: eantc22.
+<INFO> 27-Jan-2022::15:26:40.985 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 2743.
+<INFO> 27-Jan-2022::15:26:40.986 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 1.
+<INFO> 27-Jan-2022::15:26:40.986 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: None.
+<INFO> 27-Jan-2022::15:26:40.987 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 24.
+<INFO> 27-Jan-2022::15:26:40.987 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 1_1.
+<INFO> 27-Jan-2022::15:26:40.987 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 172.16.1.254.
+<INFO> 27-Jan-2022::15:26:40.988 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 65149.
+<INFO> 27-Jan-2022::15:26:40.988 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 172.16.1.1.
+<INFO> 27-Jan-2022::15:26:40.989 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 65104.
+<INFO> 27-Jan-2022::15:26:40.989 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: CE2.
+<INFO> 27-Jan-2022::15:26:40.989 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 879.
+<INFO> 27-Jan-2022::15:26:40.989 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 2743.
+<INFO> 27-Jan-2022::15:26:40.989 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Applying template 'l3vpn-template' with bindings [('DEVICE', "'ciena47'"), ('VRF_NAME', "'eantc22'"), ('VLAN_ID', "'2743'"), ('LOGICAL_PORT', "'1'"), ('ROUTER_ID', "'None'"), ('IF_IP_PREFIXLEN', "'24'"), ('SHELF_SLOT', "'1_1'"), ('IF_IP', "'172.16.1.254'"), ('AS_NUM', "'65149'"), ('PEER_IP', "'172.16.1.1'"), ('PEER_AS_NUM', "'65104'"), ('PEER_DEVICE_NAME', "'CE2'"), ('NODE_ID', "'879'"), ('SERVICE_ID', "'2743'")]
+<INFO> 27-Jan-2022::15:26:41.84 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Service create done
+<INFO> 27-Jan-2022::15:26:41.114 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Service create(service=/l3vpn-svc:l3vpn-svc/sites/site{sfo})
+<INFO> 27-Jan-2022::15:26:41.115 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Processing site_network_access 1
+<INFO> 27-Jan-2022::15:26:41.117 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Configuring pe device ciena46
+<INFO> 27-Jan-2022::15:26:41.117 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Conf2 None
+<INFO> 27-Jan-2022::15:26:41.118 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: ciena46.
+<INFO> 27-Jan-2022::15:26:41.118 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: eantc22.
+<INFO> 27-Jan-2022::15:26:41.118 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 2743.
+<INFO> 27-Jan-2022::15:26:41.118 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 1.
+<INFO> 27-Jan-2022::15:26:41.119 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: None.
+<INFO> 27-Jan-2022::15:26:41.119 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 24.
+<INFO> 27-Jan-2022::15:26:41.120 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 1_1.
+<INFO> 27-Jan-2022::15:26:41.120 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 172.16.4.254.
+<INFO> 27-Jan-2022::15:26:41.121 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 65149.
+<INFO> 27-Jan-2022::15:26:41.121 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 172.16.4.1.
+<INFO> 27-Jan-2022::15:26:41.121 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 65104.
+<INFO> 27-Jan-2022::15:26:41.122 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: CE1.
+<INFO> 27-Jan-2022::15:26:41.122 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 751.
+<INFO> 27-Jan-2022::15:26:41.122 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - T#17: 2743.
+<INFO> 27-Jan-2022::15:26:41.122 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Applying template 'l3vpn-template' with bindings [('DEVICE', "'ciena46'"), ('VRF_NAME', "'eantc22'"), ('VLAN_ID', "'2743'"), ('LOGICAL_PORT', "'1'"), ('ROUTER_ID', "'None'"), ('IF_IP_PREFIXLEN', "'24'"), ('SHELF_SLOT', "'1_1'"), ('IF_IP', "'172.16.4.254'"), ('AS_NUM', "'65149'"), ('PEER_IP', "'172.16.4.1'"), ('PEER_AS_NUM', "'65104'"), ('PEER_DEVICE_NAME', "'CE1'"), ('NODE_ID', "'751'"), ('SERVICE_ID', "'2743'")]
+<INFO> 27-Jan-2022::15:26:41.181 l3vpn ncs-dp-3757223-l3vpn:main:0-2-th-13684: - Service create done
+<INFO> 27-Jan-2022::15:33:21.420 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Service create(service=/l3vpn-svc:l3vpn-svc/sites/site{pet})
+<INFO> 27-Jan-2022::15:33:21.421 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Processing site_network_access 1
+<INFO> 27-Jan-2022::15:33:21.423 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Configuring pe device ciena47
+<INFO> 27-Jan-2022::15:33:21.423 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Conf2 None
+<INFO> 27-Jan-2022::15:33:21.423 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: ciena47.
+<INFO> 27-Jan-2022::15:33:21.424 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: eantc22.
+<INFO> 27-Jan-2022::15:33:21.424 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 2743.
+<INFO> 27-Jan-2022::15:33:21.424 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 1.
+<INFO> 27-Jan-2022::15:33:21.425 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: None.
+<INFO> 27-Jan-2022::15:33:21.425 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 24.
+<INFO> 27-Jan-2022::15:33:21.426 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 1_1.
+<INFO> 27-Jan-2022::15:33:21.426 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 172.16.1.254.
+<INFO> 27-Jan-2022::15:33:21.426 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 65149.
+<INFO> 27-Jan-2022::15:33:21.427 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 172.16.1.1.
+<INFO> 27-Jan-2022::15:33:21.427 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 65104.
+<INFO> 27-Jan-2022::15:33:21.427 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: CE2.
+<INFO> 27-Jan-2022::15:33:21.428 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 879.
+<INFO> 27-Jan-2022::15:33:21.428 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 2743.
+<INFO> 27-Jan-2022::15:33:21.428 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Applying template 'l3vpn-template' with bindings [('DEVICE', "'ciena47'"), ('VRF_NAME', "'eantc22'"), ('VLAN_ID', "'2743'"), ('LOGICAL_PORT', "'1'"), ('ROUTER_ID', "'None'"), ('IF_IP_PREFIXLEN', "'24'"), ('SHELF_SLOT', "'1_1'"), ('IF_IP', "'172.16.1.254'"), ('AS_NUM', "'65149'"), ('PEER_IP', "'172.16.1.1'"), ('PEER_AS_NUM', "'65104'"), ('PEER_DEVICE_NAME', "'CE2'"), ('NODE_ID', "'879'"), ('SERVICE_ID', "'2743'")]
+<INFO> 27-Jan-2022::15:33:21.490 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Service create done
+<INFO> 27-Jan-2022::15:33:21.520 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Service create(service=/l3vpn-svc:l3vpn-svc/sites/site{sfo})
+<INFO> 27-Jan-2022::15:33:21.522 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Processing site_network_access 1
+<INFO> 27-Jan-2022::15:33:21.525 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Configuring pe device ciena46
+<INFO> 27-Jan-2022::15:33:21.525 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Conf2 None
+<INFO> 27-Jan-2022::15:33:21.525 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: ciena46.
+<INFO> 27-Jan-2022::15:33:21.525 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: eantc22.
+<INFO> 27-Jan-2022::15:33:21.525 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 2743.
+<INFO> 27-Jan-2022::15:33:21.526 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 1.
+<INFO> 27-Jan-2022::15:33:21.526 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: None.
+<INFO> 27-Jan-2022::15:33:21.527 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 24.
+<INFO> 27-Jan-2022::15:33:21.527 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 1_1.
+<INFO> 27-Jan-2022::15:33:21.527 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 172.16.4.254.
+<INFO> 27-Jan-2022::15:33:21.528 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 65149.
+<INFO> 27-Jan-2022::15:33:21.528 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 172.16.4.1.
+<INFO> 27-Jan-2022::15:33:21.529 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 65104.
+<INFO> 27-Jan-2022::15:33:21.529 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: CE1.
+<INFO> 27-Jan-2022::15:33:21.529 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 751.
+<INFO> 27-Jan-2022::15:33:21.529 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - T#17: 2743.
+<INFO> 27-Jan-2022::15:33:21.529 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Applying template 'l3vpn-template' with bindings [('DEVICE', "'ciena46'"), ('VRF_NAME', "'eantc22'"), ('VLAN_ID', "'2743'"), ('LOGICAL_PORT', "'1'"), ('ROUTER_ID', "'None'"), ('IF_IP_PREFIXLEN', "'24'"), ('SHELF_SLOT', "'1_1'"), ('IF_IP', "'172.16.4.254'"), ('AS_NUM', "'65149'"), ('PEER_IP', "'172.16.4.1'"), ('PEER_AS_NUM', "'65104'"), ('PEER_DEVICE_NAME', "'CE1'"), ('NODE_ID', "'751'"), ('SERVICE_ID', "'2743'")]
+<INFO> 27-Jan-2022::15:33:21.591 l3vpn ncs-dp-3757223-l3vpn:main:0-3-th-13737: - Service create done

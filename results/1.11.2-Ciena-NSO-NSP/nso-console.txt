@@ -1,0 +1,133 @@
+1.11.2
+
+
+04:30:23 admin@ncs(config)# 
+04:30:23 admin@ncs(config)# show full-configuration l2vpn-svc
+% No entries found.
+04:30:25 admin@ncs(config)# 
+System message at 2022-01-27 16:31:54...
+Commit performed by cisco via ssh using netconf.
+04:30:25 admin@ncs(config)# show full-configuration l2vpn-svc
+l2vpn-svc vpn-services vpn-service evpn1
+ customer-name            EANTC
+ frame-delivery multicast-gp-port-mapping static-mapping
+ ce-vlan-preservation     false
+ ce-vlan-cos-preservation false
+!
+l2vpn-svc sites site mars
+ devices device ciena46
+  location lab
+ !
+ management type provider-managed
+ locations location lab
+ !
+ vpn-policies vpn-policy vpnp1
+  entries 1
+   vpn evpn1
+    site-role any-to-any-role
+   !
+  !
+ !
+ default-ce-vlan-id 100
+ site-network-accesses site-network-access 1
+  device-reference ciena46
+  connection oam md-name provider
+  connection oam md-level 5
+  vpn-attachment vpn-id evpn1
+  service svc-mtu 2000
+ !
+!
+l2vpn-svc sites site neptune
+ devices device ciena47
+  location lab
+ !
+ management type provider-managed
+ locations location lab
+ !
+ vpn-policies vpn-policy vpnp1
+  entries 1
+   vpn evpn1
+    site-role any-to-any-role
+   !
+  !
+ !
+ default-ce-vlan-id 100
+ site-network-accesses site-network-access 1
+  device-reference ciena47
+  connection oam md-name provider
+  connection oam md-level 5
+  vpn-attachment vpn-id evpn1
+  service svc-mtu 2000
+ !
+!
+04:32:05 admin@ncs(config)#                                  
+
+
+
+
+<INFO> 27-Jan-2022::16:18:17.892 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Service create(service=/l2vpn-svc:l2vpn-svc/sites/site{mars})
+<INFO> 27-Jan-2022::16:18:17.894 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Processing site_network_access 1
+<INFO> 27-Jan-2022::16:18:17.897 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Configuring pe device ciena46
+<INFO> 27-Jan-2022::16:18:17.897 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Conf2 None
+<INFO> 27-Jan-2022::16:18:17.907 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: ciena46.
+<INFO> 27-Jan-2022::16:18:17.907 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 3438.
+<INFO> 27-Jan-2022::16:18:17.908 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 65098.
+<INFO> 27-Jan-2022::16:18:17.908 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 3438.
+<INFO> 27-Jan-2022::16:18:17.908 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 1.
+<INFO> 27-Jan-2022::16:18:17.909 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: ac:dc:01:01:01:01.
+<INFO> 27-Jan-2022::16:18:17.909 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 2000.
+<INFO> 27-Jan-2022::16:18:17.909 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Applying template 'evpn-template' with bindings [('DEVICE', "'ciena46'"), 
+('VLAN_ID', "'3438'"), ('AS', "'65098'"), ('SVC', "'3438'"), ('PE_INTERFACE', "'1'"), ('PE_ADDRESS', "'ac:dc:01:01:01:01'"), ('MTU', "'2000'")]
+<INFO> 27-Jan-2022::16:18:17.930 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Service create done
+<INFO> 27-Jan-2022::16:18:17.955 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Service create(service=/l2vpn-svc:l2vpn-svc/sites/site{neptune})
+<INFO> 27-Jan-2022::16:18:17.957 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Processing site_network_access 1
+<INFO> 27-Jan-2022::16:18:17.960 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Configuring pe device ciena47
+<INFO> 27-Jan-2022::16:18:17.960 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Conf2 None
+<INFO> 27-Jan-2022::16:18:17.960 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: ciena47.
+<INFO> 27-Jan-2022::16:18:17.960 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 3438.
+<INFO> 27-Jan-2022::16:18:17.961 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 65098.
+<INFO> 27-Jan-2022::16:18:17.961 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 3438.
+<INFO> 27-Jan-2022::16:18:17.961 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 1.
+<INFO> 27-Jan-2022::16:18:17.962 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: ac:dc:02:02:02:02.
+<INFO> 27-Jan-2022::16:18:17.962 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - T#17: 2000.
+<INFO> 27-Jan-2022::16:18:17.962 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Applying template 'evpn-template' with bindings [('DEVICE', "'ciena47'"), ('VLAN_ID', "'3438'"), ('AS', "'65098'"), ('SVC', "'3438'"), ('PE_INTERFACE', "'1'"), ('PE_ADDRESS', "'ac:dc:02:02:02:02'"), ('MTU', "'2000'")]
+<INFO> 27-Jan-2022::16:18:17.982 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Service create done
+<INFO> 27-Jan-2022::16:21:11.2 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - Service create(service=/l2vpn-svc:l2vpn-svc/sites/site{mars})
+<INFO> 27-Jan-2022::16:21:11.3 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - Processing site_network_access 1
+<INFO> 27-Jan-2022::16:21:11.5 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - Configuring pe device ciena46
+<INFO> 27-Jan-2022::16:21:11.5 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - Conf2 None
+<INFO> 27-Jan-2022::16:21:11.5 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - T#17: ciena46.
+<INFO> 27-Jan-2022::16:21:11.6 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - T#17: 3438.
+<INFO> 27-Jan-2022::16:21:11.6 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - T#17: 65098.
+<INFO> 27-Jan-2022::16:21:11.6 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - T#17: 3438.
+<INFO> 27-Jan-2022::16:21:11.6 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - T#17: 1.
+<INFO> 27-Jan-2022::16:21:11.7 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - T#17: ac:dc:01:01:01:01.
+<INFO> 27-Jan-2022::16:21:11.7 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - T#17: 2000.
+<INFO> 27-Jan-2022::16:21:11.7 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - Applying template 'evpn-template' with bindings [('DEVICE', "'ciena46'"), ('VLAN_ID', "'3438'"), ('AS', "'65098'"), ('SVC', "'3438'"), ('PE_INTERFACE', "'1'"), ('PE_ADDRESS', "'ac:dc:01:01:01:01'"), ('MTU', "'2000'")]
+<INFO> 27-Jan-2022::16:21:11.27 evpn ncs-dp-3757227-evpn:main:0-2-th-13833: - Service create done
+<INFO> 27-Jan-2022::16:31:53.829 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Service create(service=/l2vpn-svc:l2vpn-svc/sites/site{mars})
+<INFO> 27-Jan-2022::16:31:53.831 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Processing site_network_access 1
+<INFO> 27-Jan-2022::16:31:53.834 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Configuring pe device ciena46
+<INFO> 27-Jan-2022::16:31:53.834 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Conf2 None
+<INFO> 27-Jan-2022::16:31:53.835 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: ciena46.
+<INFO> 27-Jan-2022::16:31:53.835 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 3438.
+<INFO> 27-Jan-2022::16:31:53.835 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 65098.
+<INFO> 27-Jan-2022::16:31:53.835 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 3438.
+<INFO> 27-Jan-2022::16:31:53.836 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 1.
+<INFO> 27-Jan-2022::16:31:53.836 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: ac:dc:01:01:01:01.
+<INFO> 27-Jan-2022::16:31:53.837 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 2000.
+<INFO> 27-Jan-2022::16:31:53.837 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Applying template 'evpn-template' with bindings [('DEVICE', "'ciena46'"), ('VLAN_ID', "'3438'"), ('AS', "'65098'"), ('SVC', "'3438'"), ('PE_INTERFACE', "'1'"), ('PE_ADDRESS', "'ac:dc:01:01:01:01'"), ('MTU', "'2000'")]
+<INFO> 27-Jan-2022::16:31:53.858 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Service create done
+<INFO> 27-Jan-2022::16:31:53.878 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Service create(service=/l2vpn-svc:l2vpn-svc/sites/site{neptune})
+<INFO> 27-Jan-2022::16:31:53.880 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Processing site_network_access 1
+<INFO> 27-Jan-2022::16:31:53.883 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Configuring pe device ciena47
+<INFO> 27-Jan-2022::16:31:53.883 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Conf2 None
+<INFO> 27-Jan-2022::16:31:53.883 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: ciena47.
+<INFO> 27-Jan-2022::16:31:53.884 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 3438.
+<INFO> 27-Jan-2022::16:31:53.884 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 65098.
+<INFO> 27-Jan-2022::16:31:53.884 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 3438.
+<INFO> 27-Jan-2022::16:31:53.885 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 1.
+<INFO> 27-Jan-2022::16:31:53.885 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: ac:dc:02:02:02:02.
+<INFO> 27-Jan-2022::16:31:53.886 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - T#17: 2000.
+<INFO> 27-Jan-2022::16:31:53.886 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Applying template 'evpn-template' with bindings [('DEVICE', "'ciena47'"), ('VLAN_ID', "'3438'"), ('AS', "'65098'"), ('SVC', "'3438'"), ('PE_INTERFACE', "'1'"), ('PE_ADDRESS', "'ac:dc:02:02:02:02'"), ('MTU', "'2000'")]
+<INFO> 27-Jan-2022::16:31:53.906 evpn ncs-dp-3757227-evpn:main:0-3-th-13894: - Service create done

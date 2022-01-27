@@ -1,0 +1,17 @@
+<ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
+  <name>huawei</name>
+  <package-version>1.0</package-version>
+  <description>Generated netconf package</description>
+  <ncs-min-version>5.7</ncs-min-version>
+  <component>
+    <name>huawei</name>
+    <ned>
+      <netconf>
+        <ned-id>to be replaced by build</ned-id>
+      </netconf>
+      <device>
+        <vendor>Acme</vendor>
+      </device>
+    </ned>
+  </component>
+</ncs-package>

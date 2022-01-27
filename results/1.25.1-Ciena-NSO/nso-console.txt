@@ -1,0 +1,332 @@
+1.25.1 
+
+
+01:41:32 admin@ncs(config)# devices device ciena47 compare-config                                                           
+diff 
+ devices {
+     device ciena47 {
+         config {
+             oc-if:interfaces {
+                 interface to8112-46 {
+                     config {
++                        access-profile eantcAP1;
+                     }
+                 }
+             }
+             access-profiles {
++                access-profile eantcAP1 {
++                    type IP-interface;
++                    default-filter-action allow;
++                    access-flow flow1 {
++                        classifier-list-precedence 100;
++                        filter-action deny;
++                        classifier vlan1001 {
++                            filter-entry destination-ip {
++                                logical-not false;
++                                destination-address 101.0.0.47/32;
++                            }
++                        }
++                    }
++                }
+             }
+         }
+     }
+ }
+
+01:45:31 admin@ncs(config)# devices device ciena47 sync-from     
+result true
+01:45:48 admin@ncs(config)# show full-configuration devices device ciena47 config | display xml | save ciena47-1.25-step1.xml
+01:46:12 admin@ncs(config)# devices device ciena47 compare-config                                                            
+diff 
+ devices {
+     device ciena47 {
+         config {
+             access-profiles {
+                 access-profile eantcAP1 {
++                    access-flow flow2 {
++                        classifier-list-precedence 10;
++                        filter-action allow;
++                        classifier vlan1001 {
++                            filter-entry source-ip {
++                                logical-not false;
++                                source-address 101.0.0.46/32;
++                            }
++                        }
++                    }
+                 }
+             }
+         }
+     }
+ }
+
+01:46:16 admin@ncs(config)# devices device ciena47 sync-from                                                                 
+result true
+01:46:23 admin@ncs(config)# show full-configuration devices device ciena47 config | display xml | save ciena47-1.25-step2.xml
+01:46:34 admin@ncs(config)# 
+01:46:36 admin@ncs(config)# no devices device ciena47 config 
+01:46:49 admin@ncs(config)# load merge ciena47-1.25-down.xml 
+Loading.
+427.27 KiB parsed in 1.29 sec (329.22 KiB/sec)
+01:46:59 admin@ncs(config)# show c
+devices device ciena47
+ config
+  oc-if:interfaces interface to8112-46
+   no config access-profile eantcAP1
+  !
+  no access-profiles access-profile eantcAP1
+ !
+!
+01:47:02 admin@ncs(config)# commit
+Commit complete.
+01:48:06 admin@ncs(config)#       
+01:48:23 admin@ncs(config)# 
+01:48:23 admin@ncs(config)# 
+01:48:23 admin@ncs(config)# 
+01:48:23 admin@ncs(config)# 
+01:48:23 admin@ncs(config)# load merge ciena47-1.25-step1.xml 
+Loading.
+428.33 KiB parsed in 0.64 sec (664.84 KiB/sec)
+01:51:19 admin@ncs(config)# show c
+devices device ciena47
+ config
+  access-profiles access-profile eantcAP1
+   type                  IP-interface
+   default-filter-action allow
+   access-flow flow1
+    classifier-list-precedence 100
+    filter-action              deny
+    classifier vlan1001
+     filter-entry destination-ip
+      logical-not         false
+      destination-address 101.0.0.47/32
+     !
+    !
+   !
+  !
+  oc-if:interfaces interface to8112-46
+   config access-profile eantcAP1
+  !
+ !
+!
+01:51:22 admin@ncs(config)# commit
+Commit complete.
+01:51:47 admin@ncs(config)# 
+01:53:05 admin@ncs(config)# 
+01:53:05 admin@ncs(config)# load merge ciena47-1.25-step2.xml
+Loading.
+428.95 KiB parsed in 0.63 sec (672.69 KiB/sec)
+01:53:10 admin@ncs(config)# show c
+devices device ciena47
+ config
+  access-profiles access-profile eantcAP1
+   access-flow flow2
+    classifier-list-precedence 10
+    filter-action              allow
+    classifier vlan1001
+     filter-entry source-ip
+      logical-not    false
+      source-address 101.0.0.46/32
+     !
+    !
+   !
+  !
+ !
+!
+01:53:13 admin@ncs(config)# commit
+Commit complete.
+01:53:21 admin@ncs(config)# 
+01:57:10 admin@ncs(config)# 
+01:57:11 admin@ncs(config)# rollback 
+Possible completions:
+  configuration   Roll back database to last committed version
+  selective       Apply a single rollback delta
+01:57:11 admin@ncs(config)# rollback configuration 10
+Possible completions: (first 100)
+  10001   2022-01-18 11:33:58 by system via system
+  10002   2022-01-20 15:45:38 by admin via cli
+  10003   2022-01-20 15:45:52 by admin via cli
+  10004   2022-01-20 15:46:18 by admin via cli
+  10005   2022-01-20 16:46:13 by admin via cli
+  10006   2022-01-20 16:46:57 by admin via cli
+  10007   2022-01-20 16:47:00 by admin via cli
+  10008   2022-01-20 16:51:47 by admin via cli
+  10009   2022-01-20 16:52:11 by admin via cli
+  10010   2022-01-20 16:52:19 by admin via cli
+  10011   2022-01-20 16:53:08 by admin via cli
+  10012   2022-01-20 17:23:28 by admin via cli
+  10013   2022-01-24 09:39:43 by admin via cli
+  10014   2022-01-24 09:39:49 by admin via cli
+  10015   2022-01-24 09:55:51 by admin via cli
+  10016   2022-01-24 09:59:04 by admin via cli
+  10017   2022-01-24 10:06:21 by admin via cli
+  10018   2022-01-24 10:06:25 by admin via cli
+  10019   2022-01-24 10:11:41 by admin via cli
+  10020   2022-01-24 10:12:12 by admin via cli
+  10021   2022-01-24 10:18:59 by admin via cli
+  10022   2022-01-24 10:20:56 by admin via cli
+  10023   2022-01-24 10:21:01 by admin via cli
+  10024   2022-01-24 10:23:56 by admin via cli
+  10025   2022-01-24 10:27:24 by admin via cli
+  10026   2022-01-24 10:29:18 by admin via cli
+  10027   2022-01-24 10:29:23 by admin via cli
+  10028   2022-01-24 10:30:18 by admin via cli
+  10029   2022-01-24 10:32:14 by admin via cli
+  10030   2022-01-24 10:32:27 by admin via cli
+  10031   2022-01-24 10:44:49 by admin via cli
+  10032   2022-01-24 10:47:11 by admin via cli
+  10033   2022-01-24 10:53:53 by admin via cli
+  10034   2022-01-24 11:01:00 by admin via cli
+  10035   2022-01-24 12:30:44 by admin via cli
+  10036   2022-01-24 12:33:27 by admin via cli
+  10037   2022-01-24 12:34:13 by admin via cli
+  10038   2022-01-24 12:34:24 by admin via cli
+  10039   2022-01-24 12:39:09 by admin via cli
+  10040   2022-01-24 12:51:17 by admin via cli
+  10041   2022-01-24 14:51:47 by admin via cli
+  10042   2022-01-24 14:55:25 by admin via cli
+  10043   2022-01-24 16:14:51 by admin via cli
+  10044   2022-01-24 16:14:56 by admin via cli
+  10045   2022-01-24 16:15:55 by admin via cli
+  10046   2022-01-24 16:16:03 by admin via cli
+  10047   2022-01-24 16:19:22 by admin via cli
+  10048   2022-01-24 16:19:27 by admin via cli
+  10049   2022-01-24 16:20:51 by admin via cli
+  10050   2022-01-24 16:20:57 by admin via cli
+  10051   2022-01-24 16:21:41 by admin via cli
+  10052   2022-01-24 16:21:56 by admin via cli
+  10053   2022-01-24 16:22:22 by admin via cli
+  10054   2022-01-24 16:22:32 by admin via cli
+  10055   2022-01-24 16:27:46 by admin via cli
+  10056   2022-01-24 17:18:54 by admin via cli
+  10057   2022-01-24 17:21:08 by admin via cli
+  10058   2022-01-24 17:28:03 by admin via cli
+  10059   2022-01-25 09:12:50 by admin via cli
+  10060   2022-01-25 09:12:56 by admin via cli
+  10061   2022-01-25 09:14:32 by admin via cli
+  10062   2022-01-25 09:14:38 by admin via cli
+  10063   2022-01-25 09:15:39 by admin via cli
+  10064   2022-01-25 09:16:53 by admin via cli
+  10065   2022-01-25 09:23:26 by admin via cli
+  10066   2022-01-25 09:39:38 by admin via cli
+  10067   2022-01-25 09:39:42 by admin via cli
+  10068   2022-01-25 09:40:46 by admin via cli
+  10069   2022-01-25 09:40:53 by admin via cli
+  10070   2022-01-25 09:42:08 by admin via cli
+  10071   2022-01-25 09:50:57 by admin via cli
+  10072   2022-01-25 09:51:02 by admin via cli
+  10073   2022-01-25 09:52:37 by admin via cli
+  10074   2022-01-25 09:52:41 by admin via cli
+  10075   2022-01-25 09:58:51 by admin via cli
+  10076   2022-01-25 09:58:56 by admin via cli
+  10077   2022-01-25 10:00:03 by admin via cli
+  10078   2022-01-25 10:00:09 by admin via cli
+  10079   2022-01-25 10:11:40 by admin via cli
+  10080   2022-01-25 10:11:44 by admin via cli
+  10081   2022-01-25 10:13:59 by admin via cli
+  10082   2022-01-25 10:14:05 by admin via cli
+  10083   2022-01-25 10:15:02 by admin via cli
+  10084   2022-01-25 10:15:54 by admin via cli
+  10085   2022-01-25 10:16:32 by admin via cli
+  10086   2022-01-25 10:17:40 by admin via cli
+  10087   2022-01-25 10:37:42 by admin via cli
+  10088   2022-01-25 11:03:43 by admin via cli
+  10089   2022-01-25 11:03:47 by admin via cli
+  10090   2022-01-25 12:54:54 by admin via cli
+  10091   2022-01-25 12:54:59 by admin via cli
+  10092   2022-01-25 12:58:16 by admin via cli
+  10093   2022-01-25 12:58:21 by admin via cli
+  10094   2022-01-25 13:00:33 by admin via cli
+  10095   2022-01-25 13:00:38 by admin via cli
+  10096   2022-01-25 13:01:24 by admin via cli
+  10097   2022-01-25 13:01:30 by admin via cli
+  10098   2022-01-25 13:02:28 by admin via cli
+  10099   2022-01-25 13:34:21 by admin via cli
+  10100   2022-01-25 13:34:24 by admin via cli
+01:57:11 admin@ncs(config)# rollback configuration 102
+                                                   ^
+% Invalid input detected at '^' marker.
+01:57:11 admin@ncs(config)# rollback configuration 101
+Possible completions:
+  10100   2022-01-25 13:34:24 by admin via cli
+  10101   2022-01-25 13:35:55 by admin via cli
+  10102   2022-01-25 13:36:46 by admin via cli
+  10103   2022-01-25 13:41:46 by admin via cli
+  10104   2022-01-25 13:41:51 by admin via cli
+  10105   2022-01-25 13:43:01 by admin via cli
+  10106   2022-01-25 15:28:59 by admin via cli
+  10107   2022-01-25 15:52:40 by admin via cli
+  10108   2022-01-25 15:52:48 by admin via cli
+  10109   2022-01-25 16:01:06 by admin via cli
+  10110   2022-01-25 16:01:17 by admin via cli
+  10111   2022-01-25 16:07:41 by admin via cli
+  10112   2022-01-25 16:07:45 by admin via cli
+  10113   2022-01-25 16:10:18 by admin via cli
+  10114   2022-01-25 16:10:22 by admin via cli
+  10115   2022-01-25 16:16:53 by admin via cli
+  10116   2022-01-25 16:17:02 by admin via cli
+  10117   2022-01-25 16:24:29 by admin via cli
+  10118   2022-01-25 16:24:36 by admin via cli
+  10119   2022-01-25 16:44:07 by admin via cli
+  10120   2022-01-25 17:01:35 by admin via cli
+  10121   2022-01-25 17:04:18 by admin via cli
+  10122   2022-01-25 17:04:26 by admin via cli
+  10123   2022-01-25 17:25:55 by admin via cli
+  10124   2022-01-25 17:26:06 by admin via cli
+  10125   2022-01-25 17:26:37 by admin via cli
+  10126   2022-01-25 17:26:43 by admin via cli
+  10127   2022-01-25 17:30:30 by admin via cli
+  10128   2022-01-25 17:30:40 by admin via cli
+  10129   2022-01-26 10:47:22 by admin via cli
+  10130   2022-01-26 10:47:28 by admin via cli
+  10131   2022-01-26 11:37:18 by admin via cli
+  10132   2022-01-26 11:37:21 by admin via cli
+  10133   2022-01-26 11:44:42 by admin via cli
+  10134   2022-01-26 11:44:47 by admin via cli
+  10135   2022-01-26 12:00:52 by admin via cli
+  10136   2022-01-26 12:01:50 by admin via cli
+  10137   2022-01-26 16:18:35 by admin via cli
+  10138   2022-01-26 16:18:39 by admin via cli
+  10139   2022-01-26 16:21:04 by admin via cli
+  10140   2022-01-26 16:23:54 by admin via cli
+  10141   2022-01-26 16:23:58 by admin via cli
+  10142   2022-01-26 16:24:54 by admin via cli
+  10143   2022-01-26 16:28:50 by admin via cli
+  10144   2022-01-26 16:30:59 by admin via cli
+  10145   2022-01-27 08:31:54 by admin via cli
+  10146   2022-01-27 08:32:21 by admin via cli
+  10147   2022-01-27 08:32:34 by admin via cli
+  10148   2022-01-27 08:32:47 by admin via cli
+  10149   2022-01-27 08:34:00 by admin via cli
+  10150   2022-01-27 08:34:19 by admin via cli
+  10151   2022-01-27 08:34:26 by admin via cli
+  10152   2022-01-27 09:06:45 by admin via cli
+  10153   2022-01-27 09:07:13 by admin via cli
+  10154   2022-01-27 09:07:29 by admin via cli
+  10155   2022-01-27 10:35:09 by admin via cli
+  10156   2022-01-27 10:35:12 by admin via cli
+  10157   2022-01-27 10:38:34 by admin via cli
+  10158   2022-01-27 13:37:07 by admin via cli
+  10159   2022-01-27 13:37:12 by admin via cli
+  10160   2022-01-27 13:45:48 by admin via cli
+  10161   2022-01-27 13:46:23 by admin via cli
+  10162   2022-01-27 13:48:06 by admin via cli
+  10163   2022-01-27 13:51:46 by admin via cli
+  10164   2022-01-27 13:53:21 by admin via cli
+  <cr>    latest
+01:57:11 admin@ncs(config)# rollback configuration 10163 
+01:57:48 admin@ncs(config)# show c
+devices device ciena47
+ config
+  oc-if:interfaces interface to8112-46
+   no config access-profile eantcAP1
+  !
+  no access-profiles access-profile eantcAP1
+ !
+!
+01:57:49 admin@ncs(config)# commit
+Commit complete.
+01:57:57 admin@ncs(config)# 
+01:59:40 admin@ncs(config)# 
+01:59:40 admin@ncs(config)# 
+01:59:40 admin@ncs(config)# 
+01:59:40 admin@ncs(config)# 
