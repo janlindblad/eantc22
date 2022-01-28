@@ -1,0 +1,537 @@
+1.2.3 System Inventory with Huawei and NSO, 2022 Jan 28
+
+Connecting to the Huawei device required building an NSO Network Element Driver (NED) for the device. 
+This took most of one day to complete. Once the NED was built, the Huawei device was giving off a warning
+when NSO was logging in over SSH on the device. The warning was about unsafe crypto protocols that had 
+better be avoided. The warning, however, came into the NETCONF stream and completely prevented any
+management operations. By configuring NSO to use recommended crypto protocols, the warning was not
+sent by the device, and NETCONF would work.
+
+This is the NSO-side configuration for the device connection that removed the warning:
+devices device hua32
+ ssh-algorithms public-key [ rsa-sha2-512 ]
+ ssh-algorithms kex [ diffie-hellman-group-exchange-sha256 ]
+
+Once connection was possible, NSO could manage smaller configuration changes around the device.
+Doing a complete sync-from (get-config) was not possible with the current setup. Every time we
+tried this, the get-config was interrupted at the same place. This could be evidence of a bug
+somewhere, or it could be something in the network that doesn't allow too long messages to be 
+sent, cutting them off. We did see some behavior like that in the lab network in the beginning of
+the week among other participants.
+
+01:39:19 admin@ncs(config)# show full-configuration devices device hua32          
+devices device hua32
+ address   192.168.20.32
+ port      22
+ ssh host-key ssh-rsa
+  key-data "AAAAB3NzaC1yc2EAAAADAQABAAABgQDHFCYF7Vk9ESd64xuB+IwWJDImiXbEAAkjuVRLfzDr\n2Q1Wzz3f5Dkgs+J0DTv+6ml2LqYAc7Q3LGkPQFQZ93wiqwaUS4EL9HSwP5wgmmvPiTmJtfUG\nahoMZjKPnWBUsTRRmyvs0UTp4GG/25a8Ql86F5SriU27AL3CtUUmu5GUVGW6WjnX0ip97FDI\noUcaCtLBgOhqVW1ef+RQj9q4jbUNAxw9UA4E6+a1iIFnv42KsA1iBSluGijkUnMIAlgbShgm\nQWxit0ymA8TYnG0xaT6NqV3dph20NOCmI0jIKmW4l7FlswUTVup9/CgbEqqUuzxXWtoFRqzu\nFhxOyeHr9YnWCex7MzzIZEa0qMxM+5CIliojMH/rMK4BLuc5Z+PPIpVsETrFjCZepy42DSAx\nqAx2HlxMwiHbbKWS4ydGi67Ir0gGwz2VcdMvNy9+cACitk+RBVibpuyE+VpckrHujavIvxFj\nYcrGte48aEfoNggY06NqhkYheAzw0udWxCUp05E="
+ !
+ ssh host-key ecdsa-521
+  key-data "AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAGxhIkXatDbf2LP0Onb\nRu7xThSqE0ugYloluw/Sj8ZEiHAHjdrCeFn74Rs7lgZ9gt4UnN+nuW49J/7qQlfh2VVstwEN\nqcHm5kwvPlmTJjbH5QcWQJHQcXJCrDMJ7AGFkmUX0j1FudDaDt9BU+MNbyHe/4t2z9fbXxdB\nN8QPxb1zz09d/g=="
+ !
+ authgroup huawei
+ device-type netconf ned-id huawei-nc-1.0
+ trace     pretty
+ state admin-state unlocked
+!
+01:39:33 admin@ncs(config)# 
+
+02:23:31 admin@ncs(config-device-hua32)# ssh-algorithms public-key rsa-sha2-512                                 
+02:23:37 admin@ncs(config-device-hua32)# comm
+Commit complete.
+02:23:39 admin@ncs(config-device-hua32)# connect
+result false
+info Failed to connect to device hua32: Protocol error
+02:23:40 admin@ncs(config-device-hua32)# ssh-algorithms kex [ diffie-hellman-group-exchange-sha256 ]
+02:23:54 admin@ncs(config-device-hua32)# commit
+Commit complete.
+02:23:56 admin@ncs(config-device-hua32)# connect
+result true
+info (admin) Connected to hua32 - 192.168.20.32:22
+02:24:00 admin@ncs(config-device-hua32)# sh f ssh-al
+devices device hua32
+ ssh-algorithms public-key [ rsa-sha2-512 ]
+ ssh-algorithms kex [ diffie-hellman-group-exchange-sha256 ]
+!
+02:28:28 admin@ncs(config-device-hua32)# 
+02:47:17 admin@ncs(config-device-hua32)# top           
+02:47:35 admin@ncs(config)#         
+admin@ncs# show devices device hua32 live-status
+Possible completions:
+  live-status            Status data fetched from the device
+  live-status-protocol   Additional protocols for the live-tree (read-only)
+admin@ncs# show devices device hua32 live-status 
+Possible completions: (first 100):
+  aaa                 acl                    arp                       bd                        bfd                   
+  bgp                 bgp-lsp                bier                      bier-fwd                  bras-auto-save        
+  bras-basic-access   bras-chasten           bras-cu-agent             bras-dhcp-access          bras-dhcp-server      
+  bras-dhcpv6-access  bras-dhcpv6-server     bras-diameter             bras-dot1x-access         bras-dynacl           
+  bras-http-redirect  bras-https-redirect    bras-ipv4-address-manage  bras-ipv6-address-manage  bras-l2tp-access      
+  bras-layer3-access  bras-local-backup      bras-multicast            bras-multicast-fwd        bras-pppox-access     
+  bras-pwve-access    bras-qos               bras-rui                  bras-said                 bras-static-user      
+  bras-user-manage    bras-vas               bras-vpn                  bras-web-authen           bras-wlan-access      
+  capture             cfg                    cli                       clocksync-1588v2          clocksync-comm        
+  clocksync-phy       clocksync-ptpadapt     clocksync-vaccess         codesign                  cpudefend             
+  crypto              cusp-agent             dcn                       debug                     devm                  
+  dhcp                dhcpv6                 diagnostic-tools          dns                       driver                
+  driver-vaccess      dsa                    dsvpn-nhrp                eai-service               ecc                   
+  efm                 emdi                   erps                      esqm                      etrunk                
+  evpl                evpn                   evpn-srv6                 fei                       fib                   
+  file-operation      flexe                  flow-recognition          flowspec                  flowspec-forward      
+  fm                  ftpc                   ftps                      grpc                      hardware              
+  host-defend         http                   huawei-rt:routing         hwtacacs                  if:interfaces         
+  ifit                ifm                    ifm-trunk                 interfaces-state          ippmmgr               
+  ipv6-nd             isis                   keychain                  kpi                       l2-multicast-forward  
+admin@ncs# show devices device hua32 live-status hardware component 
+Possible completions: (first 100)
+  25GE7/0/0                    25GE7/0/0
+  25GE7/0/1                    25GE7/0/1
+  25GE7/0/2                    25GE7/0/2
+  25GE7/0/3                    25GE7/0/3
+  25GE7/0/4                    25GE7/0/4
+  25GE7/0/5                    25GE7/0/5
+  25GE7/0/6                    25GE7/0/6
+  25GE7/0/7                    25GE7/0/7
+  25GE7/0/8                    25GE7/0/8
+  25GE7/0/9                    25GE7/0/9
+  25GE7/0/10                   25GE7/0/10
+  25GE7/0/11                   25GE7/0/11
+  25GE7/0/12                   25GE7/0/12
+  25GE7/0/13                   25GE7/0/13
+  25GE7/0/14                   25GE7/0/14
+  25GE7/0/15                   25GE7/0/15
+  25GE7/0/16                   25GE7/0/16
+  25GE7/0/17                   25GE7/0/17
+  25GE7/0/18                   25GE7/0/18
+  25GE7/0/19                   25GE7/0/19
+  25GE7/0/20                   25GE7/0/20
+  25GE7/0/21                   25GE7/0/21
+  25GE7/0/22                   25GE7/0/22
+  25GE7/0/23                   25GE7/0/23
+  25GE7/0/24                   25GE7/0/24
+  25GE7/0/25                   25GE7/0/25
+  25GE7/0/26                   25GE7/0/26
+  25GE7/0/27                   25GE7/0/27
+  25GE7/0/28                   25GE7/0/28
+  25GE7/0/29                   25GE7/0/29
+  25GE7/0/30                   25GE7/0/30
+  25GE7/0/31                   25GE7/0/31
+  25GE7/0/32                   25GE7/0/32
+  25GE7/0/33                   25GE7/0/33
+  25GE7/0/34                   25GE7/0/34
+  25GE7/0/35                   25GE7/0/35
+  25GE7/0/36                   25GE7/0/36
+  25GE7/0/37                   25GE7/0/37
+  25GE7/0/38                   25GE7/0/38
+  25GE7/0/39                   25GE7/0/39
+  CFCARD 9/0                   CFCARD 9/0
+  CFCARD 10/0                  CFCARD 10/0
+  CFCARD slot 9/0              CFCARD slot 9/0
+  CFCARD slot 10/0             CFCARD slot 10/0
+  CLK 30                       CLK 30
+  CLK 31                       CLK 31
+  CLK slot 30                  CLK slot 30
+  CLK slot 31                  CLK slot 31
+  CR8D00LRXFC6 7               72-Port 25GE(SFP28)/10GE(SFP+)/GE(SFP) Integrated Line Processing Unit CM(LPUI-2T-CM)
+admin@ncs# show devices device hua32 live-status hardware component 25GE7/0/
+Possible completions:
+  0    25GE7/0/0
+  1    25GE7/0/1
+  2    25GE7/0/2
+  3    25GE7/0/3
+  4    25GE7/0/4
+  5    25GE7/0/5
+  6    25GE7/0/6
+  7    25GE7/0/7
+  8    25GE7/0/8
+  9    25GE7/0/9
+  10   25GE7/0/10
+  11   25GE7/0/11
+  12   25GE7/0/12
+  13   25GE7/0/13
+  14   25GE7/0/14
+  15   25GE7/0/15
+  16   25GE7/0/16
+  17   25GE7/0/17
+  18   25GE7/0/18
+  19   25GE7/0/19
+  20   25GE7/0/20
+  21   25GE7/0/21
+  22   25GE7/0/22
+  23   25GE7/0/23
+  24   25GE7/0/24
+  25   25GE7/0/25
+  26   25GE7/0/26
+  27   25GE7/0/27
+  28   25GE7/0/28
+  29   25GE7/0/29
+  30   25GE7/0/30
+  31   25GE7/0/31
+  32   25GE7/0/32
+  33   25GE7/0/33
+  34   25GE7/0/34
+  35   25GE7/0/35
+  36   25GE7/0/36
+  37   25GE7/0/37
+  38   25GE7/0/38
+  39   25GE7/0/39
+  40   25GE7/0/40
+  41   25GE7/0/41
+  42   25GE7/0/42
+  43   25GE7/0/43
+  44   25GE7/0/44
+  45   25GE7/0/45
+  46   25GE7/0/46
+  47   25GE7/0/47
+  48   25GE7/0/48
+  49   25GE7/0/49
+  50   25GE7/0/50
+  51   25GE7/0/51
+  52   25GE7/0/52
+  53   25GE7/0/53
+  54   25GE7/0/54
+  55   25GE7/0/55
+  56   25GE7/0/56
+  57   25GE7/0/57
+  58   25GE7/0/58
+  59   25GE7/0/59
+  60   25GE7/0/60
+  61   25GE7/0/61
+  62   25GE7/0/62
+  63   25GE7/0/63
+  64   25GE7/0/64
+  65   25GE7/0/65
+  66   25GE7/0/66
+  67   25GE7/0/67
+  68   25GE7/0/68
+  69   25GE7/0/69
+  70   25GE7/0/70
+  71   25GE7/0/71
+admin@ncs# show devices device hua32 live-status hardware component 25GE7/0/10 
+live-status hardware component 25GE7/0/10
+ class          port
+ physical-index 17240331
+ description    25GE7/0/10
+ parent         "GPLI72YSES5 7/0"
+ parent-rel-pos 10
+ is-fru         false
+ state admin-state unlocked
+ state oper-state disabled
+ state alarm-state unknown
+ state standby-state unknown
+admin@ncs# prompt2 "\T \u@ncs(\m)# "                                                      
+admin@ncs# con
+Entering configuration mode terminal
+02:49:39 admin@ncs(config)# devices device hua32 config 
+Possible completions: (first 100):
+  aaa                   acl                  arp                       bd                        bfd                      
+  bgp                   bgp-lsp              bier                      bier-fwd                  bras-auto-save           
+  bras-basic-access     bras-chasten         bras-cu-agent             bras-dhcp-access          bras-dhcp-server         
+  bras-dhcpv6-access    bras-dhcpv6-server   bras-diameter             bras-dot1x-access         bras-dynacl              
+  bras-http-redirect    bras-https-redirect  bras-ipv4-address-manage  bras-ipv6-address-manage  bras-l2tp-access         
+  bras-layer3-access    bras-local-backup    bras-multicast            bras-pppox-access         bras-pwve-access         
+  bras-qos              bras-rui             bras-said                 bras-static-user          bras-user-manage         
+  bras-vas              bras-web-authen      bras-wlan-access          cfg                       cli                      
+  clocksync-1588v2      clocksync-phy        clocksync-ptpadapt        clocksync-vaccess         cpudefend                
+  crypto                dcn                  debug                     devm                      dhcp                     
+  dhcpv6                dns                  driver                    dsa                       dsvpn-nhrp               
+  eai-service           ecc                  efm                       emdi                      erps                     
+  esqm                  etrunk               evpl                      evpn                      evpn-srv6                
+  flexe                 flowspec             flowspec-forward          fm                        ftpc                     
+  ftps                  grpc                 hardware                  host-defend               http                     
+  huawei-rt:routing     hwtacacs             if:interfaces             ifit                      ifm                      
+  ifm-trunk             ippmmgr              ipv6-nd                   isis                      keychain                 
+  l2-multicast-forward  l2cpmanagement       l2pt                      l2tpv3                    lacp:lacp                
+  license               lldp                 lmp                       loadbalance               local-routes             
+  loopdetect            mac                  mac-flapping              masterkey                 mirror                   
+02:49:39 admin@ncs(config)# devices device hua32 config sys
+Possible completions:
+  sys:system  syslog  system-event-management  system:system
+02:49:39 admin@ncs(config)# devices device hua32 config sys:system 
+Possible completions:
+  clock  hostname  ntp
+02:50:00 admin@ncs(config)# show full-configuration devices device hua32 config sys:system hostname
+devices device hua32
+ config
+  sys:system hostname HUAWEI
+ !
+!
+02:51:19 admin@ncs(config)# show full-configuration devices device hua32 config sys:system hostname 
+devices device hua32
+ config
+  sys:system hostname HUAWEI
+ !
+!
+02:51:54 admin@ncs(config)# show full-configuration devices device hua32 config system:system system-info sys-contact 
+devices device hua32
+ config
+  system:system system-info sys-contact "R&D Beijing, Huawei Technologies co.,Ltd."
+ !
+!
+02:51:59 admin@ncs(config)# show full-configuration devices device hua32 config system:system system-info            
+% No entries found.
+02:52:38 admin@ncs(config)# show full-configuration devices device hua32 config system:system system-info sys-           
+Possible completions:
+  sys-contact  sys-location  sys-name
+02:52:38 admin@ncs(config)# show full-configuration devices device hua32 config system:system system-info sys-location 
+devices device hua32
+ config
+  system:system system-info sys-location "Beijing China"
+ !
+!
+02:52:45 admin@ncs(config)# show full-configuration devices device hua32 config system:system system-info sys-        
+Possible completions:
+  sys-contact  sys-location  sys-name
+02:52:45 admin@ncs(config)# show full-configuration devices device hua32 config system:system system-info sys-name 
+devices device hua32
+ config
+  system:system system-info sys-name HUAWEI
+ !
+!
+02:54:49 admin@ncs(config)# show full-configuration devices device hua32 config dns 
+% No entries found.
+02:54:58 admin@ncs(config)# devices device hua32 config dns                         
+admin@ncs# show devices device hua32 live-status arp 
+live-status arp global strict-learn-enable false
+live-status arp global l2topo-detect-enable false
+live-status arp global rate-trap-interval 0
+live-status arp global passive-learn-enable false
+live-status arp global topo-detect-disable false
+live-status arp global con-send-enable false
+live-status arp global gratuitous-drop false
+live-status arp global vlanif-expiretime 1200
+live-status arp global host-conflict-period 180
+live-status arp global host-conflict-threshold 5
+live-status arp global broadcast-max-num 500
+                                         EXPIRE                                       SLOT  PE    CE         
+NI NAME   IP ADDR        MAC ADDR        TIME    STYLE TYPE     IF NAME               ID    VLAN  VLAN  PVC  
+-------------------------------------------------------------------------------------------------------------
+_public_  20.32.149.32   903f-ea9d-6230  -       interface-arp  25GE7/0/0             7     -     -     -    
+_public_  20.31.32.32    903f-ea9d-6250  -       interface-arp  25GE7/0/32            7     -     -     -    
+_public_  30.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.101       8     -     -     -    
+_public_  31.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.102       8     -     -     -    
+_public_  32.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.103       8     -     -     -    
+_public_  33.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.104       8     -     -     -    
+_public_  34.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.105       8     -     -     -    
+_public_  21.32.48.1     903f-ea9d-8f0c  -       interface-arp  FlexE8/0/41.200       8     -     -     -    
+_public_  21.32.48.5     903f-ea9d-8f0d  -       interface-arp  FlexE8/0/42.201       8     -     -     -    
+_public_  21.32.48.9     903f-ea9d-8f0e  -       interface-arp  FlexE8/0/43.202       8     -     -     -    
+_public_  21.32.48.13    903f-ea9d-8f0f  -       interface-arp  FlexE8/0/44.203       8     -     -     -    
+_public_  21.32.48.17    903f-ea9d-8f10  -       interface-arp  FlexE8/0/45.204       8     -     -     -    
+_public_  192.168.20.32  e43e-c68d-fe61  -       interface-arp  GigabitEthernet0/0/0  -     -     -     -    
+_public_  192.168.20.1   90e2-bac7-8074  12      dynamic-arp    GigabitEthernet0/0/0  -     -     -     -    
+irb_sym   10.10.32.254   e43e-c6c8-dc00  -       interface-arp  Vbdif32               -     -     -     -    
+irb_asm   10.10.250.254  e43e-c6c8-dc00  -       interface-arp  Vbdif250              -     -     -     -    
+irb_asm   10.10.251.254  e43e-c6c8-dc00  -       interface-arp  Vbdif251              -     -     -     -    
+test      10.10.200.32   e43e-c6c8-dc00  -       interface-arp  Vbdif200              -     -     -     -    
+
+SLOT  SUPPRESS           SUPPRESS  
+ID    TYPE      IP TYPE  VALUE     
+-----------------------------------
+0     arp       dest-ip  500       
+7     arp       dest-ip  500       
+8     arp       dest-ip  500       
+0     arp       src-ip   100       
+7     arp       src-ip   100       
+8     arp       src-ip   100       
+0     arp-miss  src-ip   500       
+7     arp-miss  src-ip   500       
+8     arp-miss  src-ip   500       
+
+admin@ncs# show devices device hua32 live-status m  
+Possible completions:
+  mac           mac-flapping       macm           macsec     manageEvent:netconf  masterkey  
+  mirror        module-management  monitor-group  mpls       mpls-in-udp          mpls-res   
+  mplsoam       mplstpoam          mstp           multicast  multicast-forward    mvpn       
+  mvpn-forward  
+admin@ncs# show devices device hua32 live-status n
+Possible completions:
+  nacm  nd  net-slice  netconf  netconf-state  netconf:netconf  netstream  network-instance  network-instances  nqa  ntp  nvo3
+admin@ncs# show devices device hua32 live-status ntp 
+live-status ntp system-config is-auth-enable false
+live-status ntp system-config is-auth-password-check false
+live-status ntp system-config max-sess-count 100
+live-status ntp system-config is-kod-enable false
+live-status ntp system-config min-discard-intval 1
+live-status ntp system-config avg-discard-intval 5
+live-status ntp system-config local-port 123
+live-status ntp system-config max-distance 1
+ADDR    
+FAMILY  
+--------
+IPv4    
+IPv6    
+
+live-status ntp status clock-status unsynchronized
+live-status ntp status stratum 16
+live-status ntp status source none
+live-status ntp status precision 2^18
+live-status ntp status offset "0.0000 ms"
+live-status ntp status nominal-frequence "100.0000 Hz"
+live-status ntp status actual-frequence "100.0000 Hz"
+live-status ntp status root-delay "0.00 ms"
+live-status ntp status root-dispersion "0.00 ms"
+live-status ntp status peer-dispersion "0.00 ms"
+live-status ntp status reference-time "00:00:00.000 UTC Jan 1 1900(00000000.00000000)"
+live-status ntp board-statuses board-status 9
+ source         unknown
+ configured     No
+ status         unsynchronized
+ offset         "0.0000 ms"
+ precision      2^18
+ poll           64
+ reference-time "00:00:00.000 UTC Jan 1 1900(00000000.00000000)"
+ current-time   "22:58:39.033 UTC Jan 28 2022(E59EF39F.08765BA6)"
+Aborted: by user
+admin@ncs# show devices device hua32 live-status ztp status 
+live-status ztp status enable true
+live-status ztp status last false
+live-status ztp status pre-configuration-name None
+admin@ncs# con                                             
+Entering configuration mode terminal
+03:00:08 admin@ncs(config)# devices device hua32 config ntp 
+Possible completions:
+  access-controls                   authentications                        broadcasts                    
+  clocks                            disables                               in-interface-disables         
+  manycasts                         multicasts                             server-enables                
+  server-isolate-source-interfaces  server-isolate-source-ipv6-interfaces  server-source-all-interfaces  
+  server-source-interfaces          server-source-ipv6-addresses           source-interfaces             
+  system-config                     unicasts                               
+03:00:08 admin@ncs(config)# devices device hua32 config sys:system 
+Possible completions:
+  clock  hostname  ntp
+03:00:08 admin@ncs(config)# devices device hua32 config sys:system hostname ?
+Possible completions:
+  <string, min: 1 chars, max: 246 chars>[HUAWEI]
+03:00:08 admin@ncs(config)# devices device hua32 config sys:system hostname HUAWEI-JANL
+03:00:47 admin@ncs(config-config)# sh c
+sys:system hostname HUAWEI-JANL
+03:00:50 admin@ncs(config-config)# commit
+Commit complete.
+03:00:59 admin@ncs(config-config)# compare-config
+Error: internal error
+03:01:47 admin@ncs(config-config)# rollback c
+03:02:02 admin@ncs(config)# show c
+devices device hua32
+ config
+  no sys:system hostname HUAWEI-JANL
+ !
+!
+03:02:04 admin@ncs(config)# commit
+Commit complete.
+03:02:25 admin@ncs(config)# show full-configuration devices device hua32 config sys:system hostname 
+devices device hua32
+ config
+  sys:system hostname HUAWEI
+ !
+!
+03:02:42 admin@ncs(config)# 
+03:06:47 admin@ncs(config)# 
+03:06:47 admin@ncs(config)# 
+03:06:47 admin@ncs(config)# 
+03:06:47 admin@ncs(config)# 
+03:06:47 admin@ncs(config)# 
+03:07:38 admin@ncs(config)# 
+03:07:38 admin@ncs(config)# devices device hua32 sync-from 
+result false
+info internal error
+03:08:28 admin@ncs(config)# l
+Possible completions:
+  l2vpn-svc   
+  l3vpn-svc   
+  ---         
+  load        Load configuration from an ASCII file or from terminal
+03:08:28 admin@ncs(config)# l   
+Possible completions:
+  l2vpn-svc   
+  l3vpn-svc   
+  ---         
+  load        Load configuration from an ASCII file or from terminal
+03:08:28 admin@ncs(config)#     
+03:09:57 admin@ncs(config)# 
+03:09:58 admin@ncs(config)# devices device hua32 connect                                           
+result true
+info (admin) Connected to hua32 - 192.168.20.32:22
+03:10:03 admin@ncs(config)# devices device hua32 sync-from
+result false
+info internal error
+03:10:47 admin@ncs(config)# devices device hua32 connect  
+result true
+info (admin) Connected to hua32 - 192.168.20.32:22
+03:11:08 admin@ncs(config)# 
+03:14:55 admin@ncs(config)# 
+03:14:55 admin@ncs(config)# 
+03:14:55 admin@ncs(config)# devices device hua32 connect
+result true
+info (admin) Connected to hua32 - 192.168.20.32:22
+03:15:05 admin@ncs(config)# devices device hua32 config sys:system hostname ?
+Possible completions:
+  <string, min: 1 chars, max: 246 chars>[HUAWEI]
+03:15:05 admin@ncs(config)# devices device hua32 config sys:system hostname Hua32   
+03:15:45 admin@ncs(config-config)# commit
+Commit complete.
+03:15:54 admin@ncs(config-config)# sh f devices device hua32 config sys:system hostname 
+devices device hua32
+ config
+  sys:system hostname Hua32
+ !
+!
+03:16:14 admin@ncs(config-config)# top                                
+03:16:52 admin@ncs(config)# devices device hua32 config sys:system ntp enabled 
+03:17:11 admin@ncs(config-config)# commit
+Commit complete.
+03:17:30 admin@ncs(config-config)#     
+03:17:33 admin@ncs(config-device-hua32)# 
+03:17:34 admin@ncs(config)# 
+admin@ncs# show devices device hua32 live-status arp 
+live-status arp global strict-learn-enable false
+live-status arp global l2topo-detect-enable false
+live-status arp global rate-trap-interval 0
+live-status arp global passive-learn-enable false
+live-status arp global topo-detect-disable false
+live-status arp global con-send-enable false
+live-status arp global gratuitous-drop false
+live-status arp global vlanif-expiretime 1200
+live-status arp global host-conflict-period 180
+live-status arp global host-conflict-threshold 5
+live-status arp global broadcast-max-num 500
+                                         EXPIRE                                       SLOT  PE    CE         
+NI NAME   IP ADDR        MAC ADDR        TIME    STYLE TYPE     IF NAME               ID    VLAN  VLAN  PVC  
+-------------------------------------------------------------------------------------------------------------
+_public_  20.32.149.32   903f-ea9d-6230  -       interface-arp  25GE7/0/0             7     -     -     -    
+_public_  20.31.32.32    903f-ea9d-6250  -       interface-arp  25GE7/0/32            7     -     -     -    
+_public_  30.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.101       8     -     -     -    
+_public_  31.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.102       8     -     -     -    
+_public_  32.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.103       8     -     -     -    
+_public_  33.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.104       8     -     -     -    
+_public_  34.32.179.32   903f-ea9d-8f11  -       interface-arp  FlexE8/0/51.105       8     -     -     -    
+_public_  21.32.48.1     903f-ea9d-8f0c  -       interface-arp  FlexE8/0/41.200       8     -     -     -    
+_public_  21.32.48.5     903f-ea9d-8f0d  -       interface-arp  FlexE8/0/42.201       8     -     -     -    
+_public_  21.32.48.9     903f-ea9d-8f0e  -       interface-arp  FlexE8/0/43.202       8     -     -     -    
+_public_  21.32.48.13    903f-ea9d-8f0f  -       interface-arp  FlexE8/0/44.203       8     -     -     -    
+_public_  21.32.48.17    903f-ea9d-8f10  -       interface-arp  FlexE8/0/45.204       8     -     -     -    
+_public_  192.168.20.32  e43e-c68d-fe61  -       interface-arp  GigabitEthernet0/0/0  -     -     -     -    
+_public_  192.168.20.1   90e2-bac7-8074  15      dynamic-arp    GigabitEthernet0/0/0  -     -     -     -    
+irb_sym   10.10.32.254   e43e-c6c8-dc00  -       interface-arp  Vbdif32               -     -     -     -    
+irb_asm   10.10.250.254  e43e-c6c8-dc00  -       interface-arp  Vbdif250              -     -     -     -    
+irb_asm   10.10.251.254  e43e-c6c8-dc00  -       interface-arp  Vbdif251              -     -     -     -    
+test      10.10.200.32   e43e-c6c8-dc00  -       interface-arp  Vbdif200              -     -     -     -    
+
+SLOT  SUPPRESS           SUPPRESS  
+ID    TYPE      IP TYPE  VALUE     
+-----------------------------------
+0     arp       dest-ip  500       
+7     arp       dest-ip  500       
+8     arp       dest-ip  500       
+0     arp       src-ip   100       
+7     arp       src-ip   100       
+8     arp       src-ip   100       
+0     arp-miss  src-ip   500       
+7     arp-miss  src-ip   500       
+8     arp-miss  src-ip   500       
+
+admin@ncs# devices device hua32 sync-f 
+result false
+info internal error
+admin@ncs# 
+
