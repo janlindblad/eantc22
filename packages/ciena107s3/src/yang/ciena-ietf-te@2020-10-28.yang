@@ -1,0 +1,351 @@
+
+module ciena-ietf-te {
+  namespace "http://ciena.com/ns/yang/ciena-ietf-te";
+  prefix ciena-te;
+
+  /* Import TE types */
+
+  import ietf-te-types {
+    prefix te-types;
+  }
+
+  import openconfig-interfaces {
+     prefix "oc-if";
+  }
+
+  import ciena-openconfig-interfaces {
+    prefix "cn-oc-if";
+  }
+
+  organization
+    "Ciena Corporation";
+
+  contact
+    "Web URL: http://www.ciena.com/
+     E-mail:  yang@ciena.com
+     Postal:  7035 Ridge Road
+     Hanover, Maryland 21076
+     U.S.A.
+     Phone:   +1 800-921-1144
+     Fax:     +1 410-694-5750";
+
+  description
+     "This module contains the Ciena proprietary YANG deviations
+      of the standard ietf-te and ietf-te-device YANG module.
+      Copyright (c) 2016 Ciena Corporation.  All rights reserved.
+
+      All information contained herein is, and remains
+      the property of Ciena Corporation. Dissemination of this
+      information or reproduction of this material is strictly
+      forbidden unless prior written permission is obtained from
+      Ciena Corporation.";
+
+  revision "2020-10-28" {
+    description
+      "Initial version";
+    reference
+      "IETF-DRAFT: A YANG Data Model for Traffic Engineering Tunnels, Label Switched Paths and Interfaces 
+       and RFC 8795";
+  }
+
+  grouping max-link-bandwidth-config {
+    description
+      "Maximum bandwidth grouping";
+    leaf max-link-bandwidth {
+      type te-types:te-bandwidth;
+      description
+         "Maximum bandwidth that can be seen on this link in this
+         direction.  It is a string containing a non-negative decimal or 
+         formatted as external hexadecimal-significant character 
+         sequences specified in IEEE 754 and ISO/IEC C99. 
+         Units are in bytes per second.";
+    }
+  }
+
+  grouping max-resv-link-bandwidth-config {
+    description
+      "Maximum reservable bandwidth grouping";
+    choice max-resv-link-bandwidth-type {
+      description
+        "Maximum reservable bandwidth type choice";
+      case value {
+        leaf max-resv-link-bandwidth {
+          type te-types:te-bandwidth;
+          description
+            "Maximum amount of bandwidth that can be reserved in this
+            direction in this link.  It is a string containing a non-negative 
+            decimal or formatted as external hexadecimal-significant 
+            character sequences specified in IEEE 754 and ISO/IEC C99. 
+            Units are in bytes per second.";
+        }
+      }
+      case percent {
+        leaf max-resv-link-bandwidth-percent {
+          type uint32 {
+            range "1..100";
+          }
+          description
+            "Percentage of max-link-bandwidth that can be reserved in this
+             direction in this link.";
+        }
+      }
+    }    
+  }
+
+  grouping te-delay-metric-config {
+    description
+      "Delay metric grouping";
+    leaf te-delay-metric {
+      type uint32 {
+        range "1..16777215";
+      }
+      units microseconds;
+      description
+        "Traffic Engineering unidirectional delay metric.";
+    }
+  }
+
+  grouping te-metric-extensions-threshold-config {
+    description
+      "Configurable thresholds for advertising TE Metric Extensions.";
+    leaf delay-maximum-threshold {
+      type uint32;
+      units microseconds;
+      description
+        "Maximum threshold exceeding which Unidirectional delay is considered anomalous.
+         Value greater than zero.";
+    }
+  }  
+
+  /* TE interface metric */
+
+  grouping te-metric-config {
+    description
+      "TE interface metric grouping.";
+    leaf te-metric {
+      type te-types:te-metric {
+        range "1..16777215";
+      }
+      description
+        "TE interface metric.";
+    }
+  }
+
+  /**
+   * TE interface device groupings
+   */
+
+  grouping te-admin-groups-config {
+    description
+      "TE interface affinities grouping.";
+    choice admin-group-type {
+      description
+        "TE interface administrative groups
+         representation type.";
+      case named-admin-groups {
+        list named-admin-groups {
+          if-feature "te-types:extended-admin-groups";
+          if-feature "te-types:named-extended-admin-groups";
+          key "named-admin-group";
+          description
+            "A list of named admin-group entries.";
+          leaf named-admin-group {
+            type leafref {
+              path "/ciena-te:te/ciena-te:globals/ciena-te:named-admin-groups" +
+                   "/ciena-te:named-admin-group/ciena-te:name";
+            }
+            description
+              "A named admin-group entry.";
+          }
+        }
+      }
+    }
+  }
+
+  /* TE interface SRLGs */
+
+  grouping te-srlgs-config {
+    description
+      "TE interface SRLG grouping.";
+    choice srlg-type {
+      description
+        "Choice of SRLG configuration.";
+      case value-srlgs {
+        list srlg-values {
+          key "value";
+          description
+            "List of SRLG values that
+             this link is part of.";
+          leaf value {
+            type uint32 {
+              range "0..4294967295";
+            }
+            description
+              "Value of the SRLG";
+          }
+        }
+      }
+    }
+  }
+
+  /* TE interface attributes grouping */
+
+  grouping te-attributes {
+    description
+      "TE attributes configuration grouping.";
+    uses te-metric-config;
+    uses te-delay-metric-config;
+    uses te-admin-groups-config;
+    uses te-srlgs-config;
+    uses max-link-bandwidth-config;
+    uses max-resv-link-bandwidth-config;
+    uses te-metric-extensions-threshold-config;
+  }
+
+  /**
+   * TE global device groupings
+   */
+  /* TE interface container data */
+
+  grouping interfaces-grouping {
+    description
+      "TE interface configuration data grouping.";
+    container interfaces {
+      description
+        "Configuration data model for TE interfaces.";
+      list interface {
+        key "interface";
+        description
+          "TE interfaces.";
+        leaf interface {
+          type leafref {
+             path "/oc-if:interfaces/oc-if:interface/oc-if:name";
+          }
+          must "/oc-if:interfaces/oc-if:interface[oc-if:name=current()]"
+               + "/oc-if:config/cn-oc-if:type[.='ip' or .='ip-unnumbered' or .='point-to-point']"
+          {
+            error-message "TE properties can be set only on 'ip', 'ip-unnumbered' and 'point-to-point' interface";
+          }
+
+          description
+            "TE interface name.";
+        }
+
+        leaf admin-status {
+          type te-types:te-admin-status;
+          default "up";
+          description
+            "The administrative state of the link.
+             If status is down then no TE attribute will be signalled";
+        }
+
+        /* TE interface parameters */
+        uses te-attributes;
+      }
+    }
+  }
+
+  /**
+   * TE global generic groupings
+   */
+  /* Global named admin-groups configuration data */
+
+  grouping named-admin-groups-properties {
+    description
+      "Global named administrative groups configuration
+       grouping.";
+    leaf name {
+      type string{
+        length "1..31";
+      }
+      description
+        "A string name that uniquely identifies a TE
+         interface named admin-group.";
+    }
+    leaf bit-position {
+      type uint32 {
+        range "0..31";
+      }
+      mandatory true;
+      description
+        "Bit position representing the administrative group.";
+      reference
+        "RFC3209 and RFC7308";
+    }
+  }
+
+  grouping named-admin-groups {
+    description
+      "Global named administrative groups configuration
+       grouping.";
+    container named-admin-groups {
+      description
+        "TE named admin groups container.";
+      list named-admin-group {
+        if-feature "te-types:extended-admin-groups";
+        if-feature "te-types:named-extended-admin-groups";
+        key "name";
+        description
+          "List of named TE admin-groups.";
+        uses named-admin-groups-properties;
+      }
+    }
+  }
+
+  /* TE globals container data */
+
+  grouping globals-grouping {
+    description
+      "Globals TE system-wide configuration data grouping.";
+    container globals {
+      description
+        "Globals TE system-wide configuration data container.";
+      uses named-admin-groups;
+    }
+  }
+
+
+  /**
+   * TE device container data
+   */
+  container te {
+    description
+      "TE global container.";
+      /* TE Global Data */
+      uses globals-grouping;
+      uses interfaces-grouping;
+  }
+
+
+  container te-state {
+    config false;
+    description
+      "TE global container information.";
+
+    container interfaces {
+      description
+        "Configuration data model for TE interfaces.";
+
+      list interface {
+        key "interface";
+        description
+          "TE interfaces.";
+
+        leaf interface {
+          type leafref {
+             path "/oc-if:interfaces/oc-if:interface/oc-if:name";
+          }
+          description
+            "TE interface name.";
+        }
+
+        leaf link-index {
+          type uint64; 
+          description
+            "The link identifier represents a unique value, which is
+            locally defined in a router.";
+        }
+      }
+    }
+  }
+}
