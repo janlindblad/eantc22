@@ -1,0 +1,651 @@
+1.11.1 Layer 2 EVPN Service Provisioning with Ciena and NSO, 2022 Jan 25
+
+# Step 1
+
+>>>>out 25-Jan-2022::17:26:42.042 user: admin/1040 thandle 11404 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 25-Jan-2022::17:26:42.097 user: admin/1040 thandle 11404 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+    <capability>urn:ietf:params:netconf:capability:xpath:1.0</capability>
+...
+
+
+>>>>out 25-Jan-2022::17:25:35.619 user: admin/1040 thandle 11187 hostname cisco-nso device ciena47
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 25-Jan-2022::17:25:35.674 user: admin/1040 thandle 11187 hostname cisco-nso device ciena47
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+...
+
+# Step 2
+
+>>>>out 25-Jan-2022::17:26:42.311 user: admin/1040 thandle 11404 hostname cisco-nso device ciena46 session-id=26
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+      <snmp xmlns="urn:ietf:params:xml:ns:yang:ietf-snmp"/>
+      <pseudowires xmlns="urn:ietf:params:xml:ns:yang:ietf-pseudowires"/>
+      <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm"/>
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"/>
+      <ethernet-segments xmlns="urn:ietf:params:xml:ns:yang:ietf-ethernet-segment"/>
+...
+
+<<<<in 25-Jan-2022::17:26:43.667 user: admin/1040 thandle 11404 hostname cisco-nso device ciena46 session-id=26
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T17:25:56Z"
+           ncx:etag="49"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+        <servwait>90</servwait>
+        <control-packet-dscp>0</control-packet-dscp>
+        <modes>unauthenticated</modes>
+        <connectivity-mode xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-twamp-saos">standard</connectivity-mode>
+      </server>
+      <session-reflector>
+        <admin-state>false</admin-state>
+        <refwait>90</refwait>
+      </session-reflector>
+    </twamp>
+    <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog">
+      <log-actions>
+        <remote>
+          <admin-state xmlns="http://www.ciena.com/ns/yang/ciena-syslog">enabled</admin-state>
+          <dest xmlns="http://www.ciena.com/ns/yang/ciena-syslog">
+            <address>192.168.20.49</address>
+            <admin-state>enabled</admin-state>
+...
+
+>>>>out 25-Jan-2022::17:25:35.926 user: admin/1040 thandle 11187 hostname cisco-nso device ciena47 session-id=28
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+      <snmp xmlns="urn:ietf:params:xml:ns:yang:ietf-snmp"/>
+      <pseudowires xmlns="urn:ietf:params:xml:ns:yang:ietf-pseudowires"/>
+      <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm"/>
+...
+
+<<<<in 25-Jan-2022::17:25:37.446 user: admin/1040 thandle 11187 hostname cisco-nso device ciena47 session-id=28
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T17:08:18Z"
+           ncx:etag="69"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+        <servwait>90</servwait>
+        <control-packet-dscp>0</control-packet-dscp>
+        <modes>unauthenticated</modes>
+        <connectivity-mode xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-twamp-saos">standard</connectivity-mode>
+      </server>
+      <session-reflector>
+        <admin-state>false</admin-state>
+        <refwait>90</refwait>
+      </session-reflector>
+    </twamp>
+    <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog">
+      <log-actions>
+        <remote>
+          <admin-state xmlns="http://www.ciena.com/ns/yang/ciena-syslog">enabled</admin-state>
+          <dest xmlns="http://www.ciena.com/ns/yang/ciena-syslog">
+            <address>192.168.20.49</address>
+            <admin-state>enabled</admin-state>
+            <port>514</port>
+...
+
+# Step 3
+
+>>>>out 25-Jan-2022::17:27:32.141 user: admin/1078 thandle 11478 hostname cisco-nso device ciena47 session-id=29
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 25-Jan-2022::17:27:32.151 user: admin/1078 thandle 11478 hostname cisco-nso device ciena47 session-id=29
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::17:27:32.152 user: admin/1078 thandle 11478 hostname cisco-nso device ciena47 session-id=29
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <evpn xmlns="http://ciena.com/ns/yang/ciena-evpn">
+        <ethernet-segments>
+          <ethernet-segment>
+            <name>es.1.3438</name>
+            <active-mode>single-active-mode</active-mode>
+            <ethernet-segment-identifier>
+              <mac-based>
+                <system-mac-address>ac:dc:02:02:02:02</system-mac-address>
+              </mac-based>
+            </ethernet-segment-identifier>
+            <logical-port>1</logical-port>
+            <evlag>false</evlag>
+            <df-election>
+              <election-wait-time>3</election-wait-time>
+              <preference>32767</preference>
+              <reversion-hold-time>3</reversion-hold-time>
+              <df-election-method>default</df-election-method>
+              <revertive>true</revertive>
+            </df-election>
+          </ethernet-segment>
+        </ethernet-segments>
+        <evpn-instances>
+          <evpn-instance>
+            <id>3438</id>
+            <vpn-target>
+              <route-target>0:65098:3438</route-target>
+              <route-target-type>both</route-target-type>
+            </vpn-target>
+            <vpws-cross-connect-fd>
+              <forwarding-domain>eVPWS.3438</forwarding-domain>
+              <control-word>true</control-word>
+              <local-service-id>3438</local-service-id>
+              <l2mtu>1500</l2mtu>
+              <remote-service-id>3438</remote-service-id>
+            </vpws-cross-connect-fd>
+            <sr-policy>
+              <fallback>enable</fallback>
+            </sr-policy>
+          </evpn-instance>
+        </evpn-instances>
+      </evpn>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp>
+          <name>p1v3438</name>
+          <logical-port>1</logical-port>
+          <mtu-size>2000</mtu-size>
+          <stats-collection>on</stats-collection>
+          <classifier-list>v3438</classifier-list>
+          <fd-name>eVPWS.3438</fd-name>
+        </fp>
+      </fps>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">
+        <classifier>
+          <name>v3438</name>
+          <filter-entry>
+            <filter-parameter>vtag-stack</filter-parameter>
+            <vtags>
+              <tag>1</tag>
+              <vlan-id>3438</vlan-id>
+            </vtags>
+            <logical-not>false</logical-not>
+          </filter-entry>
+        </classifier>
+      </classifiers>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd>
+          <name>eVPWS.3438</name>
+          <mode>evpn-vpws</mode>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::17:27:32.153 user: admin/1078 thandle 11478 hostname cisco-nso device ciena47 session-id=29
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::17:27:32.305 user: admin/1078 thandle 11478 hostname cisco-nso device ciena47 session-id=29
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::17:27:32.315 user: admin/1078 thandle 11478 hostname cisco-nso device ciena47 session-id=29
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::17:28:03.263 user: admin/1078 thandle 11478 hostname cisco-nso device ciena47 session-id=29
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <close-session/>
+</rpc>
+
+
+
+>>>>out 25-Jan-2022::17:27:22.691 user: admin/1074 thandle 11455 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 25-Jan-2022::17:27:22.703 user: admin/1074 thandle 11455 hostname cisco-nso device ciena46 session-id=27
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::17:27:22.705 user: admin/1074 thandle 11455 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <evpn xmlns="http://ciena.com/ns/yang/ciena-evpn">
+        <ethernet-segments>
+          <ethernet-segment>
+            <name>es.1.3438</name>
+            <active-mode>single-active-mode</active-mode>
+            <ethernet-segment-identifier>
+              <mac-based>
+                <system-mac-address>ac:dc:01:01:01:01</system-mac-address>
+              </mac-based>
+            </ethernet-segment-identifier>
+            <logical-port>1</logical-port>
+            <evlag>false</evlag>
+            <df-election>
+              <election-wait-time>3</election-wait-time>
+              <preference>32767</preference>
+              <reversion-hold-time>3</reversion-hold-time>
+              <df-election-method>default</df-election-method>
+              <revertive>true</revertive>
+            </df-election>
+          </ethernet-segment>
+        </ethernet-segments>
+        <evpn-instances>
+          <evpn-instance>
+            <id>3438</id>
+            <vpn-target>
+              <route-target>0:65098:3438</route-target>
+              <route-target-type>both</route-target-type>
+            </vpn-target>
+            <vpws-cross-connect-fd>
+              <forwarding-domain>eVPWS.3438</forwarding-domain>
+              <control-word>true</control-word>
+              <local-service-id>3438</local-service-id>
+              <l2mtu>1500</l2mtu>
+              <remote-service-id>3438</remote-service-id>
+            </vpws-cross-connect-fd>
+            <sr-policy>
+              <fallback>enable</fallback>
+            </sr-policy>
+          </evpn-instance>
+        </evpn-instances>
+      </evpn>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp>
+          <name>p1v3438</name>
+          <logical-port>1</logical-port>
+          <mtu-size>2000</mtu-size>
+          <stats-collection>on</stats-collection>
+          <classifier-list>v3438</classifier-list>
+          <fd-name>eVPWS.3438</fd-name>
+        </fp>
+      </fps>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">
+        <classifier>
+          <name>v3438</name>
+          <filter-entry>
+            <filter-parameter>vtag-stack</filter-parameter>
+            <vtags>
+              <tag>1</tag>
+              <vlan-id>3438</vlan-id>
+            </vtags>
+            <logical-not>false</logical-not>
+          </filter-entry>
+        </classifier>
+      </classifiers>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd>
+          <name>eVPWS.3438</name>
+          <mode>evpn-vpws</mode>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::17:27:22.707 user: admin/1074 thandle 11455 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::17:27:22.916 user: admin/1074 thandle 11455 hostname cisco-nso device ciena46 session-id=27
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::17:27:22.927 user: admin/1074 thandle 11455 hostname cisco-nso device ciena46 session-id=27
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::17:27:53.263 user: admin/1074 thandle 11455 hostname cisco-nso device ciena46 session-id=27
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <close-session/>
+</rpc>
+
+>>>>out 25-Jan-2022::17:27:53.263 user: admin/1074 thandle 11455 hostname cisco-nso device ciena46 session-id=27 NCS close
+
+# Step 5
+
+>>>>out 25-Jan-2022::17:30:31.442 user: admin/1040 thandle 11523 hostname cisco-nso device ciena46 session-id=28
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 25-Jan-2022::17:30:31.454 user: admin/1040 thandle 11523 hostname cisco-nso device ciena46 session-id=28
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::17:30:31.457 user: admin/1040 thandle 11523 hostname cisco-nso device ciena46 session-id=28
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <evpn xmlns="http://ciena.com/ns/yang/ciena-evpn">
+        <ethernet-segments>
+          <ethernet-segment xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                            nc:operation="delete">
+            <name>es.1.3438</name>
+          </ethernet-segment>
+        </ethernet-segments>
+        <evpn-instances>
+          <evpn-instance xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+            <id>3438</id>
+          </evpn-instance>
+        </evpn-instances>
+      </evpn>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>p1v3438</name>
+        </fp>
+      </fps>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">
+        <classifier xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                    nc:operation="delete">
+          <name>v3438</name>
+        </classifier>
+      </classifiers>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>eVPWS.3438</name>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::17:30:31.458 user: admin/1040 thandle 11523 hostname cisco-nso device ciena46 session-id=28
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::17:30:31.606 user: admin/1040 thandle 11523 hostname cisco-nso device ciena46 session-id=28
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::17:30:31.616 user: admin/1040 thandle 11523 hostname cisco-nso device ciena46 session-id=28
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+
+>>>>out 25-Jan-2022::17:30:41.140 user: admin/1040 thandle 11538 hostname cisco-nso device ciena47 session-id=30
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 25-Jan-2022::17:30:41.152 user: admin/1040 thandle 11538 hostname cisco-nso device ciena47 session-id=30
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 25-Jan-2022::17:30:41.154 user: admin/1040 thandle 11538 hostname cisco-nso device ciena47 session-id=30
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <evpn xmlns="http://ciena.com/ns/yang/ciena-evpn">
+        <ethernet-segments>
+          <ethernet-segment xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                            nc:operation="delete">
+            <name>es.1.3438</name>
+          </ethernet-segment>
+        </ethernet-segments>
+        <evpn-instances>
+          <evpn-instance xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                         nc:operation="delete">
+            <id>3438</id>
+          </evpn-instance>
+        </evpn-instances>
+      </evpn>
+      <fps xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fp">
+        <fp xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>p1v3438</name>
+        </fp>
+      </fps>
+      <classifiers xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">
+        <classifier xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                    nc:operation="delete">
+          <name>v3438</name>
+        </classifier>
+      </classifiers>
+      <fds xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-mef-fd">
+        <fd xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+            nc:operation="delete">
+          <name>eVPWS.3438</name>
+        </fd>
+      </fds>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 25-Jan-2022::17:30:41.155 user: admin/1040 thandle 11538 hostname cisco-nso device ciena47 session-id=30
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 25-Jan-2022::17:30:41.294 user: admin/1040 thandle 11538 hostname cisco-nso device ciena47 session-id=30
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 25-Jan-2022::17:30:41.306 user: admin/1040 thandle 11538 hostname cisco-nso device ciena47 session-id=30
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+# Step 6
+
+>>>>out 25-Jan-2022::17:31:02.073 user: admin/1040 thandle 11187 hostname cisco-nso device ciena47 session-id=30
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+      <snmp xmlns="urn:ietf:params:xml:ns:yang:ietf-snmp"/>
+...
+
+<<<<in 25-Jan-2022::17:31:03.673 user: admin/1040 thandle 11187 hostname cisco-nso device ciena47 session-id=30
+<rpc-reply message-id="4"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T17:30:41Z"
+           ncx:etag="72"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+        <servwait>90</servwait>
+        <control-packet-dscp>0</control-packet-dscp>
+        <modes>unauthenticated</modes>
+        <connectivity-mode xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-twamp-saos">standard</connectivity-mode>
+      </server>
+      <session-reflector>
+        <admin-state>false</admin-state>
+        <refwait>90</refwait>
+      </session-reflector>
+    </twamp>
+    <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog">
+      <log-actions>
+        <remote>
+          <admin-state xmlns="http://www.ciena.com/ns/yang/ciena-syslog">enabled</admin-state>
+          <dest xmlns="http://www.ciena.com/ns/yang/ciena-syslog">
+            <address>192.168.20.49</address>
+            <admin-state>enabled</admin-state>
+...
+
+>>>>out 25-Jan-2022::17:30:56.264 user: admin/1040 thandle 11187 hostname cisco-nso device ciena46 session-id=28
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+      <snmp xmlns="urn:ietf:params:xml:ns:yang:ietf-snmp"/>
+      <pseudowires xmlns="urn:ietf:params:xml:ns:yang:ietf-pseudowires"/>
+...
+
+<<<<in 25-Jan-2022::17:30:57.793 user: admin/1040 thandle 11187 hostname cisco-nso device ciena46 session-id=28
+<rpc-reply message-id="4"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-25T17:30:31Z"
+           ncx:etag="51"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+        <servwait>90</servwait>
+        <control-packet-dscp>0</control-packet-dscp>
+        <modes>unauthenticated</modes>
+        <connectivity-mode xmlns="urn:ciena:params:xml:ns:yang:ciena-pn:ciena-twamp-saos">standard</connectivity-mode>
+      </server>
+      <session-reflector>
+        <admin-state>false</admin-state>
+        <refwait>90</refwait>
+      </session-reflector>
+    </twamp>
+    <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog">
+      <log-actions>
+        <remote>
+          <admin-state xmlns="http://www.ciena.com/ns/yang/ciena-syslog">enabled</admin-state>
+          <dest xmlns="http://www.ciena.com/ns/yang/ciena-syslog">
+            <address>192.168.20.49</address>
+            <admin-state>enabled</admin-state>
+...

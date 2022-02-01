@@ -1,5 +1,7 @@
-1.11.2
+1.11.2 Layer 2 EVPN Service Provisioning with Ciena, NSO and NSP, 2022 Jan 27
 
+
+# Step 3
 
 04:30:23 admin@ncs(config)# 
 04:30:23 admin@ncs(config)# show full-configuration l2vpn-svc
@@ -63,7 +65,10 @@ l2vpn-svc sites site neptune
 04:32:05 admin@ncs(config)#                                  
 
 
-
+This is from the service code logger, it shows that the service application is running, 
+triggered by the incoming service configuration changes. The service application ran four
+times, creating the site "mars", creating the site "neptune", changing the site "mars",
+changing the site "neptune".
 
 <INFO> 27-Jan-2022::16:18:17.892 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Service create(service=/l2vpn-svc:l2vpn-svc/sites/site{mars})
 <INFO> 27-Jan-2022::16:18:17.894 evpn ncs-dp-3757227-evpn:main:0-1-th-13777: - Processing site_network_access 1

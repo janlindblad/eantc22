@@ -1,0 +1,239 @@
+1.25.1 Network Access Control Lists (ACLs) with Ciena and NSO, 2022 Jan 27
+
+# Step 2
+
+>>>>out 27-Jan-2022::13:51:47.383 user: admin/1278 thandle 13166 hostname cisco-nso device ciena47 session-id=68
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 27-Jan-2022::13:51:47.394 user: admin/1278 thandle 13166 hostname cisco-nso device ciena47 session-id=68
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 27-Jan-2022::13:51:47.396 user: admin/1278 thandle 13166 hostname cisco-nso device ciena47 session-id=68
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <access-profiles xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-access-flow">
+        <access-profile>
+          <name>eantcAP1</name>
+          <access-flow>
+            <name>flow1</name>
+            <filter-action>deny</filter-action>
+            <classifier>
+              <name>vlan1001</name>
+              <filter-entry>
+                <filter-parameter xmlns:classifier="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">classifier:destination-ip</filter-parameter>
+                <logical-not>false</logical-not>
+                <destination-address>101.0.0.47/32</destination-address>
+              </filter-entry>
+            </classifier>
+            <classifier-list-precedence>100</classifier-list-precedence>
+          </access-flow>
+          <default-filter-action>allow</default-filter-action>
+          <type>IP-interface</type>
+        </access-profile>
+      </access-profiles>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface>
+          <name>to8112-46</name>
+          <config>
+            <access-profile xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces">eantcAP1</access-profile>
+          </config>
+        </interface>
+      </interfaces>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 27-Jan-2022::13:51:47.397 user: admin/1278 thandle 13166 hostname cisco-nso device ciena47 session-id=68
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 27-Jan-2022::13:51:47.449 user: admin/1278 thandle 13166 hostname cisco-nso device ciena47 session-id=68
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 27-Jan-2022::13:51:47.461 user: admin/1278 thandle 13166 hostname cisco-nso device ciena47 session-id=68
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 27-Jan-2022::13:52:18.263 user: admin/1278 thandle 13166 hostname cisco-nso device ciena47 session-id=68
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <close-session/>
+</rpc>
+
+>>>>out 27-Jan-2022::13:52:18.264 user: admin/1278 thandle 13166 hostname cisco-nso device ciena47 session-id=68 NCS close
+
+# Step 4
+
+>>>>out 27-Jan-2022::13:53:21.876 user: admin/1278 thandle 13188 hostname cisco-nso device ciena47 session-id=69
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 27-Jan-2022::13:53:21.889 user: admin/1278 thandle 13188 hostname cisco-nso device ciena47 session-id=69
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 27-Jan-2022::13:53:21.892 user: admin/1278 thandle 13188 hostname cisco-nso device ciena47 session-id=69
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <access-profiles xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-access-flow">
+        <access-profile>
+          <name>eantcAP1</name>
+          <access-flow>
+            <name>flow2</name>
+            <filter-action>allow</filter-action>
+            <classifier>
+              <name>vlan1001</name>
+              <filter-entry>
+                <filter-parameter xmlns:classifier="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-classifier">classifier:source-ip</filter-parameter>
+                <source-address>101.0.0.46/32</source-address>
+                <logical-not>false</logical-not>
+              </filter-entry>
+            </classifier>
+            <classifier-list-precedence>10</classifier-list-precedence>
+          </access-flow>
+        </access-profile>
+      </access-profiles>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 27-Jan-2022::13:53:21.893 user: admin/1278 thandle 13188 hostname cisco-nso device ciena47 session-id=69
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 27-Jan-2022::13:53:21.923 user: admin/1278 thandle 13188 hostname cisco-nso device ciena47 session-id=69
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 27-Jan-2022::13:53:21.934 user: admin/1278 thandle 13188 hostname cisco-nso device ciena47 session-id=69
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+
+# Step 6
+
+>>>>out 27-Jan-2022::13:57:57.085 user: admin/1278 thandle 13203 hostname cisco-nso device ciena47 session-id=70
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 27-Jan-2022::13:57:57.097 user: admin/1278 thandle 13203 hostname cisco-nso device ciena47 session-id=70
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 27-Jan-2022::13:57:57.099 user: admin/1278 thandle 13203 hostname cisco-nso device ciena47 session-id=70
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <access-profiles xmlns="urn:ciena:params:xml:ns:yang:ciena-pn::ciena-mef-access-flow">
+        <access-profile xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                        nc:operation="delete">
+          <name>eantcAP1</name>
+        </access-profile>
+      </access-profiles>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface>
+          <name>to8112-46</name>
+          <config>
+            <access-profile xmlns="http://ciena.com/ns/yang/ciena-openconfig-interfaces"
+                            xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                            nc:operation="delete"/>
+          </config>
+        </interface>
+      </interfaces>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 27-Jan-2022::13:57:57.100 user: admin/1278 thandle 13203 hostname cisco-nso device ciena47 session-id=70
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 27-Jan-2022::13:57:57.151 user: admin/1278 thandle 13203 hostname cisco-nso device ciena47 session-id=70
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 27-Jan-2022::13:57:57.161 user: admin/1278 thandle 13203 hostname cisco-nso device ciena47 session-id=70
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 27-Jan-2022::13:58:27.263 user: admin/1278 thandle 13203 hostname cisco-nso device ciena47 session-id=70
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <close-session/>
+</rpc>
+
+>>>>out 27-Jan-2022::13:58:27.264 user: admin/1278 thandle 13203 hostname cisco-nso device ciena47 session-id=70 NCS close

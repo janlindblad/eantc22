@@ -1,0 +1,217 @@
+1.18.1 Routing Policies Configuration with Ciena and NSO, 2022 Jan 27
+
+# Step 1
+
+>>>>out 27-Jan-2022::14:00:07.794 user: admin/1278 thandle 13236 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+  </capabilities>
+</hello>
+
+<<<<in 27-Jan-2022::14:00:07.852 user: admin/1278 thandle 13236 hostname cisco-nso device ciena46
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+...
+
+# Step 2
+
+>>>>out 27-Jan-2022::14:00:08.117 user: admin/1278 thandle 13236 hostname cisco-nso device ciena46 session-id=125
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp"/>
+      <syslog xmlns="urn:ietf:params:xml:ns:yang:ietf-syslog"/>
+...
+
+<<<<in 27-Jan-2022::14:00:09.478 user: admin/1278 thandle 13236 hostname cisco-nso device ciena46 session-id=125
+<rpc-reply message-id="1"
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx"
+           ncx:last-modified="2022-01-27T13:59:27Z"
+           ncx:etag="290"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <data>
+    <twamp xmlns="urn:ietf:params:xml:ns:yang:ietf-twamp">
+      <server>
+        <admin-state>false</admin-state>
+        <server-tcp-port>862</server-tcp-port>
+        <servwait>90</servwait>
+        <control-packet-dscp>0</control-packet-dscp>
+...
+
+>>>>out 27-Jan-2022::14:05:10.234 user: admin/1278 thandle 13263 hostname cisco-nso device ciena46 session-id=127
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 27-Jan-2022::14:05:10.246 user: admin/1278 thandle 13263 hostname cisco-nso device ciena46 session-id=127
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 27-Jan-2022::14:05:10.249 user: admin/1278 thandle 13263 hostname cisco-nso device ciena46 session-id=127
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp">
+        <instance>
+          <as>65149</as>
+          <peer>
+            <address>100.0.0.47</address>
+            <address-family>
+              <afi>vpnv4</afi>
+              <safi>unicast</safi>
+              <policy>
+                <name>eantcRP1</name>
+                <direction>in</direction>
+              </policy>
+            </address-family>
+          </peer>
+        </instance>
+      </bgp>
+      <routing-policy xmlns="http://ciena.com/ns/yang/ciena/ciena-routing-policy">
+        <policies>
+          <policy>
+            <name>eantcRP1</name>
+            <statement>
+              <sequence>10</sequence>
+              <action>permit</action>
+              <set>
+                <atomic-aggregate>false</atomic-aggregate>
+                <weight>1000</weight>
+                <as-path-prepend>65149</as-path-prepend>
+              </set>
+            </statement>
+          </policy>
+        </policies>
+      </routing-policy>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 27-Jan-2022::14:05:10.250 user: admin/1278 thandle 13263 hostname cisco-nso device ciena46 session-id=127
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 27-Jan-2022::14:05:10.310 user: admin/1278 thandle 13263 hostname cisco-nso device ciena46 session-id=127
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 27-Jan-2022::14:05:10.320 user: admin/1278 thandle 13263 hostname cisco-nso device ciena46 session-id=127
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+# Step 5
+
+>>>>out 27-Jan-2022::14:07:50.762 user: admin/1278 thandle 13282 hostname cisco-nso device ciena46 session-id=128
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="1">
+  <lock>
+    <target>
+      <running/>
+    </target>
+  </lock>
+</rpc>
+
+<<<<in 27-Jan-2022::14:07:50.772 user: admin/1278 thandle 13282 hostname cisco-nso device ciena46 session-id=128
+<rpc-reply message-id="1"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 27-Jan-2022::14:07:50.774 user: admin/1278 thandle 13282 hostname cisco-nso device ciena46 session-id=128
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="2">
+  <edit-config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+      <running/>
+    </target>
+    <error-option>rollback-on-error</error-option>
+    <config>
+      <bgp xmlns="http://ciena.com/ns/yang/ciena-bgp">
+        <instance>
+          <as>65149</as>
+          <peer>
+            <address>100.0.0.47</address>
+            <address-family>
+              <afi>vpnv4</afi>
+              <safi>unicast</safi>
+              <policy xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                      nc:operation="delete">
+                <name>eantcRP1</name>
+                <direction>in</direction>
+              </policy>
+            </address-family>
+          </peer>
+        </instance>
+      </bgp>
+      <routing-policy xmlns="http://ciena.com/ns/yang/ciena/ciena-routing-policy">
+        <policies>
+          <policy xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0"
+                  nc:operation="delete">
+            <name>eantcRP1</name>
+          </policy>
+        </policies>
+      </routing-policy>
+    </config>
+  </edit-config>
+</rpc>
+
+>>>>out 27-Jan-2022::14:07:50.774 user: admin/1278 thandle 13282 hostname cisco-nso device ciena46 session-id=128
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="3">
+  <unlock>
+    <target>
+      <running/>
+    </target>
+  </unlock>
+</rpc>
+
+<<<<in 27-Jan-2022::14:07:50.842 user: admin/1278 thandle 13282 hostname cisco-nso device ciena46 session-id=128
+<rpc-reply message-id="2"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+<<<<in 27-Jan-2022::14:07:50.853 user: admin/1278 thandle 13282 hostname cisco-nso device ciena46 session-id=128
+<rpc-reply message-id="3"
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ok/>
+</rpc-reply>
+
+>>>>out 27-Jan-2022::14:08:21.262 user: admin/1278 thandle 13282 hostname cisco-nso device ciena46 session-id=128
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     message-id="4">
+  <close-session/>
+</rpc>
+
+>>>>out 27-Jan-2022::14:08:21.263 user: admin/1278 thandle 13282 hostname cisco-nso device ciena46 session-id=128 NCS close
+

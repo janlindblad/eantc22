@@ -1,12 +1,25 @@
-1.18.1 Routing Policies Configuration with Ciena and NSO, 2022 Jan 27
-
-# Step 1
-
 01:59:43 admin@ncs(config)# devices device ciena46 sync-f    
 result true
-
-# Step 2
-
+02:00:09 admin@ncs(config)# show full-configuration devices device ciena46 config | display xml | save ciena46-1.18-with-policy.xml
+02:01:06 admin@ncs(config)#                                                                                                        
+02:01:11 admin@ncs(config)# rollback configuration 
+02:01:26 admin@ncs(config)# show c
+devices device ciena46
+ config
+  bgp instance 65149
+   peer 100.0.0.47
+    address-family vpnv4 unicast
+     no policy eantcRP1 in
+    !
+   !
+  !
+  no routing-policy policies policy eantcRP1
+ !
+!
+02:01:29 admin@ncs(config)# commit
+Commit complete.
+02:01:53 admin@ncs(config)# 
+02:04:34 admin@ncs(config)# 
 02:04:34 admin@ncs(config)# rollback configuration 
 02:04:41 admin@ncs(config)# show c
 devices device ciena46
@@ -31,9 +44,9 @@ devices device ciena46
 !
 02:04:43 admin@ncs(config)# commit
 Commit complete.
-
-# Step 5
-
+02:05:10 admin@ncs(config)# rollback configuration on
+---------------------------------------------------^
+syntax error: "on" is not a valid value.
 02:07:39 admin@ncs(config)# rollback configuration   
 02:07:40 admin@ncs(config)# show c
 devices device ciena46
