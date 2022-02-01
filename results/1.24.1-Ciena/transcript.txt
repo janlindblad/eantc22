@@ -1,0 +1,110 @@
+1.24.1 NETCONF consistency with Ciena, 2022 Jan 24
+
+# Step 2
+
+The first test is about sending down a NETCONF message containing 
+incorrectly encoded UTF-8 characters. The example talks about ÜÖÄ,
+but these are easily encoded correctly and accepted by NETCONF servers.
+We have to use a string of bytes that does not represent any valid
+UTF-8 character. One way of constructing such a string is to create
+a string of 6 consecutive bytes that all have the highest bit (0x80)
+set. This is always illegal in UTF-8.
+
+The problem with doing so is that NSO as well as the simple NETCONF
+tool netconf-console does not allow constructing/sending such strings.
+We have to use raw SSH to paste in this hand crafted message.
+The string with an illegal UTF-8 character is in the <name> tag.
+
+$ ssh cisco@127.0.0.1 -p 8830 -s netconf
+Warning: Permanently added '[127.0.0.1]:8830' (ECDSA) to the list of known hosts.
+
+SAOS 10 - Service Aware Operating System
+
+cisco@127.0.0.1's password: 
+<?xml version="1.0" encoding="UTF-8"?>
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+  </capabilities>
+</hello>
+]]>]]>
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="1">
+  <get-config>
+    <source>
+      <running/>
+    </source>
+    <filter>
+      <interfaces xmlns="http://openconfig.net/yang/interfaces">
+        <interface>
+          <name>������</name>
+          <config/>
+        </interface>
+      </interfaces>
+    </filter>
+  </get-config>
+</rpc>
+]]>]]>
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="2">
+  <close-session/>
+</rpc>
+
+Accordng to the NETCONF RFC 6241:
+   If a peer receives an <rpc> message that is not well-
+   formed XML or not encoded in UTF-8, it SHOULD reply with a
+   "malformed-message" error.
+
+In this case, the device accepted the invalid UTF-8 character without
+aborting the session.
+
+# Step 3
+
+The second test is about sending an edit-config with a request to set
+the MTU of an interface to an invalid value (100000). Again, NSO cannot
+be used for this test, as it refuses the command with the invalid value
+without even speaking to the device.
+
+Here we used the simple NETCONF tool netconf-console to send a file with
+an illegal value.
+
+~/nso/5.7/bin/netconf-console --edit-config xml-set-mtu-100000.xml --host 127.0.0.1 --port 8830 --user cisco --pass ciena123 -s raw
+
+The contents of the xml-set-mtu-100000.xml is the follwing (except I added line breaks here for readability):
+<?xml version="1.0" encoding="UTF-8"?>
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+    <capability>urn:ietf:params:netconf:base:1.0</capability>
+    <capability>urn:ietf:params:netconf:base:1.1</capability>
+    <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+...
+  </capabilities>
+  <session-id>137</session-id>
+</hello>]]>]]>
+#736
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc-reply message-id="1" 
+           xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" 
+           xmlns:oc-if="http://openconfig.net/yang/interfaces" 
+           xmlns:ncx="http://netconfcentral.org/ns/yuma-ncx" 
+           xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <rpc-error>
+    <error-type>protocol</error-type>
+    <error-tag>invalid-value</error-tag>
+    <error-severity>error</error-severity>
+    <error-app-tag>not-in-range</error-app-tag>
+    <error-path>/nc:rpc/nc:edit-config/nc:config/oc-if:interfaces/oc-if:interface[oc-if:name='to8112-47']/oc-if:config/oc-if:mtu</error-path>
+    <error-message xml:lang="en">value not in range</error-message>
+    <error-info>
+      <bad-value>100000</bad-value>
+      <error-number>288</error-number>
+    </error-info>
+  </rpc-error>
+</rpc-reply>
+##
+
+#129
+<?xml version="1.0" encoding="UTF-8"?><rpc-reply message-id="0" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"><ok/></rpc-reply>
+##
+
+The device correctly rejects the illegal MTU value.

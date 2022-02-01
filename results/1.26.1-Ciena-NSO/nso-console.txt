@@ -1,0 +1,65 @@
+1.26.1 Yang Model Retrieval with Ciena and NSO, 2022 Jan 24
+
+# Step 2
+
+12:49:23 admin@ncs(config)# netconf-ned-builder project foo 1.1
+Value for 'device' [ciena46,ciena47,foo]: foo
+Value for 'local-user' (<string>): admin
+Value for 'vendor' (<string>): ciena
+12:51:07 admin@ncs(config-project-foo/1.1)# commit 
+Commit complete.
+12:51:24 admin@ncs(config-project-foo/1.1)# fetch-module-list           
+
+# Step 3
+
+First, as an example, fetch only ciena-flexe related modules:
+
+12:51:44 admin@ncs(config-project-foo/1.1)# netconf-ned-builder project foo 1.1 module ciena-flexe * select
+12:51:49 admin@ncs(config-project-foo/1.1)# netconf-ned-builder project foo 1.1 module * * select          
+
+NSO now fetches the modules into the module cache. They are shown here from the linux shell.
+
+cisco@cisco-nso:~/run/570$ ls -l state/netconf-ned-builder/cache/foo-nc-1.1/
+total 640
+-r--r--r-- 1 cisco cisco 26346 Jan 24 12:51 ciena-flexe@2021-02-07.yang
+-r--r--r-- 1 cisco cisco  3537 Jan 24 12:51 ciena-ietf-pseudowires-deviation@2020-09-30.yang
+-r--r--r-- 1 cisco cisco  8963 Jan 24 12:51 ciena-ietf-pseudowires@2020-09-28.yang
+-r--r--r-- 1 cisco cisco 51830 Jan 24 12:51 ciena-l3-types@2021-10-01.yang
+-r--r--r-- 1 cisco cisco 13924 Jan 24 12:51 ciena-mef-access-flow@2021-04-06.yang
+-r--r--r-- 1 cisco cisco 26052 Jan 24 12:51 ciena-mef-classifier@2021-01-27.yang
+-r--r--r-- 1 cisco cisco  4638 Jan 24 12:51 ciena-mef-cos-to-frame-map@2021-04-06.yang
+-r--r--r-- 1 cisco cisco 30006 Jan 24 12:51 ciena-mef-egress-qos@2020-11-30.yang
+-r--r--r-- 1 cisco cisco  1950 Jan 24 12:51 ciena-mef-fd-deviation@2020-10-20.yang
+-r--r--r-- 1 cisco cisco 11436 Jan 24 12:51 ciena-mef-fd@2021-04-06.yang
+-r--r--r-- 1 cisco cisco  3033 Jan 24 12:51 ciena-mef-flood-containment-profile@2021-04-06.yang
+-r--r--r-- 1 cisco cisco 34391 Jan 24 12:51 ciena-mef-fp@2021-11-24.yang
+-r--r--r-- 1 cisco cisco  8213 Jan 24 12:51 ciena-mef-frame-to-cos-map@2021-01-24.yang
+-r--r--r-- 1 cisco cisco  9920 Jan 24 12:51 ciena-mef-l2cp-profile@2020-10-16.yang
+-r--r--r-- 1 cisco cisco 16475 Jan 24 12:51 ciena-mef-logical-port@2021-01-24.yang
+-r--r--r-- 1 cisco cisco 14774 Jan 24 12:51 ciena-mef-mac-management@2021-05-13.yang
+-r--r--r-- 1 cisco cisco  5948 Jan 24 12:51 ciena-mef-meter-profile@2020-11-19.yang
+-r--r--r-- 1 cisco cisco 11897 Jan 24 12:51 ciena-mef-pfg-profile@2021-08-23.yang
+-r--r--r-- 1 cisco cisco  1799 Jan 24 12:51 ciena-openconfig-interfaces-deviation@2018-02-28.yang
+-r--r--r-- 1 cisco cisco 22979 Jan 24 12:51 ciena-openconfig-interfaces@2021-03-16.yang
+-r--r--r-- 1 cisco cisco   840 Jan 24 12:51 ciena-packet-ptp-deviation@2019-10-14.yang
+-r--r--r-- 1 cisco cisco 11585 Jan 24 12:51 ciena-packet-ptp@2020-04-22.yang
+-r--r--r-- 1 cisco cisco 29296 Jan 24 12:51 ciena-packet-typedefs@2021-09-07.yang
+-r--r--r-- 1 cisco cisco  4043 Jan 24 12:51 ciena-packet-xcvr-deviation@2020-09-18.yang
+-r--r--r-- 1 cisco cisco 32619 Jan 24 12:51 ciena-packet-xcvr@2020-05-11.yang
+-r--r--r-- 1 cisco cisco 15427 Jan 24 12:51 ciena-types@2021-07-19.yang
+-r--r--r-- 1 cisco cisco  2596 Jan 24 12:51 ciena-vrf@2020-12-22.yang
+-r--r--r-- 1 cisco cisco 16832 Jan 24 12:51 ietf-inet-types@2013-07-15.yang
+-r--r--r-- 1 cisco cisco 39385 Jan 24 12:51 ietf-interfaces@2018-02-20.yang
+-r--r--r-- 1 cisco cisco  6405 Jan 24 12:51 ietf-pseudowires@2017-06-26.yang
+-r--r--r-- 1 cisco cisco 18655 Jan 24 12:51 ietf-routing-types@2017-06-13.yang
+-r--r--r-- 1 cisco cisco 19177 Jan 24 12:51 ietf-yang-types@2013-07-15.yang
+-r--r--r-- 1 cisco cisco  6454 Jan 24 12:51 openconfig-extensions@2018-10-17.yang
+-r--r--r-- 1 cisco cisco 30007 Jan 24 12:51 openconfig-interfaces@2017-07-14.yang
+-r--r--r-- 1 cisco cisco 11823 Jan 24 12:51 openconfig-types@2018-05-05.yang
+-r--r--r-- 1 cisco cisco  4818 Jan 24 12:51 openconfig-yang-types@2017-07-30.yang
+-r--r--r-- 1 cisco cisco 20920 Jan 24 12:51 yuma-ncx@2015-10-16.yang
+
+After changing the NSO selection to all modules, the total number of fetched modules goes up to 237.
+
+..cisco@cisco-nso:~/run/570$ ls -l state/netconf-ned-builder/cache/foo-nc-1.1/ | wc
+    237    2126   18964
